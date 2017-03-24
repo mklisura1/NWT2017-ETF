@@ -12,7 +12,5 @@ public class EbankingApplication {
 		final Logger logger = LogManager.getLogger(EbankingApplication.class.getName());
 		SpringApplication.run(EbankingApplication.class, args);
 		logger.info("Application is started!");
-
-
 	}
 }

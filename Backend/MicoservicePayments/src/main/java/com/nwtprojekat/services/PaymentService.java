@@ -22,9 +22,9 @@ public class PaymentService {
     @PostConstruct
     @Transactional
     public void populate() {
-        PaymentModel p = new PaymentModel(1.023);
-        p.setAmount(12.02);
-        paymentRepository.saveAndFlush(p);
+//        PaymentModel p = new PaymentModel(1.023);
+//        p.setAmount(12.02);
+//        paymentRepository.saveAndFlush(p);
     }
 
     @Transactional(readOnly = true)
@@ -32,11 +32,23 @@ public class PaymentService {
         return paymentRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public PaymentModel findOne(long id){
+        return paymentRepository.findOne(id);
+    }
+
 //    @SuppressWarnings("AssignmentToMethodParameter")
     @Transactional
     public PaymentModel saveAndFlush(PaymentModel p){
         if(p != null)
             p = paymentRepository.saveAndFlush(p);
+
+        return p;
+    }
+    @Transactional
+    public PaymentModel updatePayment(PaymentModel p){
+        if(p!=null)
+            p = paymentRepository.save(p);
 
         return p;
     }

@@ -12,6 +12,7 @@ public class MainController {
     @RequestMapping("/")
     @ResponseBody
     public String index() {
-        return "Home page - he he :D";
+
+        return "redirect:swagger-ui.html";
     }
 }
