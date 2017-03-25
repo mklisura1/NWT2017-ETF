@@ -27,7 +27,7 @@ public class UserTypeController
 	
 	//-------------------Retrieve All UserTypes--------------------------------------------------------
     
-    @RequestMapping(value = "/user/type/", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/type", method = RequestMethod.GET)
     public ResponseEntity<List<UserType>> listAllUserTypes() {
         List<UserType> userTypes = (List<UserType>) userTypeService.listAllUserTypes();
         if(userTypes.isEmpty()){

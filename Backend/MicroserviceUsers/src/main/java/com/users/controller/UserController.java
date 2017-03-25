@@ -26,7 +26,7 @@ public class UserController
 	
 	//-------------------Retrieve All Users--------------------------------------------------------
     
-    @RequestMapping(value = "/user/", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<List<User>> listAllUsers() {
         List<User> users = (List<User>) userService.listAllUsers();
         if(users.isEmpty()){

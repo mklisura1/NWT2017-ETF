@@ -26,7 +26,7 @@ public class UserPictureController
 	
 	//-------------------Retrieve All UserPictures--------------------------------------------------------
     
-    @RequestMapping(value = "/user/picture/", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/picture", method = RequestMethod.GET)
     public ResponseEntity<List<UserPicture>> listAllUsers() {
         List<UserPicture> userPictures = (List<UserPicture>) userPictureService.listAllUserPictures();
         if(userPictures.isEmpty()){
