@@ -13,6 +13,8 @@ public interface TransactionTypeService
     TransactionType getTransactionTypeByName(String type_name);
 
     TransactionType saveTransactionType(TransactionType transaction_type);
+    
+    void updateTransactionType(TransactionType transaction_type);
 
     void deleteTransactionType(Integer id);
 }

@@ -1,6 +1,7 @@
 package TransactionsService.Services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class TransactionServiceImpl implements TransactionService
 		
 	}
     
-	public List<Transaction> getTransactionsByTypeId(Integer type_id)
+	public List<Transaction> getTransactionsByTypeName(String type_name)
 	{
 		
     	List<Transaction> typeTransactions = new ArrayList<Transaction>();
@@ -54,7 +55,7 @@ public class TransactionServiceImpl implements TransactionService
     	
     	for(Transaction item : transactions)
     	{
-    		if(item.getTransactionType().getTransaction_type_id().equals(type_id)) 
+    		if(item.getTransactionType().getTransaction_type_name().equals(type_name)) 
     		{
     			typeTransactions.add(item);
     		}
@@ -64,7 +65,7 @@ public class TransactionServiceImpl implements TransactionService
 		
 	}
 	
-	public List<Transaction> getTransactionsByStatusId(Integer status_id)
+	public List<Transaction> getTransactionsByStatusName(String status_name)
 	{
 		
     	List<Transaction> statusTransactions = new ArrayList<Transaction>();
@@ -73,7 +74,7 @@ public class TransactionServiceImpl implements TransactionService
     	
     	for(Transaction item : transactions)
     	{
-    		if(item.getTransactionStatus().getTransaction_status_id().equals(status_id)) 
+    		if(item.getTransactionStatus().getTransaction_status_name().equals(status_name)) 
     		{
     			statusTransactions.add(item);
     		}
@@ -83,6 +84,82 @@ public class TransactionServiceImpl implements TransactionService
 		
 	}
 
+	public List<Transaction> getTransactionsByPaymentId(Integer payment_id)
+	{
+		
+    	List<Transaction> paymentTransactions = new ArrayList<Transaction>();
+    	
+    	List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
+    	
+    	for(Transaction item : transactions)
+    	{
+    		if(item.getPayment_id().equals(payment_id)) 
+    		{
+    			paymentTransactions.add(item);
+    		}
+    	}
+    	
+    	return paymentTransactions;
+		
+	}
+	
+	public List<Transaction> getTransactionsBySenderId(Integer sender_id)
+	{
+		
+    	List<Transaction> senderTransactions = new ArrayList<Transaction>();
+    	
+    	List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
+    	
+    	for(Transaction item : transactions)
+    	{
+    		if(item.getBank_account_sender_id().equals(sender_id)) 
+    		{
+    			senderTransactions.add(item);
+    		}
+    	}
+    	
+    	return senderTransactions;
+		
+	}
+	
+	public List<Transaction> getTransactionsByReceiverId(Integer receiver_id)
+	{
+		
+    	List<Transaction> receiverTransactions = new ArrayList<Transaction>();
+    	
+    	List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
+    	
+    	for(Transaction item : transactions)
+    	{
+    		if(item.getBank_account_receiver_id().equals(receiver_id)) 
+    		{
+    			receiverTransactions.add(item);
+    		}
+    	}
+    	
+    	return receiverTransactions;
+		
+	}
+	
+	public List<Transaction> getTransactionsByDate(Date date)
+	{
+		
+    	List<Transaction> dateTransactions = new ArrayList<Transaction>();
+    	
+    	List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
+    	
+    	for(Transaction item : transactions)
+    	{
+    		if(item.getDate().equals(date)) 
+    		{
+    			dateTransactions.add(item);
+    		}
+    	}
+    	
+    	return dateTransactions;
+		
+	}
+	
 	public Transaction saveTransaction(Transaction transaction)
 	{
 		

@@ -50,6 +50,13 @@ public class TransactionTypeServiceImpl implements TransactionTypeService
     {
         return transactionTypeRepository.save(transactionType);
     }
+    
+    public void updateTransactionType(TransactionType transaction_type)
+    {
+    	
+    	transactionTypeRepository.save(transaction_type);
+    	
+    }
 
     public void deleteTransactionType(Integer id) 
     {
