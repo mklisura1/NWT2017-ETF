@@ -1,5 +1,8 @@
 package TemplatesService.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +32,75 @@ public class TemplateServiceImpl implements TemplateService
     {
         return templateRepository.findOne(id);
     }
-
+    
+    public List<Template> getTemplatesByUserId(Integer user_id)
+    {
+    	
+    	List<Template> userTemplates = new ArrayList<Template>();
+    	
+    	List<Template> templates = (List<Template>) templateRepository.findAll();
+    	
+    	for(Template item : templates)
+    	{
+    		
+    		if(item.getUser_id().equals(user_id))
+    		{
+    			
+    			userTemplates.add(item);
+    			
+    		}
+    		
+    	}
+    	
+    	return userTemplates;
+    	
+    }
+    
+    public List<Template> getTemplatesBySenderName(String sender_name)
+    {
+    	
+    	List<Template> senderTemplates = new ArrayList<Template>();
+    	
+    	List<Template> templates = (List<Template>) templateRepository.findAll();
+    	
+    	for(Template item : templates)
+    	{
+    		
+    		if(item.getSender_name().equals(sender_name)){
+    			
+    			senderTemplates.add(item);
+    			
+    		}
+    		
+    	}
+    	
+    	return senderTemplates;
+    	
+    }
+    
+    public List<Template> getTemplatesByReceiverName(String receiver_name)
+    {
+    	
+    	List<Template> receiverTemplates = new ArrayList<Template>();
+    	
+    	List<Template> templates = (List<Template>) templateRepository.findAll();
+    	
+    	for(Template item : templates)
+    	{
+    		
+    		if(item.getReceiver_name().equals(receiver_name))
+    		{
+    			
+    			receiverTemplates.add(item);
+    			
+    		}
+    		
+    	}
+    	
+    	return receiverTemplates;
+    	
+    }
+    
     public Template saveTemplate(Template Template) 
     {
         return templateRepository.save(Template);
