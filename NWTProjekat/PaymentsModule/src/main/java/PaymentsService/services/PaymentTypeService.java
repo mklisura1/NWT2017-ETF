@@ -14,7 +14,6 @@ import java.util.List;
  * Created by Hare on 21.03.2017..
  */
 @Service
-@Repository
 public class PaymentTypeService {
     @Autowired
     private PaymentTypeRepository paymentTypeRepository;

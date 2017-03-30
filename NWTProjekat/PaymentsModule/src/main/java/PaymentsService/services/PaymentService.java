@@ -1,8 +1,11 @@
 package PaymentsService.services;
 
 import PaymentsService.models.PaymentModel;
+import PaymentsService.models.PaymentTypeModel;
 import PaymentsService.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +18,6 @@ import java.util.List;
  * Created by Hare on 21.03.2017..
  */
 @Service
-@Repository
 public class PaymentService {
 
     @Autowired
@@ -50,32 +52,32 @@ public class PaymentService {
     }
 
     @Transactional(readOnly = true)
-    public List<PaymentModel> getAll(){
-        return paymentRepository.findAll();
+    public Page<PaymentModel> getAllPayments(Pageable p){
+        return paymentRepository.findAll(p);
     }
 
     @Transactional(readOnly = true)
-    public PaymentModel findOne(long id){
+    public PaymentModel getPaymentById(long id){
         return paymentRepository.findOne(id);
     }
 
     @Transactional
-    public PaymentModel saveAndFlush(PaymentModel p){
+    public PaymentModel insertPayment(PaymentModel p){
         if(p != null)
             p = paymentRepository.saveAndFlush(p);
 
         return p;
     }
+
     @Transactional
     public PaymentModel updatePayment(PaymentModel p){
         if(p!=null)
             p = paymentRepository.save(p);
-
         return p;
     }
 
     @Transactional
-    public void delete(long id){
+    public void deletePayment(long id){
         paymentRepository.delete(id);
     }
 

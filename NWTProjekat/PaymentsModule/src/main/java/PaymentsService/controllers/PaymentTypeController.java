@@ -26,50 +26,47 @@ public class PaymentTypeController {
 
     @RequestMapping(value = "/{id}", method= RequestMethod.GET)
     public PaymentTypeModel getPaymentTypeById(@PathVariable("id") long id) {
-        logger.info(String.format("GET PaymentType BY ID: " + id));
-        PaymentTypeModel paymentType = paymentTypeService.findOne(id);
-        return paymentType;
+        logger.info("GET PaymentType BY ID: " + id);
+        return paymentTypeService.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<PaymentTypeModel> getAll(Pageable pageable) {
-        logger.info(String.format("GET ALL PaymentTypes"));
-        List<PaymentTypeModel> paymentTypes = paymentTypeService.getAll();
-        return paymentTypes;
+    public List<PaymentTypeModel> getAllPaymentTypes(Pageable pageable) {
+        logger.info("GET ALL PaymentTypes");
+        return paymentTypeService.getAll();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String insertAccount(@RequestBody  PaymentTypeModel paymentTypeRequest){
-        logger.info(String.format("INSERT TO PaymentTypes"));
+    public Object insertPaymentType(@RequestBody  PaymentTypeModel paymentTypeRequest){
+        logger.info("INSERT TO PaymentTypes");
         PaymentTypeModel paymentType = new PaymentTypeModel(paymentTypeRequest);
-        logger.info(paymentType);
         try{
-            paymentTypeService.saveAndFlush(paymentType);
+            paymentType = paymentTypeService.saveAndFlush(paymentType);
         } catch (Exception e){
             logger.error(e);
             return e.getMessage();
         }
 
-        return "creation successful: " + String.valueOf(paymentType.getId());
+        return paymentType;
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public String updatePaymentType(@PathVariable long id, @RequestBody PaymentTypeModel payment){
-        logger.info(String.format("INSERT TO PAYMENTS"));
-        PaymentTypeModel p = new PaymentTypeModel(payment);
+    public Object updatePaymentType(@PathVariable long id, @RequestBody PaymentTypeModel payment){
+        logger.info("INSERT TO PAYMENTS");
+        PaymentTypeModel paymentType = new PaymentTypeModel(payment);
         try{
-            paymentTypeService.updatePayment(p);
+            paymentType = paymentTypeService.updatePayment(paymentType);
         } catch (Exception e){
             logger.error(e);
             return e.getMessage();
         }
 
-        return "update successful: " + String.valueOf(p.getId());
+        return paymentType;
     }
 
     @RequestMapping(value = "/{id}", method= RequestMethod.DELETE)
     public String deletePaymentTypeById(@PathVariable long id) {
-        logger.info(String.format("DELETE PAYMENT BY ID: " + id));
+        logger.info("DELETE PAYMENT BY ID: " + id);
         try{
             paymentTypeService.delete(id);
         } catch (Exception e){

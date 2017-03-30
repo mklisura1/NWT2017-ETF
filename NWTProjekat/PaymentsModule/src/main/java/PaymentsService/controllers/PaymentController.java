@@ -1,9 +1,11 @@
 package PaymentsService.controllers;
 
 import PaymentsService.models.PaymentModel;
+import PaymentsService.models.PaymentTypeModel;
 import PaymentsService.services.PaymentService;
 import org.apache.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,75 +17,65 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/payments")
 public class PaymentController {
+    static final org.apache.log4j.Logger logger = LogManager.getLogger(PaymentController.class.getName());
 
     @Autowired
     private PaymentService paymentService;
-    static final org.apache.log4j.Logger logger = LogManager.getLogger(PaymentController.class.getName());
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<PaymentModel> getAllPayments(Pageable pageable,
+    public Page<PaymentModel> getAllPayments(Pageable pageable,
                                              @RequestParam(required = false) Double amountGTE,
                                              @RequestParam(required = false) Double amountLTE,
                                              @RequestParam(required = false) String paymentType) {
 
-        List<PaymentModel> payments;
-        if(amountGTE != null || amountLTE != null ){
-            logger.info(String.format("GET ALL PAYMENTS by amount: "+amountGTE + " | " + amountLTE));
-            payments = paymentService.getPaymentsByAmount(amountGTE,amountLTE);
-        } else {
-            logger.info(String.format("GET ALL PAYMENTS"));
-            payments = paymentService.getAll();
-        }
-        return payments;
+        logger.info("GET PAYMENTS");
+        return paymentService.getAllPayments(pageable);
     }
 
-    @RequestMapping(value = "/{id}", method= RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public PaymentModel getPaymentById(@PathVariable int id) {
-        logger.info(String.format("GET PAYMENT BY ID: " + id));
+        logger.info("GET PAYMENT BY ID: " + id);
+        return paymentService.getPaymentById(id);
+    }
 
-        PaymentModel p = paymentService.findOne(id);
+
+    @RequestMapping(method = RequestMethod.POST, produces="application/json")
+    public Object insertPayment(@RequestBody PaymentModel payment) {
+        logger.info("INSERT TO PAYMENTS");
+        PaymentModel p = new PaymentModel(payment);
+        try {
+            p = paymentService.insertPayment(p);
+
+        } catch (Exception e) {
+            logger.error(e);
+            return e.getMessage();
+        }
+
         return p;
     }
 
-
-
-    @RequestMapping(method = RequestMethod.POST)
-    public String insertPayment(@RequestBody PaymentModel payment){
-        logger.info(String.format("INSERT TO PAYMENTS"));
-        PaymentModel p = new PaymentModel(payment);
-        try{
-            paymentService.saveAndFlush(p);
-        } catch (Exception e){
-            logger.error(e);
-            return e.getMessage();
-        }
-
-        return String.format("Payment successfully inserted" + p.getId());
-    }
-
-    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public String updatePayment(@PathVariable long id, @RequestBody PaymentModel payment){
-        logger.info(String.format("INSERT TO PAYMENTS"));
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public Object updatePayment(@PathVariable long id, @RequestBody PaymentModel payment) {
+        logger.info("INSERT TO PAYMENTS");
         PaymentModel p = new PaymentModel(payment);
         p.setId(id);
-        try{
-            paymentService.updatePayment(p);
-        } catch (Exception e){
+        try {
+            p = paymentService.updatePayment(p);
+        } catch (Exception e) {
             logger.error(e);
             return e.getMessage();
         }
-
-        return "update successful: " + String.valueOf(p.getId());
+        return p;
     }
 
-    @RequestMapping(value = "/{id}", method= RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deletePaymentById(@PathVariable long id) {
-        logger.info(String.format("DELETE PAYMENT BY ID: " + id));
+        logger.info("DELETE PAYMENT BY ID: " + id);
 
-        try{
-            paymentService.delete(id);
-        } catch (Exception e){
+        try {
+            paymentService.deletePayment(id);
+        } catch (Exception e) {
             logger.error(e);
             return e.getMessage();
         }
