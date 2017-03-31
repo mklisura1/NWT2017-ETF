@@ -3,12 +3,12 @@ package PaymentsService.services;
 import PaymentsService.models.PaymentTypeModel;
 import PaymentsService.repositories.PaymentTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 
 /**
  * Created by Hare on 21.03.2017..
@@ -30,8 +30,8 @@ public class PaymentTypeService {
     }
 
     @Transactional(readOnly = true)
-    public List<PaymentTypeModel> getAll(){
-        return paymentTypeRepository.findAll();
+    public Page<PaymentTypeModel> getAll(Pageable pageable){
+        return paymentTypeRepository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)
@@ -41,14 +41,14 @@ public class PaymentTypeService {
 
 //    @SuppressWarnings("AssignmentToMethodParameter")
     @Transactional
-    public PaymentTypeModel saveAndFlush(PaymentTypeModel p){
+    public PaymentTypeModel insertPaymentType(PaymentTypeModel p){
         if(p != null)
             p = paymentTypeRepository.saveAndFlush(p);
 
         return p;
     }
     @Transactional
-    public PaymentTypeModel updatePayment(PaymentTypeModel p){
+    public PaymentTypeModel updatePaymentType(PaymentTypeModel p){
         if(p!=null)
             p = paymentTypeRepository.save(p);
 
@@ -56,7 +56,7 @@ public class PaymentTypeService {
     }
 
     @Transactional
-    public void delete(long id){
+    public void deletePaymentType(long id){
         paymentTypeRepository.delete(id);
     }
 }

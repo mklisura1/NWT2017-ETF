@@ -5,10 +5,9 @@ import PaymentsService.services.PaymentTypeService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by Hare on 17.03.2017..
@@ -31,9 +30,9 @@ public class PaymentTypeController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<PaymentTypeModel> getAllPaymentTypes(Pageable pageable) {
+    public Page<PaymentTypeModel> getAllPaymentTypes(Pageable pageable) {
         logger.info("GET ALL PaymentTypes");
-        return paymentTypeService.getAll();
+        return paymentTypeService.getAll(pageable);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -41,7 +40,7 @@ public class PaymentTypeController {
         logger.info("INSERT TO PaymentTypes");
         PaymentTypeModel paymentType = new PaymentTypeModel(paymentTypeRequest);
         try{
-            paymentType = paymentTypeService.saveAndFlush(paymentType);
+            paymentType = paymentTypeService.insertPaymentType(paymentType);
         } catch (Exception e){
             logger.error(e);
             return e.getMessage();
@@ -55,7 +54,7 @@ public class PaymentTypeController {
         logger.info("INSERT TO PAYMENTS");
         PaymentTypeModel paymentType = new PaymentTypeModel(payment);
         try{
-            paymentType = paymentTypeService.updatePayment(paymentType);
+            paymentType = paymentTypeService.updatePaymentType(paymentType);
         } catch (Exception e){
             logger.error(e);
             return e.getMessage();
@@ -68,7 +67,7 @@ public class PaymentTypeController {
     public String deletePaymentTypeById(@PathVariable long id) {
         logger.info("DELETE PAYMENT BY ID: " + id);
         try{
-            paymentTypeService.delete(id);
+            paymentTypeService.deletePaymentType(id);
         } catch (Exception e){
             logger.error(e);
             return e.getMessage();
