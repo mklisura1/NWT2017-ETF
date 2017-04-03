@@ -1,4 +1,4 @@
-package Models;
+package BankAccountService.Models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +16,16 @@ public class BankAccountType {
 
 	@Column(name = "Name")
 	private String bank_account_type_name;
+	
+	public BankAccountType(){
+		super();
+	}
+	
+	public BankAccountType(int bank_account_type_id, String bank_account_type_name) {
+		super();
+		this.bank_account_type_id = bank_account_type_id;
+		this.bank_account_type_name = bank_account_type_name;
+	}
 
 	public int getBank_account_type() {
 		return bank_account_type_id;
