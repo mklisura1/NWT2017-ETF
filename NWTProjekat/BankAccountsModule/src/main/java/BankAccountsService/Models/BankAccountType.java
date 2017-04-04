@@ -1,4 +1,4 @@
-package BankAccountService.Models;
+package BankAccountsService.Models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

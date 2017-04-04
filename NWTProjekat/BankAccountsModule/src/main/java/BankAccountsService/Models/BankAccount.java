@@ -1,4 +1,4 @@
-package BankAccountService.Models;
+package BankAccountsService.Models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,10 +27,9 @@ public class BankAccount {
 	private int user;
 
 	@OneToOne(fetch=FetchType.EAGER)
-	@Column(name="AccountType")
 	@JoinColumn(name="bank_account_type_id")
 	@Cascade(CascadeType.SAVE_UPDATE)
-	private int bank_account_type;
+	private BankAccountType bankAccountType;
 	
 	@Column(name="CreditAmount")
 	private int credit_amount;
@@ -42,18 +41,20 @@ public class BankAccount {
 	{
 		super();
 	}
-		
-	public BankAccount(int bank_account_id, String bank_account_name, int user, int bank_account_type,
+	
+	
+	public BankAccount(int bank_account_id, String bank_account_name, int user, BankAccountType bankAccountType,
 			int credit_amount, String bank_account_number) {
 		super();
 		this.bank_account_id = bank_account_id;
 		this.bank_account_name = bank_account_name;
 		this.user = user;
-		this.bank_account_type = bank_account_type;
+		this.bankAccountType = bankAccountType;
 		this.credit_amount = credit_amount;
 		this.bank_account_number = bank_account_number;
 	}
-	
+
+
 	public int GetBank_account_id() {
 		return bank_account_id;
 	}
@@ -72,12 +73,37 @@ public class BankAccount {
 	public void setUser(int user) {
 		this.user = user;
 	}
-	public int getBank_account_type() {
-		return bank_account_type;
+	
+	public int getBank_account_id() {
+		return bank_account_id;
 	}
-	public void setBank_account_type(int bank_account_type) {
-		this.bank_account_type = bank_account_type;
+
+
+	public void setBank_account_id(int bank_account_id) {
+		this.bank_account_id = bank_account_id;
 	}
+
+
+	public String getBank_account_name() {
+		return bank_account_name;
+	}
+
+
+	public void setBank_account_name(String bank_account_name) {
+		this.bank_account_name = bank_account_name;
+	}
+
+
+	public BankAccountType getBankAccountType() {
+		return bankAccountType;
+	}
+
+
+	public void setBankAccountType(BankAccountType bankAccountType) {
+		this.bankAccountType = bankAccountType;
+	}
+
+
 	public int getCredit_amount() {
 		return credit_amount;
 	}

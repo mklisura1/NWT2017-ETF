@@ -1,8 +1,8 @@
-package BankAccountService.Interfaces;
+package BankAccountsService.Interfaces;
 
 import java.util.List;
 
-import BankAccountService.Models.BankAccount;
+import BankAccountsService.Models.BankAccount;
 
 public interface BankAccountsService {
 
