@@ -1,13 +1,13 @@
-package BankAccountService.Services;
+package BankAccountsService.Services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import BankAccountService.Interfaces.BankAccountRepository;
-import BankAccountService.Interfaces.BankAccountsService;
-import BankAccountService.Models.BankAccount;
+import BankAccountsService.Interfaces.BankAccountRepository;
+import BankAccountsService.Interfaces.BankAccountsService;
+import BankAccountsService.Models.BankAccount;
 
 @Service
 public class BankAccountsServiceImpl implements BankAccountsService {

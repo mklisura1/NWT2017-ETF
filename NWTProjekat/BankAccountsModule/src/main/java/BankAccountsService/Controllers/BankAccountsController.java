@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import BankAccountService.Models.BankAccount;
-import BankAccountService.Interfaces.BankAccountsService;
+import BankAccountsService.Interfaces.BankAccountsService;
+import BankAccountsService.Models.BankAccount;
 
 @RestController
 @RequestMapping(value = "/accounts")
