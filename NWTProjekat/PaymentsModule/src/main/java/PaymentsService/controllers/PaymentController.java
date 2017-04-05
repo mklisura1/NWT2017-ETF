@@ -23,7 +23,7 @@ public class PaymentController {
     private PaymentService paymentService;
 
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, produces="application/json")
     public Page<PaymentModel> getAllPayments(Pageable pageable,
                                              @RequestParam(required = false) Double amountGTE,
                                              @RequestParam(required = false) Double amountLTE,
@@ -33,7 +33,7 @@ public class PaymentController {
         return paymentService.getAllPayments(pageable);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces="application/json")
     public PaymentModel getPaymentById(@PathVariable int id) {
         logger.info("GET PAYMENT BY ID: " + id);
         return paymentService.getPaymentById(id);
@@ -55,7 +55,7 @@ public class PaymentController {
         return p;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces="application/json")
     public Object updatePayment(@PathVariable long id, @RequestBody PaymentModel payment) {
         logger.info("INSERT TO PAYMENTS");
         PaymentModel p = new PaymentModel(payment);
@@ -69,7 +69,7 @@ public class PaymentController {
         return p;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces="application/json")
     public String deletePaymentById(@PathVariable long id) {
         logger.info("DELETE PAYMENT BY ID: " + id);
 
