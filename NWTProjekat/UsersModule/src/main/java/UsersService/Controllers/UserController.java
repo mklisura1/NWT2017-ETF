@@ -1,9 +1,8 @@
 package UsersService.Controllers;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.List;
-
+import PaymentsService.models.PaymentModel;
+import UsersService.Models.User;
+import UsersService.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,11 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import UsersService.Models.User;
-import UsersService.Services.UserService;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/api")
@@ -26,7 +23,8 @@ public class UserController
 {
 	@Autowired
 	private UserService userService;
-	
+
+
 	//-------------------Retrieve All Users--------------------------------------------------------
     
     @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -49,6 +47,10 @@ public class UserController
             System.out.println("User with id " + id + " not found");
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
+
+        //Komunikacija sa Payments servisom
+        List<PaymentModel> payments = userService.getPayments(id);
+        user.setUserPayments(payments);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
  
@@ -191,5 +193,4 @@ public class UserController
     		return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
     	}
     }
-    
 }

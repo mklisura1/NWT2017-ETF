@@ -1,9 +1,11 @@
 package UsersService.Services;
 
+import PaymentsService.models.PaymentModel;
+import UsersService.Models.User;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-
-import UsersService.Models.User;
+import java.util.List;
 
 
 public interface UserService 
@@ -33,4 +35,6 @@ public interface UserService
     boolean validatePassword(String inputPassword, String hashedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException;
     
     byte[] fromHex(String hex) throws NoSuchAlgorithmException;
+
+    List<PaymentModel> getPayments(Integer id);
 }

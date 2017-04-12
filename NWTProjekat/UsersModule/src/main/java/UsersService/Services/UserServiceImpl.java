@@ -1,27 +1,37 @@
 package UsersService.Services;
 
+import PaymentsService.models.PaymentModel;
+import UsersService.Models.User;
+import UsersService.Repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.LinkedHashMap;
 import java.util.List;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import UsersService.Models.User;
-import UsersService.Repository.UserRepository;
-
 @Service
-public class UserServiceImpl implements UserService 
+public class UserServiceImpl implements UserService
 {
+	private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
+
 	@Autowired
 	private UserRepository userRepository;
+	private Object object;
 
-    @Override
+
+	@Override
     public Iterable<User> listAllUsers() 
     {
         return userRepository.findAll();
@@ -146,5 +156,28 @@ public class UserServiceImpl implements UserService
 			bytes[i] = (byte) Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
 		}
 		return bytes;
+	}
+
+
+
+    @Autowired
+	private LoadBalancerClient loadBalancer;
+
+	private RestTemplate restTemplate = new RestTemplate();
+	@Override
+	public List<PaymentModel> getPayments(Integer id){
+
+		//Pronalazenje mikroservisa po njegovom nazivu - onako kako ga Eureka vidi
+		ServiceInstance instance = loadBalancer.choose("payments");
+
+		LOG.info("URL: " + instance.getUri());
+		String url = instance.getUri() + "/payments?userId=" + id;
+		LOG.info("GET Payments from URL: {}", url);
+
+		ResponseEntity<Object>  response = restTemplate.getForEntity(url, Object.class);
+		LinkedHashMap<String, String> objects = (LinkedHashMap<String, String>) response.getBody();
+		List<PaymentModel> paymentModelList = (List<PaymentModel>) (Object) objects.get("content");
+		LOG.info("Responseeee: {}", objects.get("content") );
+		return paymentModelList;
 	}
 }

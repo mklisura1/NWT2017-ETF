@@ -1,19 +1,13 @@
 package UsersService.Models;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
+import PaymentsService.models.PaymentModel;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="user")
@@ -40,6 +34,16 @@ public class User {
 	@JoinColumn(name="user_picture_id")
 	@Cascade({CascadeType.SAVE_UPDATE})
 	private UserPicture userPicture;
+
+	public List<PaymentModel> getUserPayments() {
+		return userPayments;
+	}
+	public void setUserPayments(List<PaymentModel> userPayments) {
+		this.userPayments = userPayments;
+	}
+
+	@Transient
+	private List<PaymentModel> userPayments;
 	
 	//Constructors
 	public User() {
