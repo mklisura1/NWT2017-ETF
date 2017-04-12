@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by Hare on 21.03.2017..
  */
 @RestController
-@RequestMapping(value = "/payments")
+@RequestMapping(value = "/api/payments")
 public class PaymentController {
     static final org.apache.log4j.Logger logger = LogManager.getLogger(PaymentController.class.getName());
 

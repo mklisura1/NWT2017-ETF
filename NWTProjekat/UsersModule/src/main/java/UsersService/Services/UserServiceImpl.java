@@ -171,7 +171,7 @@ public class UserServiceImpl implements UserService
 		ServiceInstance instance = loadBalancer.choose("payments");
 
 		LOG.info("URL: " + instance.getUri());
-		String url = instance.getUri() + "/payments?userId=" + id;
+		String url = instance.getUri() + "/api/payments?userId=" + id;
 		LOG.info("GET Payments from URL: {}", url);
 
 		ResponseEntity<Object>  response = restTemplate.getForEntity(url, Object.class);

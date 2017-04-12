@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping(value = "/paymentTypes", produces="application/json")
+@RequestMapping(value = "/api/paymentTypes", produces="application/json")
 
 public class PaymentTypeController {
 
