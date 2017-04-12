@@ -1,12 +1,10 @@
 package PaymentsService.services;
 
 import PaymentsService.models.PaymentModel;
-import PaymentsService.models.PaymentTypeModel;
 import PaymentsService.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,6 +52,11 @@ public class PaymentService {
     @Transactional(readOnly = true)
     public Page<PaymentModel> getAllPayments(Pageable p){
         return paymentRepository.findAll(p);
+    }
+
+    @Transactional
+    public Page<PaymentModel> getAllPaymentsForUser(Pageable pageable, Integer userId){
+        return paymentRepository.findByUserId(pageable, userId);
     }
 
     @Transactional(readOnly = true)

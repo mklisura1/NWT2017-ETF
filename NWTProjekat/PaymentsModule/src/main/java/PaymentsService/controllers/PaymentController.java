@@ -1,15 +1,12 @@
 package PaymentsService.controllers;
 
 import PaymentsService.models.PaymentModel;
-import PaymentsService.models.PaymentTypeModel;
 import PaymentsService.services.PaymentService;
 import org.apache.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by Hare on 21.03.2017..
@@ -27,9 +24,12 @@ public class PaymentController {
     public Page<PaymentModel> getAllPayments(Pageable pageable,
                                              @RequestParam(required = false) Double amountGTE,
                                              @RequestParam(required = false) Double amountLTE,
-                                             @RequestParam(required = false) String paymentType) {
+                                             @RequestParam(required = false) String paymentType,
+                                             @RequestParam(required = false) Integer userId) {
 
         logger.info("GET PAYMENTS");
+        if(userId != null)
+            return paymentService.getAllPaymentsForUser(pageable, userId);
         return paymentService.getAllPayments(pageable);
     }
 
