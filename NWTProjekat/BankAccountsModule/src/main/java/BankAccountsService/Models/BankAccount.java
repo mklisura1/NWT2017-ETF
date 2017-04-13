@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,7 +29,7 @@ public class BankAccount {
 
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="bank_account_type_id")
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@Cascade(CascadeType.ALL)
 	private BankAccountType bankAccountType;
 	
 	@Column(name="CreditAmount")

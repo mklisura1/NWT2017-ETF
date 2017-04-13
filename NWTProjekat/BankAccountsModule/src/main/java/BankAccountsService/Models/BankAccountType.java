@@ -16,26 +16,30 @@ public class BankAccountType {
 
 	@Column(name = "Name")
 	private String bank_account_type_name;
-	
-	public BankAccountType(){
+
+	public BankAccountType() {
 		super();
 	}
-	
+
 	public BankAccountType(int bank_account_type_id, String bank_account_type_name) {
 		super();
 		this.bank_account_type_id = bank_account_type_id;
 		this.bank_account_type_name = bank_account_type_name;
 	}
 
-	public int getBank_account_type() {
+	public int getBank_account_type_id() {
 		return bank_account_type_id;
+	}
+
+	public void setBank_account_type_id(int bank_account_type_id) {
+		this.bank_account_type_id = bank_account_type_id;
 	}
 
 	public String getBank_account_type_name() {
 		return bank_account_type_name;
 	}
 
-	public void setBank_account_name(String bank_account_name) {
-		this.bank_account_type_name = bank_account_name;
+	public void setBank_account_type_name(String bank_account_type_name) {
+		this.bank_account_type_name = bank_account_type_name;
 	}
 }

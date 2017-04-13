@@ -15,13 +15,13 @@ import BankAccountsService.Interfaces.BankAccountsService;
 import BankAccountsService.Models.BankAccount;
 
 @RestController
-@RequestMapping(value = "/accounts")
+@RequestMapping(value = "/api")
 public class BankAccountsController {
 
 	@Autowired
 	private BankAccountsService bankAccountService;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/accounts", method = RequestMethod.GET)
 	public ResponseEntity<List<BankAccount>> getAllAccounts() {
 		List<BankAccount> bankAccounts = bankAccountService.GetAllAccounts();
 		if (bankAccounts.isEmpty()) {
