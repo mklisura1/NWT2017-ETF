@@ -18,7 +18,7 @@ public interface TransactionService
 	
 	List<Transaction> getTransactionsByStatusName(String status_name);
 	
-	List<Transaction> getTransactionsByPaymentId(Integer id);
+	Transaction getTransactionByPaymentId(Integer id);
 	
 	List<Transaction> getTransactionsBySenderId(Integer id);
 	

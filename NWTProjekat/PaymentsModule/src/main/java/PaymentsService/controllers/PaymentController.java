@@ -2,11 +2,24 @@ package PaymentsService.controllers;
 
 import PaymentsService.models.PaymentModel;
 import PaymentsService.services.PaymentService;
+import PaymentsService.templates.Transaction;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import org.apache.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by Hare on 21.03.2017..
@@ -18,7 +31,9 @@ public class PaymentController {
 
     @Autowired
     private PaymentService paymentService;
-
+    
+	@Autowired
+    private DiscoveryClient discoveryClient;
 
     @RequestMapping(method = RequestMethod.GET, produces="application/json")
     public Page<PaymentModel> getAllPayments(Pageable pageable,
@@ -83,5 +98,47 @@ public class PaymentController {
         return "Payment successfully deleted!";
 
     }
+    
+	@RequestMapping(value="/{id}/transaction", method = RequestMethod.GET)
+	public ResponseEntity<Transaction> getTransactionByPaymentId(@PathVariable("id") int id) {
+		
+		PaymentModel payment = paymentService.getPaymentById(id);
+		
+		if (payment == null) {
+			
+			System.out.println("Payment not found!");
+			
+			return new ResponseEntity<Transaction>(HttpStatus.NOT_FOUND);
+		}
+		
+	    String url = discoveryClient.getInstances("transactions").get(0).getUri().toString();
+	    url += "/api/payment/" + id + "/transaction";
+	    
+	    System.out.println(url);
+	    
+		RestTemplate restTemplate = new RestTemplate();
+	    /*HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    HttpEntity<?> entity = new HttpEntity<Object>(headers);
+	    //Transaction transaction = restTemplate.getForObject(url, Transaction.class);
+	    ResponseEntity<Transaction> response = restTemplate.exchange(
+	            url, 
+	            HttpMethod.GET, 
+	            entity, 
+	            Transaction.class);*/
+		
+		ResponseEntity<Transaction> response = restTemplate.getForEntity(url, Transaction.class);
+		
+		if(HttpStatus.OK != response.getStatusCode())
+		{
+			System.out.println(response);
+			
+			return new ResponseEntity<Transaction>(HttpStatus.NOT_FOUND);
+		}
+		
+		Transaction transaction = response.getBody();    
+	    
+		return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
+	}
 
 }

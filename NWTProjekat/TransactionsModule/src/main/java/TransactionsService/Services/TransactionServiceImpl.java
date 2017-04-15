@@ -84,10 +84,10 @@ public class TransactionServiceImpl implements TransactionService
 		
 	}
 
-	public List<Transaction> getTransactionsByPaymentId(Integer payment_id)
+	public Transaction getTransactionByPaymentId(Integer payment_id)
 	{
 		
-    	List<Transaction> paymentTransactions = new ArrayList<Transaction>();
+    	Transaction paymentTransaction = new Transaction();
     	
     	List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
     	
@@ -95,12 +95,11 @@ public class TransactionServiceImpl implements TransactionService
     	{
     		if(item.getPayment_id().equals(payment_id)) 
     		{
-    			paymentTransactions.add(item);
+    	    	paymentTransaction = item;
     		}
     	}
     	
-    	return paymentTransactions;
-		
+    	return paymentTransaction;
 	}
 	
 	public List<Transaction> getTransactionsBySenderId(Integer sender_id)
