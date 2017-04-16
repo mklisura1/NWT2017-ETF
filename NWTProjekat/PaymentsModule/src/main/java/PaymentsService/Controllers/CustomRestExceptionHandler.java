@@ -1,6 +1,6 @@
-package PaymentsService.controllers;
+package PaymentsService.Controllers;
 
-import PaymentsService.services.ApiError;
+import PaymentsService.Services.ApiError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

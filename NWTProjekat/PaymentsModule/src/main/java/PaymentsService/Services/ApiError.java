@@ -1,4 +1,4 @@
-package PaymentsService.services;
+package PaymentsService.Services;
 
 import org.springframework.http.HttpStatus;
 

@@ -1,4 +1,4 @@
-package PaymentsService.controllers;
+package PaymentsService.Controllers;
 
 
 import org.springframework.stereotype.Controller;

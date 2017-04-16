@@ -1,6 +1,6 @@
-package PaymentsService.repositories;
+package PaymentsService.Repositories;
 
-import PaymentsService.models.PaymentModel;
+import PaymentsService.Models.PaymentModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

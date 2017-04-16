@@ -1,22 +1,15 @@
-package PaymentsService.controllers;
+package PaymentsService.Controllers;
 
-import PaymentsService.models.PaymentModel;
-import PaymentsService.services.PaymentService;
-import PaymentsService.templates.Transaction;
-
-import java.util.LinkedHashMap;
-import java.util.List;
+import PaymentsService.Models.PaymentModel;
+import PaymentsService.Services.PaymentService;
+import PaymentsService.Templates.Transaction;
 
 import org.apache.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;

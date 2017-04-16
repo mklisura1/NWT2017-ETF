@@ -1,7 +1,7 @@
-package PaymentsService.services;
+package PaymentsService.Services;
 
-import PaymentsService.models.PaymentTypeModel;
-import PaymentsService.repositories.PaymentTypeRepository;
+import PaymentsService.Models.PaymentTypeModel;
+import PaymentsService.Repositories.PaymentTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

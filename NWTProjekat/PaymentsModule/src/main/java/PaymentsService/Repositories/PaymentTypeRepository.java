@@ -1,6 +1,6 @@
-package PaymentsService.repositories;
+package PaymentsService.Repositories;
 
-import PaymentsService.models.PaymentTypeModel;
+import PaymentsService.Models.PaymentTypeModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

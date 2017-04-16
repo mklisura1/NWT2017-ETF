@@ -1,7 +1,7 @@
-package PaymentsService.controllers;
+package PaymentsService.Controllers;
 
-import PaymentsService.models.PaymentTypeModel;
-import PaymentsService.services.PaymentTypeService;
+import PaymentsService.Models.PaymentTypeModel;
+import PaymentsService.Services.PaymentTypeService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

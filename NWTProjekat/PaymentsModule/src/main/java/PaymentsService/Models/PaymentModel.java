@@ -1,4 +1,4 @@
-package PaymentsService.models;
+package PaymentsService.Models;
 
 import javax.persistence.*;
 import java.util.Date;

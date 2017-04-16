@@ -1,4 +1,4 @@
-package PaymentsService.templates;
+package PaymentsService.Templates;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
