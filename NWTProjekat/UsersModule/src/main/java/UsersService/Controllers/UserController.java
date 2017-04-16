@@ -4,7 +4,10 @@ import UsersService.Models.User;
 import UsersService.Services.UserService;
 import UsersService.Templates.BankAccount;
 import UsersService.Templates.PaymentModel;
+import UsersService.Templates.Template;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,8 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,6 +29,9 @@ public class UserController
 {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+    private DiscoveryClient discoveryClient;
 
 
 	//-------------------Retrieve All Users--------------------------------------------------------
@@ -60,6 +68,45 @@ public class UserController
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
  
+    //-------------------Retrieve User Templates by UserId-------------------------------------------
+    
+    @RequestMapping(value = "/user/{id}/template", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Template>> getTemplatesByUserId(@PathVariable("id") Integer id) {
+        User user = userService.getUserById(id);
+        if (user == null) {
+            System.out.println("User with id " + id + " not found");
+            return new ResponseEntity<List<Template>>(HttpStatus.NOT_FOUND);
+        }
+
+	    String url = discoveryClient.getInstances("templates").get(0).getUri().toString();
+	    url += "/api/user/"+ id +"/template";
+	    
+	    System.out.println(url);
+	    
+		RestTemplate restTemplate = new RestTemplate();
+	    /*HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    //HttpEntity<?> entity = new HttpEntity<Object>(,headers);*/
+	    ResponseEntity<ArrayList> response = restTemplate.getForEntity(url,ArrayList.class);
+	    //List<Transaction> transactions = (List<Transaction>) responseEntity.getBody();
+	    
+	    if(HttpStatus.OK != response.getStatusCode())
+	    {
+	    	System.out.println("Templates not found!");
+	    	
+	    	return new ResponseEntity<List<Template>>(HttpStatus.NOT_FOUND);
+	    	
+	    }
+	    
+		List<Template> templates = response.getBody();
+		
+		System.out.println(templates);
+	    
+		return new ResponseEntity<List<Template>>(templates, HttpStatus.OK);
+        
+    }
+    
+    
      
      
     //-------------------Create a User--------------------------------------------------------

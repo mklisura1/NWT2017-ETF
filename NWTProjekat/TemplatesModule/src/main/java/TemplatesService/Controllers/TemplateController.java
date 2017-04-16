@@ -17,7 +17,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import TemplatesService.Model.Template;
 import TemplatesService.Service.TemplateService;
 
-
 @Controller
 @RequestMapping(value="/api")
 public class TemplateController 
@@ -33,6 +32,18 @@ public class TemplateController
         if(templates.isEmpty()){
             return new ResponseEntity<List<Template>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
+        return new ResponseEntity<List<Template>>(templates, HttpStatus.OK);
+    }
+    
+	//-------------------Retrieve Templates By User Id-------------------------------------------
+    
+    @RequestMapping(value = "/user/{id}/template", method = RequestMethod.GET)
+    public ResponseEntity<List<Template>> getTemplatesByUserId(@PathVariable("id") Integer id) {
+        List<Template> templates = (List<Template>) templateService.getTemplatesByUserId(id);
+        if(templates.isEmpty()){
+            return new ResponseEntity<List<Template>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+        }
+        
         return new ResponseEntity<List<Template>>(templates, HttpStatus.OK);
     }
  
