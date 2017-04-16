@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import TransactionsService.Models.BankAccount;
+//import TransactionsService.Models.BankAccount;
 import TransactionsService.Models.Transaction;
 import TransactionsService.Services.TransactionService;
 
