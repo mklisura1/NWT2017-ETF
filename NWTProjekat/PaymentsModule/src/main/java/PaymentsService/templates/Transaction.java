@@ -1,42 +1,20 @@
 package PaymentsService.templates;
 
-import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-//@Entity
-//@Table(name="transaction")
+import java.util.Date;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Transaction {
 	
-	//@Id
-	//@GeneratedValue
+
 	private Integer transaction_id;
-	//@OneToOne(fetch=FetchType.EAGER)
-	//@JoinColumn(name="transaction_type_id")
-	//@Cascade({CascadeType.SAVE_UPDATE})
 	private Object transactionType;
-	//@OneToOne(fetch=FetchType.EAGER)
-	//@JoinColumn(name="transaction_status_id")
-	//@Cascade({CascadeType.SAVE_UPDATE})
 	private Object transactionStatus;
 	private Integer bank_account_sender_id;
 	private Integer bank_account_receiver_id;
 	private Integer user_id;
 	private Integer payment_id;
-	//@DateTimeFormat(pattern = "dd/MM/yyyy") 
 	private Date date;
 	
 	public Transaction()

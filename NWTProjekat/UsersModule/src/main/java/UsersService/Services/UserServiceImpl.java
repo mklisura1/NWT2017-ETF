@@ -1,8 +1,8 @@
 package UsersService.Services;
 
-import PaymentsService.models.PaymentModel;
 import UsersService.Models.User;
 import UsersService.Repository.UserRepository;
+import UsersService.Templates.PaymentModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,10 +171,10 @@ public class UserServiceImpl implements UserService
 		ServiceInstance instance = loadBalancer.choose("payments");
 
 		LOG.info("URL: " + instance.getUri());
-		String url = instance.getUri() + "/api/payments?userId=" + id;
+		String url = instance.getUri() + "/api/payments?userId={id}";
 		LOG.info("GET Payments from URL: {}", url);
 
-		ResponseEntity<Object>  response = restTemplate.getForEntity(url, Object.class);
+		ResponseEntity<Object>  response = restTemplate.getForEntity(url, Object.class, id);
 		LinkedHashMap<String, String> objects = (LinkedHashMap<String, String>) response.getBody();
 		List<PaymentModel> paymentModelList = (List<PaymentModel>) (Object) objects.get("content");
 		LOG.info("Responseeee: {}", objects.get("content") );

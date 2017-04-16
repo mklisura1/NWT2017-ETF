@@ -1,6 +1,6 @@
 package UsersService.Models;
 
-import PaymentsService.models.PaymentModel;
+import UsersService.Templates.PaymentModel;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;

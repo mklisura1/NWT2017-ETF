@@ -1,7 +1,7 @@
 package UsersService.Services;
 
-import PaymentsService.models.PaymentModel;
 import UsersService.Models.User;
+import UsersService.Templates.PaymentModel;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;

@@ -25,6 +25,7 @@ public class PaymentService {
     @Transactional
     public void populate() {
         PaymentModel p = new PaymentModel();
+        p.setId(1);
         p.setAmount(12.02);
         p.setDate(new Date());
         p.setPurpose("Probni nalog");
@@ -37,6 +38,7 @@ public class PaymentService {
         paymentRepository.saveAndFlush(p);
 
         p = new PaymentModel();
+        p.setId(1);
         p.setAmount(4.02);
         p.setDate(new Date());
         p.setPurpose("Probni nalog");

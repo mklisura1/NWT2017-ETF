@@ -1,8 +1,8 @@
 package UsersService.Controllers;
 
-import PaymentsService.models.PaymentModel;
 import UsersService.Models.User;
 import UsersService.Services.UserService;
+import UsersService.Templates.PaymentModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
