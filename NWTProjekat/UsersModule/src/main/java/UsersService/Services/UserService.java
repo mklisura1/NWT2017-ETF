@@ -1,6 +1,7 @@
 package UsersService.Services;
 
 import UsersService.Models.User;
+import UsersService.Templates.BankAccount;
 import UsersService.Templates.PaymentModel;
 
 import java.security.NoSuchAlgorithmException;
@@ -36,5 +37,8 @@ public interface UserService
     
     byte[] fromHex(String hex) throws NoSuchAlgorithmException;
 
+    //Metode od drugih mikroservisa
     List<PaymentModel> getPayments(Integer id);
+    
+    List<BankAccount> getUserBankAccounts(Integer user_id);
 }

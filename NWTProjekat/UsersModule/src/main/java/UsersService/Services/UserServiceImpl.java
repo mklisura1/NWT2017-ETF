@@ -2,12 +2,15 @@ package UsersService.Services;
 
 import UsersService.Models.User;
 import UsersService.Repository.UserRepository;
+import UsersService.Templates.BankAccount;
 import UsersService.Templates.PaymentModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,6 +21,7 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -28,8 +32,13 @@ public class UserServiceImpl implements UserService
 
 	@Autowired
 	private UserRepository userRepository;
+	
 	private Object object;
 
+	@Autowired
+	private LoadBalancerClient loadBalancer;
+
+	private RestTemplate restTemplate = new RestTemplate();
 
 	@Override
     public Iterable<User> listAllUsers() 
@@ -158,12 +167,7 @@ public class UserServiceImpl implements UserService
 		return bytes;
 	}
 
-
-
-    @Autowired
-	private LoadBalancerClient loadBalancer;
-
-	private RestTemplate restTemplate = new RestTemplate();
+	//Metode od drugih mikroservisa
 	@Override
 	public List<PaymentModel> getPayments(Integer id){
 
@@ -179,5 +183,33 @@ public class UserServiceImpl implements UserService
 		List<PaymentModel> paymentModelList = (List<PaymentModel>) (Object) objects.get("content");
 		LOG.info("Responseeee: {}", objects.get("content") );
 		return paymentModelList;
+	}
+
+	@Override
+	public List<BankAccount> getUserBankAccounts(Integer user_id) {
+
+		//Pronalazenje mikroservisa po njegovom nazivu - onako kako ga Eureka vidi
+		ServiceInstance instance = loadBalancer.choose("bankaccounts");
+		String url = instance.getUri() + "/api/accounts";
+
+		//ResponseEntity<Object>  response = restTemplate.getForEntity(url, Object.class);
+		ResponseEntity<List<BankAccount>> bankAccounts =
+		        restTemplate.exchange(url,
+		                    HttpMethod.GET, null, new ParameterizedTypeReference<List<BankAccount>>() {
+		            });
+		
+		
+		List<BankAccount> bankAccountsResponse = bankAccounts.getBody();
+		List<BankAccount> bankAccountsFiltered = new ArrayList<BankAccount>();
+		
+		for(BankAccount item: bankAccountsResponse)
+		{
+			if(item.getUser() == user_id)
+			{
+				bankAccountsFiltered.add(item);
+			}
+		}
+		
+		return bankAccountsFiltered;
 	}
 }

@@ -1,5 +1,6 @@
 package UsersService.Models;
 
+import UsersService.Templates.BankAccount;
 import UsersService.Templates.PaymentModel;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -35,15 +36,11 @@ public class User {
 	@Cascade({CascadeType.SAVE_UPDATE})
 	private UserPicture userPicture;
 
-	public List<PaymentModel> getUserPayments() {
-		return userPayments;
-	}
-	public void setUserPayments(List<PaymentModel> userPayments) {
-		this.userPayments = userPayments;
-	}
-
 	@Transient
 	private List<PaymentModel> userPayments;
+	
+	@Transient
+	private List<BankAccount> userBankAccounts;
 	
 	//Constructors
 	public User() {
@@ -140,5 +137,17 @@ public class User {
 	}
 	public void setUserPicture(UserPicture userPicture) {
 		this.userPicture = userPicture;
+	}
+	public List<PaymentModel> getUserPayments() {
+		return userPayments;
+	}
+	public void setUserPayments(List<PaymentModel> userPayments) {
+		this.userPayments = userPayments;
+	}
+	public List<BankAccount> getUserBankAccounts() {
+		return userBankAccounts;
+	}
+	public void setUserBankAccounts(List<BankAccount> userBankAccounts) {
+		this.userBankAccounts = userBankAccounts;
 	}
 }

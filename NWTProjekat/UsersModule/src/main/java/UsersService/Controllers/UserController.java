@@ -2,6 +2,7 @@ package UsersService.Controllers;
 
 import UsersService.Models.User;
 import UsersService.Services.UserService;
+import UsersService.Templates.BankAccount;
 import UsersService.Templates.PaymentModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -50,7 +51,12 @@ public class UserController
 
         //Komunikacija sa Payments servisom
         List<PaymentModel> payments = userService.getPayments(id);
+        
+        //Komunikacija sa BankAccounts servisom
+        List<BankAccount> userBankAccounts = userService.getUserBankAccounts(id);
+        
         user.setUserPayments(payments);
+        user.setUserBankAccounts(userBankAccounts);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
  
