@@ -3,6 +3,8 @@ package BankAccountsService.Controllers;
 import BankAccountsService.Interfaces.BankAccountsService;
 import BankAccountsService.Models.BankAccount;
 import BankAccountsService.Templates.Transaction;
+import BankAccountsService.Templates.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpStatus;
@@ -83,5 +85,41 @@ public class BankAccountsController {
 		System.out.println(transactions);
 	    
 		return new ResponseEntity<List<Transaction>>(transactions, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="/{id}/user", method = RequestMethod.GET)
+	public ResponseEntity<User> getBankAccountOwnerByAccountId(@PathVariable("id") int id) {
+		BankAccount bankAccount = bankAccountService.FindAccountById(id);
+		
+		if (bankAccount == null) {
+			System.out.println("Bank Account not found!");
+			
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+		}
+		
+	    String url = discoveryClient.getInstances("users").get(0).getUri().toString();
+	    url += "/api/user/"+ bankAccount.getUser() + "/account";
+	    
+	    System.out.println(url);
+	    
+		RestTemplate restTemplate = new RestTemplate();
+	    /*HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    //HttpEntity<?> entity = new HttpEntity<Object>(,headers);*/
+	    ResponseEntity<User> response = restTemplate.getForEntity(url,User.class);
+	    //List<Transaction> transactions = (List<Transaction>) responseEntity.getBody();
+	    
+	    if(HttpStatus.OK != response.getStatusCode())
+	    {
+	    	System.out.println("User not found!");
+	    	
+	    	return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+	    	
+	    }
+	    
+		User user = response.getBody();
+	    
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 }

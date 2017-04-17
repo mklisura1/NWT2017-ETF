@@ -67,6 +67,19 @@ public class UserController
         user.setUserBankAccounts(userBankAccounts);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
+    
+    //-------------------Retrieve Single User--------------------------------------------------------
+    
+    @RequestMapping(value = "/user/{id}/account", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getBankAccountOwnerByUserId(@PathVariable("id") Integer id) {
+        System.out.println("Fetching User with id " + id);
+        User user = userService.getUserById(id);
+        if (user == null) {
+            System.out.println("User with id " + id + " not found");
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
  
     //-------------------Retrieve User Templates by UserId-------------------------------------------
     
