@@ -35,9 +35,6 @@ public class PaymentsApplication{
     @Value("${connstring}")
     private String connstring;
 
-
-
-
     public static void main(String[] args) {
         Logger log= LoggerFactory.getLogger(PaymentsApplication.class);
         SpringApplication.run(PaymentsApplication.class, args);
