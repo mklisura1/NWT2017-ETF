@@ -1,9 +1,9 @@
-#Requirements
+# Requirements
  * NodeJS (https://nodejs.org/en/ - v6.9.0 or higher)
  * Npm (run CMD command `npm install npm@latest -g`)
  * Angular CLI (run CMD command `npm install -g @angular/cli`)
  
- #Setting up project
+# Setting up project
  After cloning repository, go to project folder then:
   * run CMD command `npm install`
   * when npm install finishes run `ng serve`
