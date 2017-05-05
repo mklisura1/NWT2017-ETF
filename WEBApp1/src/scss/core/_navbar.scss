@@ -4,7 +4,7 @@
   height: $navbar-height;
   margin: 0;
   padding: 0;
-  background-color: $navbar-bg;
+  background-color: $brand-primary; //$navbar-bg;
   @include borders($navbar-border);
 
   .navbar-brand {
@@ -13,7 +13,7 @@
     height: $navbar-height;
     padding: $navbar-padding-y $navbar-padding-x;
     margin-right: 0;
-    background-color: $navbar-brand-bg;
+    background-color: $brand-primary;
     background-image: $navbar-brand-logo;
     background-repeat: no-repeat;
     background-position: center center;
@@ -61,6 +61,21 @@
   }
 }
 
+.login-page.navbar-brand {
+  display: inline-block;
+  width: 200px;
+  height: 90px;
+  padding: $navbar-padding-y $navbar-padding-x;
+  margin-right: 0;
+  margin-top: 50px;
+  //background-color: $navbar-brand-bg;
+  background-image: $navbar-brand-logo;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 200px;
+  //@include borders($navbar-brand-border);
+}
+
 .navbar-brand {
   color: $navbar-active-color;
 
@@ -71,7 +86,8 @@
 
 .navbar-nav {
   .nav-link {
-    color: $navbar-color;
+    //color: $navbar-color;
+    color: #FFF;
 
     @include hover-focus {
       color: $navbar-hover-color;

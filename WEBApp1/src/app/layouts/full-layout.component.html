@@ -65,9 +65,49 @@
     <nav class="sidebar-nav">
       <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-speedometer"></i>
-            Dashboard <span class="badge badge-info">NEW</span></a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-home"></i>
+            Home </a>
         </li>
+        <li class="nav-title">
+          User options
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/charts']"><i class="icon-user"></i> Profile</a>
+        </li>
+        <li class="divider"></li>
+        <li class="nav-title">
+          Banking options
+        </li>
+        <li class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+          <a class="nav-link"><i class="icon-credit-card"></i>
+            Accounts / Cards</a>
+        </li>
+        <li class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+          <a class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle><i class="icon-directions"></i>
+            Payments</a>
+          <ul class="nav-dropdown-items">
+            <li class="nav-item " style="padding-left: 20px;">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/payments/all']"> Show all payments</a>
+            </li>
+            <li class="nav-item" style="padding-left: 20px;">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/payments/domestic']"> Domestic payment</a>
+            </li>
+            <li class="nav-item" style="padding-left: 20px;">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/payments/international']"> Int'l payment</a>
+            </li>
+            <li class="nav-item" style="padding-left: 20px;">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/payments/internal']"> Internal payment</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/charts']"><i class="icon-docs"></i> Templates</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/charts']"><i class="icon-chart"></i> Statistics</a>
+        </li>
+        <li class="divider"></li>
+
         <li class="divider"></li>
         <li class="nav-title">
           UI Elements

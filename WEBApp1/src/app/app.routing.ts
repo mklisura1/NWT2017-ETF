@@ -37,6 +37,23 @@ export const routes: Routes = [
       {
         path: 'charts',
         loadChildren: './chartjs/chartjs.module#ChartJSModule'
+      },
+      {
+        path: 'payments',
+        loadChildren: './payments/payments.module#PaymentsModule',
+      }
+    ]
+  },
+  {
+    path: 'payments',
+    component: FullLayoutComponent,
+    data: {
+      title: 'Payment'
+    },
+    children: [
+      {
+        path: 'payments',
+        loadChildren: './payments/payments.module#PaymentsModule',
       }
     ]
   },
