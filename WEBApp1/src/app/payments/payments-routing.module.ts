@@ -4,7 +4,7 @@ import { Routes,
 import {DomesticPaymentComponent} from "./domestic-payment.component";
 import {InternationalPaymentComponent} from "./international-payment.component";
 import {PaymentsOverviewComponent} from "./payments-overview.component";
-import {InternalPaymentComponent} from "./internal-payment.component";
+import {InternalPaymentComponent} from "./internal-payment/internal-payment.component";
 
 
 
@@ -38,7 +38,7 @@ const routes: Routes = [
       },
       {
         path: 'internal',
-        component: InternalPaymentComponent,
+        component: InternalPaymentComponent, 
         data: {
           title: 'Internal'
         }
