@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PaymentsService} from "./payments.service";
 
 @Component({
   selector: 'app-payments-overview',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentsOverviewComponent implements OnInit {
 
-  constructor() { }
+  payments: any[];
+
+  constructor(private paymenstService: PaymentsService) { }
 
   ngOnInit() {
+    this.getPayments();
   }
 
+  getPayments(){
+    this.paymenstService.getPayments("Signed")
+      .subscribe(response=>{
+        if(response.content){
+          this.payments = response.content;
+        }
+      })
+  }
 }

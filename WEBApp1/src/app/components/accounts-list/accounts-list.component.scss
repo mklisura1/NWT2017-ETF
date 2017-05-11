@@ -1,0 +1,60 @@
+@import "../../../scss/_bootstrap-variables";
+.account-list-item{
+  height: 148px;
+  border: 1px solid;
+  //width: 270px;
+  //width: 358px;
+  padding: 20px;
+  background-color: $brand-primary;
+  color: #FFF;
+  &:hover{
+    background-color: #1986AB;
+  }
+  .account-number{
+    font-size: 16px;
+    text-align: right;
+    font-weight: bold;
+  }
+  .account-name{
+    display: block;
+  }
+  .account-type{
+    display: block;
+    font-size: x-large;
+    font-family: cursive;
+  }
+  .account-balance{
+
+  }
+  p{
+    font-size: 15px;
+    text-align: right;
+  }
+  .currency{
+    font-size: 10px;
+  }
+}
+.t-a-r{
+  text-align: right;
+}
+.account-list-item-other{
+ @extend .account-list-item;
+  width: 400px;
+  height: 160px;
+  background-color: #175C7A;
+  color: #FFF;
+  overflow-y: auto;
+  .row{
+    &:hover{
+      background-color: #1986AB;
+    }
+    border-bottom: 1px solid white;
+  }
+
+  position: absolute;
+  z-index: 999;
+}
+
+.p-t-30{
+  padding-top: 30px;
+}

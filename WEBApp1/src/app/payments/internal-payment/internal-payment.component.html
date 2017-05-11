@@ -18,116 +18,153 @@
                         [ngClass]="{'btn-primary': internalTempObj.step == 'step2', 'btn-default': internalTempObj.step !== 'step2' }">
                   2
                 </button>
-                <p class="mb-0">Validate</p>
+                <p class="mb-0">Validate / Confirm</p>
               </div>
               <div class="stepwizard-step col-4">
                 <button type="button" class="btn btn-default btn-circle"
                         [ngClass]="{'btn-primary': internalTempObj.step == 'step3', 'btn-default': internalTempObj.step !== 'step3' }">
                   3
                 </button>
-                <p class="mb-0">Confirm</p>
+                <p class="mb-0">Info</p>
               </div>
             </div>
           </div>
         </div>
 
         <!--STEP 1 START-->
-        <div *ngIf="internalTempObj.step === 'step1'" class="card-block">
+        <div [hidden]="internalTempObj.step !== 'step1'" class="card-block">
           <div class="row">
             <div class="col-sm-6">
-              <app-accounts-list></app-accounts-list>
+              <app-accounts-list (selectedAccountEvent)="onNotifyAccFrom($event)" [accountsList]="accountsList"></app-accounts-list>
             </div>
+            <div class="col-sm-6">
+              <app-accounts-list (selectedAccountEvent)="onNotifyAccTo($event)" [accountsList]="accountsList"></app-accounts-list>
+            </div>
+          </div>
+          <div class="row p-t-15">
             <div class="col-sm-6">
               <div class="form-group">
                 <label>Amount</label>
-                <input [(ngModel)]="internalTempObj.companyName" ngControl="companyName"
-                       name="companyName" type="text" class="form-control"
+                <input [(ngModel)]="internalTempObj.amount" ngControl="amount"
+                       name="amount" type="text" class="form-control" required
                        placeholder="Enter your amount">
+                <span *ngIf="showError && !internalTempObj.amount" class="help-block red">Amount is required!</span>
               </div>
+
+            </div>
+            <div class="col-sm-6">
+
               <div class="form-group">
-                <label for="vat">Date</label>
-                <input type="text" class="form-control" id="vat" placeholder="19.06.2017">
+                <label class="form-control-label">Date</label>
+                <div class="controls">
+                  <div class="input-group">
+                    <input type="text" [value]="internalTempObj.date | date: 'dd.MM.yyyy'"
+                           class="form-control input-sm" (focus)="open()" [disabled]="true">
+                    <span class="input-group-btn" (click)="open()">
+                    <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
+                  </span>
+                  </div>
+
+                </div>
+
               </div>
+
+              <div class="dp-popup" style="position: absolute;" *ngIf="showDatePicker">
+                <datepicker [(ngModel)]="internalTempObj.date" [minDate]="minDate"
+                            (selectionDone)="onSelectionDone($event)"
+                            [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
+              </div>
+
+              <!--<div class="form-group">-->
+                <!--<label for="vat">Date</label>-->
+                <!--<input type="date" class="form-control" (input)="internalTempObj.date" ngControl="date"-->
+                <!--[value]="internalTempObj.date">-->
+
+                  <!--<input type="text" [(ngModel)]="internalTempObj.date" class="form-control input-sm" (focus)="open()"/>-->
+                  <!--<span class="input-group-addon" (click)="open()">-->
+                    <!--<span class="glyphicon-calendar glyphicon"></span>-->
+                  <!--</span>-->
+
+              <!--</div>-->
             </div>
           </div>
         </div>
-        <div *ngIf="internalTempObj.step === 'step1'" class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="next()"><i class="icon-arrow-right" ></i> Next</button>
+        <div [hidden]="internalTempObj.step !== 'step1'" class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="next()"><i
+            class="icon-arrow-right"></i> Next
+          </button>
         </div>
         <!--STEP 1 END-->
 
         <!--STEP 2 START-->
-        <div *ngIf="internalTempObj.step === 'step2'" class="card-block">
-          <div class="form-group">
-            <label>Company</label>
-            <input [(ngModel)]="internalTempObj.companyName" ngControl="companyName"
-                   name="companyName" type="text" class="form-control"
-                   placeholder="Enter your company name">
-          </div>
-          <div class="form-group">
-            <label for="vat">VAT</label>
-            <input type="text" class="form-control" id="vat" placeholder="PL1234567890">
-          </div>
-          <div class="form-group">
-            <label for="street">Street</label>
-            <input type="text" class="form-control" id="street" placeholder="Enter street name">
+        <div [hidden]="internalTempObj.step !== 'step2'" class="card-block">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>From account name</label>
+                <span>{{internalTempObj.accountFrom.accountName}}</span>
+              </div>
+              <div class="form-group">
+                <label>From account number</label>
+                <span>{{internalTempObj.accountFrom.accountNumber}}</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>To account name</label>
+                <span>{{internalTempObj.accountTo.accountName}}</span>
+              </div>
+              <div class="form-group">
+                <label>To account number</label>
+                <span>{{internalTempObj.accountTo.accountNumber}}</span>
+              </div>
+            </div>
           </div>
           <div class="row">
-            <div class="form-group col-sm-8">
-              <label for="city">City</label>
-              <input type="text" class="form-control" id="city" placeholder="Enter your city">
+            <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Payment date</label>
+                  <span>{{internalTempObj.date | date: 'dd.MM.yyyy'}}</span>
+                </div>
             </div>
-            <div class="form-group col-sm-4">
-              <label for="postal-code">Postal Code</label>
-              <input type="text" class="form-control" id="postal-code" placeholder="Postal Code">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Amount</label>
+                <span>{{internalTempObj.amount}} {{internalTempObj.accountCurrency}}</span>
+              </div>
             </div>
-          </div><!--/.row-->
-          <div class="form-group">
-            <label for="country">Country</label>
-            <input type="text" class="form-control" id="country" placeholder="Country name">
           </div>
         </div>
-        <div *ngIf="internalTempObj.step === 'step2'" class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="submitPayment()"><i class="icon-arrow-right" ></i> Validate</button>
-          <button type="reset" class="btn btn-sm btn-danger" (click)="back()"><i class="icon-arrow-left"></i> Back</button>
-          <button type="reset" class="btn btn-sm btn-danger" (click)="newPayment()"><i class="icon-plus"></i> New payment</button>
+        <div [hidden]="internalTempObj.step !== 'step2'" class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="submitPayment()"><i
+            class="icon-arrow-right"></i> Validate
+          </button>
+          <button type="reset" class="btn btn-sm btn-info" (click)="back()"><i class="icon-arrow-left"></i> Back
+          </button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="newPayment()"><i class="icon-plus"></i> New
+            payment
+          </button>
         </div>
         <!--STEP 2 END-->
 
         <!--STEP 3 START-->
-        <div *ngIf="internalTempObj.step === 'step3'" class="card-block">
-          <div class="form-group">
-            <label>Company</label>
-            <input [(ngModel)]="internalTempObj.companyName" ngControl="companyName"
-                   name="companyName" type="text" class="form-control"
-                   placeholder="Enter your company name">
-          </div>
-          <div class="form-group">
-            <label for="vat">VAT</label>
-            <input type="text" class="form-control" id="vat" placeholder="PL1234567890">
-          </div>
-          <div class="form-group">
-            <label for="street">Street</label>
-            <input type="text" class="form-control" id="street" placeholder="Enter street name">
-          </div>
+        <div [hidden]="internalTempObj.step !== 'step3'" class="card-block bg-aqua">
           <div class="row">
-            <div class="form-group col-sm-8">
-              <label for="city">City</label>
-              <input type="text" class="form-control" id="city" placeholder="Enter your city">
+            <div class="col-sm-4 t-a-c">
+              <i class="icon-info fa-5x"></i>
             </div>
-            <div class="form-group col-sm-4">
-              <label for="postal-code">Postal Code</label>
-              <input type="text" class="form-control" id="postal-code" placeholder="Postal Code">
+            <div class="col-sm-8">
+              <h2>Payment successfuly submitted.</h2>
             </div>
-          </div><!--/.row-->
-          <div class="form-group">
-            <label for="country">Country</label>
-            <input type="text" class="form-control" id="country" placeholder="Country name">
           </div>
         </div>
-        <div *ngIf="internalTempObj.step === 'step3'" class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="confirmPayment()"><i class="icon-control-play"></i> Confirm</button>
-          <button type="reset" class="btn btn-sm btn-danger" (click)="newPayment()"><i class="icon-plus"></i> New payment</button>
+        <div [hidden]="internalTempObj.step !== 'step3'" class="card-footer">
+          <button type="reset" class="btn btn-sm btn-danger" (click)="newPayment()"><i class="icon-plus"></i> New
+            payment
+          </button>
+          <button type="reset" class="btn btn-sm btn-danger pull-right" (click)="showPayments()">
+            <i class="fa-navicon"></i> Show all payments
+          </button>
         </div>
         <!--STEP 3 END-->
       </div>

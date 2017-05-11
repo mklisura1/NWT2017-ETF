@@ -1,3 +1,30 @@
-<p>
-  payments works!
-</p>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-12">
+      <!-- Nav tabs -->
+      <tabset>
+        <tab>
+          <ng-template tabHeading>Waiting &nbsp;<span class="badge badge-pill badge-danger">29</span></ng-template>
+          <div class="row" *ngFor="let p of payments">
+            <div class="col-sm-3">
+              {{p.date}}
+            </div>
+            <div class="col-sm-6">
+              {{p.purpose}}
+            </div>
+            <div class="col-sm-3">
+              {{p.amount}}
+            </div>
+          </div>
+        </tab>
+        <tab>
+          <ng-template tabHeading><i class="icon-calculator"></i> Calculator &nbsp;<span class="badge badge-pill badge-danger">29</span></ng-template>
+
+        </tab>
+        <tab>
+          <ng-template tabHeading><i class="icon-pie-chart"></i> Charts</ng-template>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>

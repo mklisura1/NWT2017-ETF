@@ -1,0 +1,22 @@
+.payment-overview-row{
+  background-color: lightgray;
+  padding: 10px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  &:hover{
+    background-color: lightblue;
+  }
+
+  .payment-overview-row-details{
+    .row{
+      .col-sm-6{
+        font-size: large;
+        border-bottom: 1px solid white;
+      }
+      .col-sm-6:nth-child(2n){
+        text-align: right;
+        font-weight: bold;
+      }
+    }
+  }
+}

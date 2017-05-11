@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
  * Created by Hare on 21.03.2017..
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api/payments")
 public class PaymentController {
     static final org.apache.log4j.Logger logger = LogManager.getLogger(PaymentController.class.getName());
@@ -32,13 +33,14 @@ public class PaymentController {
     public Page<PaymentModel> getAllPayments(Pageable pageable,
                                              @RequestParam(required = false) Double amountGTE,
                                              @RequestParam(required = false) Double amountLTE,
+                                             @RequestParam(required = false) String status,
                                              @RequestParam(required = false) String paymentType,
                                              @RequestParam(required = false) Integer userId) {
 
         logger.info("GET PAYMENTS");
         if(userId != null)
-            return paymentService.getAllPaymentsForUser(pageable, userId);
-        return paymentService.getAllPayments(pageable);
+            return paymentService.getAllPaymentsForUser(pageable, userId, status);
+        return paymentService.getAllPayments(pageable, status);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces="application/json")

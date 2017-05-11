@@ -1,0 +1,162 @@
+<div class="animated fadeIn">
+
+  <div class="row justify-content-sm-center">
+    <div class="col-sm-8">
+      <div class="card ">
+        <div class="card-header pl-0 pr-0">
+          <div class="stepwizard">
+            <div class="stepwizard-row">
+              <div class="stepwizard-step col-4">
+                <button type="button" class="btn btn-primary btn-circle"
+                        [ngClass]="{'btn-primary': domesticTempObj.step == 'step1', 'btn-default': domesticTempObj.step !== 'step1' }">
+                  1
+                </button>
+                <p class="mb-0">Enter</p>
+              </div>
+              <div class="stepwizard-step col-4">
+                <button type="button" class="btn btn-default btn-circle"
+                        [ngClass]="{'btn-primary': domesticTempObj.step == 'step2', 'btn-default': domesticTempObj.step !== 'step2' }">
+                  2
+                </button>
+                <p class="mb-0">Validate</p>
+              </div>
+              <div class="stepwizard-step col-4">
+                <button type="button" class="btn btn-default btn-circle"
+                        [ngClass]="{'btn-primary': domesticTempObj.step == 'step3', 'btn-default': domesticTempObj.step !== 'step3' }">
+                  3
+                </button>
+                <p class="mb-0">Confirm</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--STEP 1 START-->
+        <div *ngIf="domesticTempObj.step === 'step1'" class="card-block">
+          <div class="row">
+            <div class="col-sm-6">
+              <app-accounts-list [accountsList]="accountsList"></app-accounts-list>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Amount</label>
+                <input [(ngModel)]="domesticTempObj.companyName" ngControl="companyName"
+                       name="companyName" type="text" class="form-control"
+                       placeholder="Enter your amount">
+              </div>
+              <div class="form-group">
+                <label for="vat">Date</label>
+                <input type="date" class="form-control" value="19.06.2017">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Receiver account number</label>
+                <input [(ngModel)]="domesticTempObj.receiverBankAccNumber" ngControl="receiverBankAccNumber"
+                       name="receiverBankAccNumber" type="text" class="form-control"
+                       placeholder="eg. BA123456789">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Receiver name</label>
+                <input [(ngModel)]="domesticTempObj.receiverName" ngControl="receiverName"
+                       name="receiverName" type="text" class="form-control"
+                       placeholder="eg. Alan Ford">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Purpose</label>
+                <input [(ngModel)]="domesticTempObj.purpose" ngControl="purpose"
+                       name="purpose" type="text" class="form-control"
+                       placeholder="eg. Electricity bill">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="domesticTempObj.step === 'step1'" class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="next()"><i class="icon-arrow-right" ></i> Next</button>
+        </div>
+        <!--STEP 1 END-->
+
+        <!--STEP 2 START-->
+        <div *ngIf="domesticTempObj.step === 'step2'" class="card-block">
+          <div class="form-group">
+            <label>Company</label>
+            <input [(ngModel)]="domesticTempObj.companyName" ngControl="companyName"
+                   name="companyName" type="text" class="form-control"
+                   placeholder="Enter your company name">
+          </div>
+          <div class="form-group">
+            <label for="vat">VAT</label>
+            <input type="text" class="form-control" id="vat" placeholder="PL1234567890">
+          </div>
+          <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" class="form-control" id="street" placeholder="Enter street name">
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-8">
+              <label for="city">City</label>
+              <input type="text" class="form-control" id="city" placeholder="Enter your city">
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="postal-code">Postal Code</label>
+              <input type="text" class="form-control" id="postal-code" placeholder="Postal Code">
+            </div>
+          </div><!--/.row-->
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" class="form-control" id="country" placeholder="Country name">
+          </div>
+        </div>
+        <div *ngIf="domesticTempObj.step === 'step2'" class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="submitPayment()"><i class="icon-arrow-right" ></i> Validate</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="back()"><i class="icon-arrow-left"></i> Back</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="newPayment()"><i class="icon-plus"></i> New payment</button>
+        </div>
+        <!--STEP 2 END-->
+
+        <!--STEP 3 START-->
+        <div *ngIf="domesticTempObj.step === 'step3'" class="card-block">
+          <div class="form-group">
+            <label>Company</label>
+            <input [(ngModel)]="domesticTempObj.companyName" ngControl="companyName"
+                   name="companyName" type="text" class="form-control"
+                   placeholder="Enter your company name">
+          </div>
+          <div class="form-group">
+            <label for="vat">VAT</label>
+            <input type="text" class="form-control" id="vat" placeholder="PL1234567890">
+          </div>
+          <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" class="form-control" id="street" placeholder="Enter street name">
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-8">
+              <label for="city">City</label>
+              <input type="text" class="form-control" id="city" placeholder="Enter your city">
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="postal-code">Postal Code</label>
+              <input type="text" class="form-control" id="postal-code" placeholder="Postal Code">
+            </div>
+          </div><!--/.row-->
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" class="form-control" id="country" placeholder="Country name">
+          </div>
+        </div>
+        <div *ngIf="domesticTempObj.step === 'step3'" class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="confirmPayment()"><i class="icon-control-play"></i> Confirm</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="newPayment()"><i class="icon-plus"></i> New payment</button>
+        </div>
+        <!--STEP 3 END-->
+      </div>
+    </div>
+  </div>
+</div>
