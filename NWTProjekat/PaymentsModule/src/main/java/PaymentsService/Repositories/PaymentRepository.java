@@ -28,6 +28,8 @@ public interface PaymentRepository extends JpaRepository<PaymentModel, Long> {
 //    List<PaymentModel> findAllUserPayments(Integer userId);
 
     Page<PaymentModel> findByUserId(Pageable pageable, Integer userId);
+    Page<PaymentModel> findByStatus(Pageable pageable, String status);
+
 
 
 //    @Query("select p from #{#entityName} p where p.payment_type = ?1")

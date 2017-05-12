@@ -13,14 +13,23 @@ export class PaymentsOverviewComponent implements OnInit {
   constructor(private paymenstService: PaymentsService) { }
 
   ngOnInit() {
-    this.getPayments();
+    this.getPayments("Waiting");
   }
 
-  getPayments(){
-    this.paymenstService.getPayments("Signed")
+  getPayments(status: string){
+    this.paymenstService.getPayments(status)
       .subscribe(response=>{
         if(response.content){
           this.payments = response.content;
+        }
+      })
+  }
+
+  signPayment(id): void{
+    this.paymenstService.signPayment(id)
+      .subscribe(response=>{
+        if(response.content){
+          //TODO: show Popup message
         }
       })
   }

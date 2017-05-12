@@ -1,5 +1,7 @@
 package PaymentsService.Models;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -31,8 +33,23 @@ public class PaymentModel {
     private String receiverBankAccNumber;
     @Column(name = "payment_purpose", nullable = false)
     private String purpose;
-    @Column(name = "payment_type", nullable = false)
-    private String type;
+
+
+    @ManyToOne(optional=false)
+    @JoinColumn(name="payment_type", nullable=false, updatable=false)
+    private PaymentTypeModel type;
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Column(name = "status", nullable = false)
+    private String status;
 
     private String typeDescription;
 
@@ -52,7 +69,10 @@ public class PaymentModel {
         this.receiverName = payment.receiverName;
         this.receiverBankAccNumber = payment.receiverBankAccNumber;
         this.purpose = payment.purpose;
+        PaymentTypeModel pType = new PaymentTypeModel();
+
         this.type = payment.type;
+        this.status = payment.status;
         this.typeDescription = payment.typeDescription;
     }
 
@@ -113,10 +133,10 @@ public class PaymentModel {
     }
 
     public String getType() {
-        return type;
+        return type.getPaymentTypeName();
     }
 
-    public void setType(String type) {
+    public void setType(PaymentTypeModel type) {
         this.type = type;
     }
 

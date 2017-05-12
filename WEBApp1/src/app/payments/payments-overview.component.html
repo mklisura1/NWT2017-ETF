@@ -5,9 +5,10 @@
 
       <tabset>
         <tab>
-          <ng-template tabHeading>Waiting <span class="badge badge-pill badge-danger">29</span></ng-template>
+          <ng-template tabHeading><span (click)="getPayments('Waiting')">Waiting <span
+            class="badge badge-pill badge-danger">29</span></span></ng-template>
           <h4>Inserted payments but not signed yet.</h4>
-          <div class="payment-overview-row" *ngFor="let p of payments" >
+          <div class="payment-overview-row" *ngFor="let p of payments">
             <div class="row " (click)="p.showDetails = !p.showDetails">
 
               <div class="col-sm-2">
@@ -24,7 +25,48 @@
               <div [hidden]="!p.showDetails" class="col-sm-12 payment-overview-row-details">
                 <div class="row">
                   <div class="col-sm-6"><label>Payment type</label></div>
-                  <div class="col-sm-6">{{p.typeDescription}}</div>
+                  <div class="col-sm-6">{{p.type}}</div>
+                  <div class="col-sm-6"><label>Sender name</label></div>
+                  <div class="col-sm-6">{{p.senderName}}</div>
+                  <div class="col-sm-6"><label>Sender account number</label></div>
+                  <div class="col-sm-6">{{p.senderBankAccNumber}}</div>
+                  <div class="col-sm-6"><label>Receiver name</label></div>
+                  <div class="col-sm-6">{{p.receiverName}}</div>
+                  <div class="col-sm-6"><label>Receiver account number</label></div>
+                  <div class="col-sm-6">{{p.receiverBankAccNumber}}</div>
+                  <div class="col-sm-12">
+                    <br>
+                    <button type="reset" class="btn btn-sm btn-danger pull-right" (click)="signPayment(p.id)">
+                      Sign payment
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+        <tab>
+          <ng-template tabHeading><span (click)="getPayments('Signed')"> Signed &nbsp;<span
+            class="badge badge-pill badge-danger">29</span></span></ng-template>
+          <h4>Signed payments.</h4>
+          <div class="payment-overview-row" *ngFor="let p of payments">
+            <div class="row " (click)="p.showDetails = !p.showDetails">
+
+              <div class="col-sm-2">
+                <h5>{{p.date | date: 'dd.MM.yyyy'}}</h5>
+              </div>
+              <div class="col-sm-6">
+                <h3>{{p.purpose}}</h3>
+                <label>Receiver number: {{p.receiverBankAccNumber}}</label>
+              </div>
+              <div class="col-sm-4 t-a-r">
+                <h3>{{p.amount}}</h3>
+              </div>
+
+              <div [hidden]="!p.showDetails" class="col-sm-12 payment-overview-row-details">
+                <div class="row">
+                  <div class="col-sm-6"><label>Payment type</label></div>
+                  <div class="col-sm-6">{{p.type}}</div>
                   <div class="col-sm-6"><label>Sender name</label></div>
                   <div class="col-sm-6">{{p.senderName}}</div>
                   <div class="col-sm-6"><label>Sender account number</label></div>
@@ -37,14 +79,43 @@
               </div>
             </div>
           </div>
+        </tab>
+        <tab >
+          <ng-template tabHeading><span (click)="getPayments('Cancelled')"> Cancelled <span
+            class="badge badge-pill badge-danger">29</span></span></ng-template>
+          <h4>Cancelled payments.</h4>
+          <div class="payment-overview-row" *ngFor="let p of payments">
+            <div class="row " (click)="p.showDetails = !p.showDetails">
 
+              <div class="col-sm-2">
+                <h5>{{p.date | date: 'dd.MM.yyyy'}}</h5>
+              </div>
+              <div class="col-sm-6">
+                <h3>{{p.purpose}}</h3>
+                <label>Receiver number: {{p.receiverBankAccNumber}}</label>
+              </div>
+              <div class="col-sm-4 t-a-r">
+                <h3>{{p.amount}}</h3>
+              </div>
+
+              <div [hidden]="!p.showDetails" class="col-sm-12 payment-overview-row-details">
+                <div class="row">
+                  <div class="col-sm-6"><label>Payment type</label></div>
+                  <div class="col-sm-6">{{p.type}}</div>
+                  <div class="col-sm-6"><label>Sender name</label></div>
+                  <div class="col-sm-6">{{p.senderName}}</div>
+                  <div class="col-sm-6"><label>Sender account number</label></div>
+                  <div class="col-sm-6">{{p.senderBankAccNumber}}</div>
+                  <div class="col-sm-6"><label>Receiver name</label></div>
+                  <div class="col-sm-6">{{p.receiverName}}</div>
+                  <div class="col-sm-6"><label>Receiver account number</label></div>
+                  <div class="col-sm-6">{{p.receiverBankAccNumber}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </tab>
-        <tab>
-          <ng-template tabHeading> Signed &nbsp;<span class="badge badge-pill badge-danger">29</span></ng-template>
-        </tab>
-        <tab>
-          <ng-template tabHeading> Cancelled <span class="badge badge-pill badge-danger">29</span></ng-template>
-        </tab>
+
       </tabset>
     </div>
   </div>

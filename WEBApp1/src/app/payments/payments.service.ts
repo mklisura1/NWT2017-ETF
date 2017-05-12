@@ -26,7 +26,7 @@ export class PaymentsService {
   }
 
   insertPayment(payment): Observable<any>{
-    let body = JSON.stringify({payment: payment});
+    let body = JSON.stringify(payment);
     return this.http.post(this.apiUrl, body)
       .map( response => response.json())
       .catch(this.handleError);
@@ -45,4 +45,10 @@ export class PaymentsService {
       .catch(this.handleError)
   }
 
+  signPayment(id: any) {
+    let url = this.apiUrl + "/{id}/sign";
+    return this.http.put(url.replace('{id}', id), {})
+      .map(response => response.json())
+      .catch(this.handleError)
+  }
 }

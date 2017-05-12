@@ -137,7 +137,7 @@
         </div>
         <div [hidden]="internalTempObj.step !== 'step2'" class="card-footer">
           <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="submitPayment()"><i
-            class="icon-arrow-right"></i> Validate
+            class="icon-arrow-right"></i> Submit
           </button>
           <button type="reset" class="btn btn-sm btn-info" (click)="back()"><i class="icon-arrow-left"></i> Back
           </button>
@@ -162,8 +162,12 @@
           <button type="reset" class="btn btn-sm btn-danger" (click)="newPayment()"><i class="icon-plus"></i> New
             payment
           </button>
+
           <button type="reset" class="btn btn-sm btn-danger pull-right" (click)="showPayments()">
             <i class="fa-navicon"></i> Show all payments
+          </button>
+          <button type="reset" class="btn btn-sm btn-danger pull-right" (click)="signPayment()">
+            <i class="fa-navicon"></i> Sign
           </button>
         </div>
         <!--STEP 3 END-->

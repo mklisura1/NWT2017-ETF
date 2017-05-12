@@ -16,8 +16,11 @@ export class InternalPaymentComponent implements OnInit {
     accountTo: {},
     accountFrom: {},
     accountCurrency: 'BAM',
-    amount: ''
+    amount: '',
+    userId: 1
   };
+
+  submittedPayment: any;
 
   showError: boolean = false;
 
@@ -90,15 +93,15 @@ export class InternalPaymentComponent implements OnInit {
   }
 
   createPayment(){
+    console.log("CREATE PAYMENT", this.internalTempObj);
     return {
       amount: this.internalTempObj.amount,
       userId: this.internalTempObj.userId,
       date: this.internalTempObj.date,
-      senderName: this.internalTempObj.accountFrom.name,
-      senderBankAccNumber: this.internalTempObj.accountFrom.number,
-      receiverName: this.internalTempObj.accountTo.name,
-      receiverBankAccNumber: this.internalTempObj.accountTo.number,
-      purpose: this.internalTempObj.purpose,
+      senderName: this.internalTempObj.accountFrom.accountName,
+      senderBankAccNumber: this.internalTempObj.accountFrom.accountNumber,
+      receiverName: this.internalTempObj.accountTo.accountName,
+      receiverBankAccNumber: this.internalTempObj.accountTo.accountNumber,
       type: 'InternalTransfer'
     }
   }
@@ -108,14 +111,27 @@ export class InternalPaymentComponent implements OnInit {
     this.paymentsService.insertPayment(payment)
       .subscribe(
         response =>{
-          if(response)
+          if(response){
             this.internalTempObj.step = 'step3';
+            this.submittedPayment = response;
+          }
         }
       )
 
   }
   confirmPayment() {
     //
+  }
+
+  signPayment(){
+    let id = this.submittedPayment.id;
+    this.paymentsService.signPayment(id)
+      .subscribe(
+        response =>{
+          if(response)
+            this.internalTempObj.step = 'step3';
+        }
+      )
   }
 
   open(){

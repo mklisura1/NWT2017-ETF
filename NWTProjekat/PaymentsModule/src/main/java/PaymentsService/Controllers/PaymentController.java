@@ -1,7 +1,9 @@
 package PaymentsService.Controllers;
 
 import PaymentsService.Models.PaymentModel;
+import PaymentsService.Models.PaymentTypeModel;
 import PaymentsService.Services.PaymentService;
+import PaymentsService.Services.PaymentTypeService;
 import PaymentsService.Templates.Transaction;
 
 import org.apache.log4j.LogManager;
@@ -25,7 +27,10 @@ public class PaymentController {
 
     @Autowired
     private PaymentService paymentService;
-    
+
+    @Autowired
+    private PaymentTypeService paymentTypeService;
+
 	@Autowired
     private DiscoveryClient discoveryClient;
 
@@ -53,7 +58,16 @@ public class PaymentController {
     @RequestMapping(method = RequestMethod.POST, produces="application/json")
     public Object insertPayment(@RequestBody PaymentModel payment) {
         logger.info("INSERT TO PAYMENTS");
+
+        PaymentTypeModel pType = paymentTypeService.findByPaymentTypeName(payment.getTypeDescription());
         PaymentModel p = new PaymentModel(payment);
+        if(pType.getPaymentTypeName().equals("InterniTransfer"))
+            p.setPurpose("Interni transfer");
+
+        p.setStatus("Waiting");
+
+        p.setType(pType);
+
         try {
             p = paymentService.insertPayment(p);
 
@@ -72,6 +86,26 @@ public class PaymentController {
         p.setId(id);
         try {
             p = paymentService.updatePayment(p);
+        } catch (Exception e) {
+            logger.error(e);
+            return e.getMessage();
+        }
+        return p;
+    }
+
+    @RequestMapping(value = "/{id}/sign", method = RequestMethod.PUT, produces="application/json")
+    public Object signPayment(@PathVariable long id) {
+        logger.info("Sign PAYMENT");
+        PaymentModel p;
+        try {
+            p = paymentService.getPaymentById(id);
+            if(p != null){
+                p.setStatus("Signed");
+                paymentService.updatePayment(p);
+                return p;
+            }
+            //p = paymentService.updatePayment(p);
+
         } catch (Exception e) {
             logger.error(e);
             return e.getMessage();

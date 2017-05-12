@@ -21,12 +21,12 @@ public class PaymentTypeService {
     @PostConstruct
     @Transactional
     public void populate() {
-        PaymentTypeModel p = new PaymentTypeModel("DomaciNalog");
-        paymentTypeRepository.saveAndFlush(p);
-        p = new PaymentTypeModel("InostraniNalog");
-        paymentTypeRepository.saveAndFlush(p);
-        p = new PaymentTypeModel("InterniTransfer");
-        paymentTypeRepository.saveAndFlush(p);
+//        PaymentTypeModel p = new PaymentTypeModel("DomaciNalog");
+//        paymentTypeRepository.saveAndFlush(p);
+//        p = new PaymentTypeModel("InostraniNalog");
+//        paymentTypeRepository.saveAndFlush(p);
+//        p = new PaymentTypeModel("InterniTransfer");
+//        paymentTypeRepository.saveAndFlush(p);
     }
 
     @Transactional(readOnly = true)
@@ -58,5 +58,10 @@ public class PaymentTypeService {
     @Transactional
     public void deletePaymentType(long id){
         paymentTypeRepository.delete(id);
+    }
+
+    @Transactional
+    public PaymentTypeModel findByPaymentTypeName(String typeName){
+       return paymentTypeRepository.findByPaymentTypeName(typeName);
     }
 }

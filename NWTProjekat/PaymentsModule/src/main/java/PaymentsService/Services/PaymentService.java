@@ -2,6 +2,7 @@ package PaymentsService.Services;
 
 import PaymentsService.Models.PaymentModel;
 import PaymentsService.Repositories.PaymentRepository;
+import PaymentsService.Repositories.PaymentTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,43 +22,52 @@ public class PaymentService {
     @Autowired
     private PaymentRepository paymentRepository;
 
+    @Autowired
+    private PaymentTypeRepository paymentTypeRepository;
+
+
     @PostConstruct
     @Transactional
     public void populate() {
-        PaymentModel p = new PaymentModel();
-        p.setId(1);
-        p.setAmount(12.02);
-        p.setDate(new Date());
-        p.setPurpose("Probni nalog");
-        p.setReceiverBankAccNumber("123456");
-        p.setReceiverName("Haris Spahic");
-        p.setSenderBankAccNumber("654321");
-        p.setSenderName("Testni racun");
-        p.setType("1");
-        p.setTypeDescription("Tekuci racun");
-        paymentRepository.saveAndFlush(p);
-
-        p = new PaymentModel();
-        p.setId(1);
-        p.setAmount(4.02);
-        p.setDate(new Date());
-        p.setPurpose("Probni nalog");
-        p.setReceiverBankAccNumber("123456");
-        p.setReceiverName("Haris Spahic");
-        p.setSenderBankAccNumber("654321");
-        p.setSenderName("Testni racun");
-        p.setType("1");
-        p.setTypeDescription("Tekuci racun");
-        paymentRepository.saveAndFlush(p);
+//        PaymentModel p = new PaymentModel();
+//        p.setId(1);
+//        p.setAmount(12.02);
+//        p.setDate(new Date());
+//        p.setPurpose("Probni nalog");
+//        p.setReceiverBankAccNumber("123456");
+//        p.setReceiverName("Haris Spahic");
+//        p.setSenderBankAccNumber("654321");
+//        p.setSenderName("Testni racun");
+//        p.setType("1");
+//        p.setStatus("Waiting");
+//        p.setTypeDescription("Tekuci racun");
+//        paymentRepository.saveAndFlush(p);
+//
+//        p = new PaymentModel();
+//        p.setId(1);
+//        p.setAmount(4.02);
+//        p.setDate(new Date());
+//        p.setPurpose("Probni nalog");
+//        p.setReceiverBankAccNumber("123456");
+//        p.setReceiverName("Haris Spahic");
+//        p.setSenderBankAccNumber("654321");
+//        p.setSenderName("Testni racun");
+//        p.setType("1");
+//        p.setStatus("Signed");
+//
+//        p.setTypeDescription("Tekuci racun");
+//        paymentRepository.saveAndFlush(p);
     }
 
     @Transactional(readOnly = true)
-    public Page<PaymentModel> getAllPayments(Pageable p){
-        return paymentRepository.findAll(p);
+    public Page<PaymentModel> getAllPayments(Pageable p, String status){
+        if(status == null)
+            return paymentRepository.findAll(p);
+        return paymentRepository.findByStatus(p, status);
     }
 
     @Transactional
-    public Page<PaymentModel> getAllPaymentsForUser(Pageable pageable, Integer userId){
+    public Page<PaymentModel> getAllPaymentsForUser(Pageable pageable, Integer userId, String status){
         return paymentRepository.findByUserId(pageable, userId);
     }
 
@@ -101,5 +111,7 @@ public class PaymentService {
 //        //not finished yet
 //        return paymentRepository.findPaymentsByType(paymentType);
 //    }
+
+
 
 }
