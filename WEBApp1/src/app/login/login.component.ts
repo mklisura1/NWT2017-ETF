@@ -14,7 +14,9 @@ export class LoginComponent {
 
   logIn(){
     this.submitted = true;
-    this.router.navigate(['/payments/internal']);
+
+    this.router.navigate(['/profile']);
+
     if(this.user.name && this.user.pass){
      this.submitted = false;
      this.user.name = '';
