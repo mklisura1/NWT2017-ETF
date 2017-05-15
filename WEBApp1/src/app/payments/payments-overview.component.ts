@@ -9,6 +9,7 @@ import {PaymentsService} from "./payments.service";
 export class PaymentsOverviewComponent implements OnInit {
 
   payments: any[];
+  selectedTab: string;
 
   constructor(private paymenstService: PaymentsService) { }
 
@@ -17,6 +18,7 @@ export class PaymentsOverviewComponent implements OnInit {
   }
 
   getPayments(status: string){
+    this.selectedTab = status;
     this.paymenstService.getPayments(status)
       .subscribe(response=>{
         if(response.content){
@@ -30,6 +32,17 @@ export class PaymentsOverviewComponent implements OnInit {
       .subscribe(response=>{
         if(response.content){
           //TODO: show Popup message
+          this.getPayments(this.selectedTab);
+        }
+      })
+  }
+
+  deletePayment(id): void{
+    this.paymenstService.deletePayment(id)
+      .subscribe(response=>{
+        if(response.message){
+          //TODO: show Popup message
+          this.getPayments(this.selectedTab);
         }
       })
   }

@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
  * Created by Hare on 21.03.2017..
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(value = "/api/payments")
 public class PaymentController {
     static final org.apache.log4j.Logger logger = LogManager.getLogger(PaymentController.class.getName());
@@ -114,7 +114,7 @@ public class PaymentController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces="application/json")
-    public String deletePaymentById(@PathVariable long id) {
+    public Object deletePaymentById(@PathVariable long id) {
         logger.info("DELETE PAYMENT BY ID: " + id);
 
         try {
@@ -124,7 +124,7 @@ public class PaymentController {
             return e.getMessage();
         }
 
-        return "Payment successfully deleted!";
+        return new StringResponse("Payment successfully deleted!");
 
     }
     
@@ -170,4 +170,20 @@ public class PaymentController {
 		return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
 	}
 
+}
+
+
+class StringResponse{
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    private String message;
+    public StringResponse(String s) {
+        this.message = s;
+    }
 }

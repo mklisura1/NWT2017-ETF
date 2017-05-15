@@ -36,6 +36,9 @@
                   <div class="col-sm-6">{{p.receiverBankAccNumber}}</div>
                   <div class="col-sm-12">
                     <br>
+                    <button type="reset" class="btn btn-sm btn-danger" (click)="deletePayment(p.id)">
+                      Delete payment
+                    </button>
                     <button type="reset" class="btn btn-sm btn-danger pull-right" (click)="signPayment(p.id)">
                       Sign payment
                     </button>

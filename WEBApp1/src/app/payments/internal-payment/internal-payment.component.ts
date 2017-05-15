@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AccountsService} from "../../accounts/accounts.service";
 import {PaymentsService} from "../payments.service";
+import {Router} from "@angular/router";
 
 @Component({
   // selector: 'app-internal-payment',
@@ -29,13 +30,14 @@ export class InternalPaymentComponent implements OnInit {
 
   accountsList: any[];
   constructor(private accountsService: AccountsService,
-  private paymentsService: PaymentsService) {
-    this.getAccounts();
+  private paymentsService: PaymentsService,
+  private router: Router) {
+    //this.getAccounts();
   }
 
   ngOnInit() {
 
-    this.getAccounts();
+    //this.getAccounts();
     this.accountsList = [
       {
         accountNumber: "BA121234330923",
@@ -102,7 +104,7 @@ export class InternalPaymentComponent implements OnInit {
       senderBankAccNumber: this.internalTempObj.accountFrom.accountNumber,
       receiverName: this.internalTempObj.accountTo.accountName,
       receiverBankAccNumber: this.internalTempObj.accountTo.accountNumber,
-      type: 'InternalTransfer'
+      typeDescription: 'InterniTransfer'
     }
   }
 
@@ -123,13 +125,16 @@ export class InternalPaymentComponent implements OnInit {
     //
   }
 
+  showSuccessButton: boolean = false;
+
   signPayment(){
     let id = this.submittedPayment.id;
     this.paymentsService.signPayment(id)
       .subscribe(
         response =>{
-          if(response)
-            this.internalTempObj.step = 'step3';
+          if(response && response.status === 'Signed'){
+            this.showSuccessButton = true;
+          }
         }
       )
   }
@@ -147,6 +152,10 @@ export class InternalPaymentComponent implements OnInit {
   onSelectionDone(event) {
     //this.internalTempObj.date = event;
     this.showDatePicker = false;
+  }
+
+  showPayments(){
+    this.router.navigate(['/payments/all']);
   }
 
 }
