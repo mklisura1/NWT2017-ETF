@@ -56,7 +56,7 @@
     .switch-label::after {
       position: absolute;
       top: 50%;
-      width: 50%;
+      width: 5%;
       margin-top: -.5em;
       line-height: 1;
       text-align: center;
@@ -64,6 +64,7 @@
     }
     .switch-label::before {
       right: 1px;
+      width: 95%;
       color: $gray-lighter;
       content: attr(data-off);
     }
@@ -221,11 +222,11 @@ $switch-xs-height: 16px;
 $switch-xs-font-size: 7px;
 
 
-$switch-text-lg-width: 56px;
+$switch-text-lg-width: 136px;
 $switch-text-lg-height: 28px;
 $switch-text-lg-font-size: 12px;
 
-$switch-text-width: 48px;
+$switch-text-width: 108px;
 $switch-text-height: 24px;
 $switch-text-font-size: 10px;
 

@@ -11,6 +11,13 @@
   
   
   For now thats enough.
+  
+ # Additional
+ Create module using command:
+ * `ng g module {module-name} --routing`
+ 
+ Create component using command
+ * `ng g component {component-name} --spec false`
  
 # Angular2DevelopmentCLI
 

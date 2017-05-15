@@ -19,6 +19,7 @@ import { AppRoutingModule } from './app.routing';
 import { FullLayoutComponent } from './layouts/full-layout.component';
 import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 import {Http, HttpModule} from "@angular/http";
+import {UserService} from "./services/user.service";
 
 @NgModule({
   imports: [
@@ -41,7 +42,7 @@ import {Http, HttpModule} from "@angular/http";
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }],
+  },UserService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

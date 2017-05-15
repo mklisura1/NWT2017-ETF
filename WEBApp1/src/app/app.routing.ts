@@ -41,19 +41,10 @@ export const routes: Routes = [
       {
         path: 'payments',
         loadChildren: './payments/payments.module#PaymentsModule',
-      }
-    ]
-  },
-  {
-    path: 'payments',
-    component: FullLayoutComponent,
-    data: {
-      title: 'Payment'
-    },
-    children: [
+      },
       {
-        path: 'payments',
-        loadChildren: './payments/payments.module#PaymentsModule',
+        path: 'profile',
+        loadChildren: './profile/profile.module#ProfileModule',
       }
     ]
   },
