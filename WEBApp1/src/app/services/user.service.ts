@@ -10,7 +10,7 @@ export class UserService {
   apiUrl: string;
 
   constructor(private http: Http) {
-    this.apiUrl = 'http://localhost:1102/api/payments';
+    this.apiUrl = 'http://localhost:1105/api/user';
   }
 
   private handleError(error: Response) {
@@ -31,13 +31,10 @@ export class UserService {
     }
   }
 
-  updatePayment(id, user): Observable<any>{
-    let body = JSON.stringify(user);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.put(this.apiUrl, body, options)
-      .map(response => response.json())
-      .catch(this.handleError)
+  public getAllUsers(){
+    return this.http.get(this.apiUrl)
+      .map( response => response.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
 

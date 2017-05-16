@@ -17,6 +17,7 @@ export class FullLayoutComponent implements OnInit {
 
   constructor(private router: Router){
     this.loggedUser = UserService.getUser();
+    this.loggedUser.isAdmin = true;
   }
 
   public toggleDropdown($event: MouseEvent): void {

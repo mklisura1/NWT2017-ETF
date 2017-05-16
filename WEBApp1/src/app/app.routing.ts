@@ -20,7 +20,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadChildren: './dashboard/dashboard.module#DashboardModule'
+        loadChildren: './pages/dashboard/dashboard.module#DashboardModule'
       },
       {
         path: 'components',
@@ -28,23 +28,27 @@ export const routes: Routes = [
       },
       {
         path: 'icons',
-        loadChildren: './icons/icons.module#IconsModule'
+        loadChildren: './pages/icons/icons.module#IconsModule'
       },
       {
         path: 'widgets',
-        loadChildren: './widgets/widgets.module#WidgetsModule'
+        loadChildren: './pages/widgets/widgets.module#WidgetsModule'
       },
       {
         path: 'charts',
-        loadChildren: './chartjs/chartjs.module#ChartJSModule'
+        loadChildren: './pages/chartjs/chartjs.module#ChartJSModule'
       },
       {
         path: 'payments',
-        loadChildren: './payments/payments.module#PaymentsModule',
+        loadChildren: './pages/payments/payments.module#PaymentsModule',
       },
       {
         path: 'profile',
-        loadChildren: './profile/profile.module#ProfileModule',
+        loadChildren: './pages/profile/profile.module#ProfileModule',
+      },
+      {
+        path: 'users',
+        loadChildren: './pages/users/users.module#UsersModule',
       }
     ]
   },
@@ -70,7 +74,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './login/login.module#LoginModule',
+        loadChildren: './pages/login/login.module#LoginModule',
       }
     ]
   }

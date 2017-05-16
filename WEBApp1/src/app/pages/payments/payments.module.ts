@@ -6,7 +6,7 @@ import { InternationalPaymentComponent } from './international-payment/internati
 import {PaymentsOverviewComponent} from "./payments-overview.component";
 import {InternalPaymentComponent} from "./internal-payment/internal-payment.component";
 import {FormsModule} from "@angular/forms";
-import {AccountsListComponent} from "../components/accounts-list/accounts-list.component";
+import {AccountsListComponent} from "../../components/accounts-list/accounts-list.component";
 import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaymentsService } from './payments.service';
 import {AccountsService} from "../accounts/accounts.service";
