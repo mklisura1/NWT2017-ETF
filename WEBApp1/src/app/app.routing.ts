@@ -43,6 +43,10 @@ export const routes: Routes = [
         loadChildren: './pages/payments/payments.module#PaymentsModule',
       },
       {
+        path: 'transactions',
+        loadChildren: './pages/transactions/transactions.module#TransactionsModule',
+      },
+      {
         path: 'profile',
         loadChildren: './pages/profile/profile.module#ProfileModule',
       },

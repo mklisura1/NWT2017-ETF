@@ -12,7 +12,7 @@ import {FormsModule} from "@angular/forms";
   declarations: [
     P404Component,
     P500Component,
-    RegisterComponent
+    RegisterComponent,
   ]
 })
 export class PagesModule { }

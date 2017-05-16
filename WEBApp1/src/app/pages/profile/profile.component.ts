@@ -15,8 +15,8 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  showDatePicker: boolean = false;
-
+  showDatePicker:
+  boolean = false;
   ngOnInit() {
 
   }
