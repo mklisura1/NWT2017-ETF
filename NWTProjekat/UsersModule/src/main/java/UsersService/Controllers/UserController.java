@@ -51,11 +51,19 @@ public class UserController
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getUser(@PathVariable("id") Integer id) {
         System.out.println("Fetching User with id " + id);
+        
+        
+        //Long _id = Long.valueOf(id);
+        
+        //Long _id = id.longValue();
+        
+        
         User user = userService.getUserById(id);
         if (user == null) {
             System.out.println("User with id " + id + " not found");
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
+        System.out.println("Fetched User with id " + id);
 
         //Komunikacija sa Payments servisom
         List<PaymentModel> payments = userService.getPayments(id);
@@ -73,6 +81,9 @@ public class UserController
     @RequestMapping(value = "/user/{id}/account", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getBankAccountOwnerByUserId(@PathVariable("id") Integer id) {
         System.out.println("Fetching User with id " + id);
+        
+        //Long _id = new Long(id);
+        
         User user = userService.getUserById(id);
         if (user == null) {
             System.out.println("User with id " + id + " not found");
@@ -85,6 +96,9 @@ public class UserController
     
     @RequestMapping(value = "/user/{id}/template", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Template>> getTemplatesByUserId(@PathVariable("id") Integer id) {
+    	
+    	//Long _id = new Long(id);
+    	
         User user = userService.getUserById(id);
         if (user == null) {
             System.out.println("User with id " + id + " not found");
@@ -129,19 +143,19 @@ public class UserController
         System.out.println("Creating User " + user.getFirst_name());
  
         if (userService.isUserExist(user)) {
-            System.out.println("A User with id " + user.getUser_id() + " already exist");
+            System.out.println("A User with id " + user.getId() + " already exist");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
         
-        if (userService.isUserExistByUsername(user.getUser_name())) {
-            System.out.println("A User with user name " + user.getUser_name() + " already exist");
+        if (userService.isUserExistByUsername(user.getUsername())) {
+            System.out.println("A User with user name " + user.getUsername() + " already exist");
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
         
         userService.saveUser(user);
  
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getUser_id()).toUri());
+        headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
  
@@ -151,6 +165,8 @@ public class UserController
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
         System.out.println("Updating User " + id);
+        
+        //Long _id = new Long(id);
          
         User currentUser = userService.getUserById(id);
          
@@ -172,6 +188,8 @@ public class UserController
     public ResponseEntity<User> deleteUser(@PathVariable("id") Integer id) {
         System.out.println("Fetching & Deleting User with id " + id);
  
+        //Long _id = new Long(id);
+        
         User user = userService.getUserById(id);
         if (user == null) {
             System.out.println("Unable to delete. User with id " + id + " not found");
@@ -188,16 +206,17 @@ public class UserController
     @RequestMapping(value = "/user/", method = RequestMethod.DELETE)
     public ResponseEntity<User> deleteAllUsers() {
         System.out.println("Deleting All Users");
- 
+        /*
         for(User item: userService.listAllUsers())
         {
-        	userService.deleteUser(item.getUser_id());
+        	userService.deleteUser(item.getId());
         }
+        */
         return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
     }
     
     //------------------- Generate password salt and hash for User --------------------------------------------------------
-    
+/*    
     @RequestMapping(value = "/user/{id}/generate/{user_name}/{password}", method = RequestMethod.POST)
     public ResponseEntity<Void> registerUser(@PathVariable("id") Integer id, @PathVariable("user_name") String user_name, @PathVariable("password") String password) { 
     	
@@ -259,4 +278,5 @@ public class UserController
     		return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
     	}
     }
+*/
 }

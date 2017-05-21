@@ -24,6 +24,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -39,6 +40,11 @@ public class UserServiceImpl implements UserService
 	private LoadBalancerClient loadBalancer;
 
 	private RestTemplate restTemplate = new RestTemplate();
+	
+	@Override
+    public Optional<User> getByUsername(String username) {
+        return this.userRepository.findByUsername(username);
+    }
 
 	@Override
     public Iterable<User> listAllUsers() 
@@ -48,7 +54,7 @@ public class UserServiceImpl implements UserService
     
     public boolean isUserExist(User user) 
     {
-    	return userRepository.exists(user.getUser_id());
+    	return true;//userRepository.exists(user.getId());
     }
     
     public boolean isUserExistByUsername(String user_name)
@@ -58,7 +64,7 @@ public class UserServiceImpl implements UserService
     	
     	for(User item : users)
     	{
-    		if(item.getUser_name().equals(user_name)) 
+    		if(item.getUsername().equals(user_name)) 
     		{
     			postoji = true;
     			break;
@@ -70,6 +76,7 @@ public class UserServiceImpl implements UserService
     @Override
     public User getUserById(Integer id) 
     {
+    	//Integer _id = (int)(long) id;
         return userRepository.findOne(id);
     }
     
@@ -81,7 +88,7 @@ public class UserServiceImpl implements UserService
     	
     	for(User item : users)
     	{
-    		if(item.getUser_name().equals(user_name)) 
+    		if(item.getUsername().equals(user_name)) 
     		{
     			user = item;
     			break;
@@ -104,6 +111,7 @@ public class UserServiceImpl implements UserService
     @Override
     public void deleteUser(Integer id) 
     {
+    	//Integer _id = (int)(long) id;
         userRepository.delete(id);
     }
     

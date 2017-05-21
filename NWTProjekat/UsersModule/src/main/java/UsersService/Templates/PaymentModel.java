@@ -1,38 +1,45 @@
 package UsersService.Templates;
 
+
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by Hare on 21.03.2017..
- */
-@Entity
-@Table(name = "payments")
 public class PaymentModel {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "payment_id", unique = true, nullable = false)
     private long id;
 
-    @Column(name = "amount", nullable = false)
+    
     private double amount;
-    @Column(name = "user_id", nullable = false)
+    
     private int userId;
-    @Column(name = "payment_date", nullable = false)
+    
     private Date date;
-    @Column(name = "sender_name", nullable = false)
+    
     private String senderName;
-    @Column(name = "sneder_bank_acc_num", nullable = false)
+    
     private String senderBankAccNumber;
-    @Column(name = "receiver_name", nullable = false)
+    
     private String receiverName;
-    @Column(name = "receiver_bank_acc_num", nullable = false)
+    
     private String receiverBankAccNumber;
-    @Column(name = "payment_purpose", nullable = false)
+    
     private String purpose;
-    @Column(name = "payment_type", nullable = false)
-    private String type;
+
+    private Object type;
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    
+    private String status;
 
     private String typeDescription;
 
@@ -52,7 +59,10 @@ public class PaymentModel {
         this.receiverName = payment.receiverName;
         this.receiverBankAccNumber = payment.receiverBankAccNumber;
         this.purpose = payment.purpose;
+        Object pType = new Object();
+
         this.type = payment.type;
+        this.status = payment.status;
         this.typeDescription = payment.typeDescription;
     }
 
@@ -111,15 +121,15 @@ public class PaymentModel {
     public void setPurpose(String purpose) {
         this.purpose = purpose;
     }
-
+/*
     public String getType() {
-        return type;
+        return type.getPaymentTypeName();
     }
 
-    public void setType(String type) {
+    public void setType(PaymentTypeModel type) {
         this.type = type;
     }
-
+*/
     public String getTypeDescription() {
         return typeDescription;
     }

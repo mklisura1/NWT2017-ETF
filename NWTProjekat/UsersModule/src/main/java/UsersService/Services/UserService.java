@@ -7,10 +7,13 @@ import UsersService.Templates.PaymentModel;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface UserService 
 {
+	public Optional<User> getByUsername(String username);
+	
     Iterable<User> listAllUsers();
     
     boolean isUserExist(User user);
