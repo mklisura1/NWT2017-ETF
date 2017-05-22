@@ -18,8 +18,10 @@ import { AppRoutingModule } from './app.routing';
 // Layouts
 import { FullLayoutComponent } from './layouts/full-layout.component';
 import { SimpleLayoutComponent } from './layouts/simple-layout.component';
-import {Http, HttpModule} from "@angular/http";
+import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {UserService} from "./services/user.service";
+import {AuthenticationService} from "./services/authentication.service";
+import {httpFactory} from "./services/http-factory.service";
 
 @NgModule({
   imports: [
@@ -40,9 +42,13 @@ import {UserService} from "./services/user.service";
     AsideToggleDirective
   ],
   providers: [{
+      provide: Http,
+      useFactory: httpFactory,
+      deps: [XHRBackend, RequestOptions]
+  },{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  },UserService],
+  },UserService, AuthenticationService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
