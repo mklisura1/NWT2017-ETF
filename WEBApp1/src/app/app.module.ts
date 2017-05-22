@@ -22,6 +22,7 @@ import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {UserService} from "./services/user.service";
 import {AuthenticationService} from "./services/authentication.service";
 import {httpFactory} from "./services/http-factory.service";
+import {AuthenticationGuard} from "./services/authentication.guard";
 
 @NgModule({
   imports: [
@@ -48,7 +49,7 @@ import {httpFactory} from "./services/http-factory.service";
   },{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  },UserService, AuthenticationService],
+  },UserService, AuthenticationService, AuthenticationGuard],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

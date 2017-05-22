@@ -10,16 +10,21 @@ export class FullLayoutComponent implements OnInit {
 
   public disabled = false;
   public status: {isopen: boolean} = {isopen: false};
-  loggedUser: any;
+  loggedUser: any = {};
   public toggled(open: boolean): void {
     console.log('Dropdown is now: ', open);
   }
 
-  constructor(private router: Router){
-    this.loggedUser = UserService.getUser();
-    this.loggedUser.isAdmin = true;
+  constructor(private router: Router, private userService: UserService){
+    this.getUser();
   }
 
+  getUser(){
+    this.userService.getUser(JSON.parse(localStorage.getItem('tokenData')).userid)
+      .subscribe(data => {
+        this.loggedUser = data;
+      })
+  }
   public toggleDropdown($event: MouseEvent): void {
     $event.preventDefault();
     $event.stopPropagation();
@@ -29,6 +34,8 @@ export class FullLayoutComponent implements OnInit {
   ngOnInit(): void {}
 
   logout(){
+    localStorage.removeItem('loggedUser');
+    localStorage.removeItem('tokenData');
     this.router.navigate(['/login']);
   }
 }

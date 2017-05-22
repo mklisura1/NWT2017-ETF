@@ -9,9 +9,9 @@ import {UserService} from "../../services/user.service";
 export class ProfileComponent implements OnInit {
 
   editableForm: boolean = false;
-  user: any;
-  constructor() {
-    this.user = UserService.getUser();
+  user: any = {};
+  constructor(private userService: UserService) {
+    this.getUser();
 
   }
 
@@ -19,6 +19,18 @@ export class ProfileComponent implements OnInit {
   boolean = false;
   ngOnInit() {
 
+  }
+
+  getUser(){
+    if(!localStorage.getItem('tokenData'))
+      return;
+
+    this.userService.getUser(JSON.parse(localStorage.getItem('tokenData')).userid)
+      .subscribe( data=> {
+        console.log("USER DATA", data);
+        localStorage.setItem('loggedUser', JSON.stringify(data));
+        this.user = data;
+      })
   }
 
   changeForm(){

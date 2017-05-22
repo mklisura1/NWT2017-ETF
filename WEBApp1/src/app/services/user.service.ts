@@ -18,23 +18,16 @@ export class UserService {
     return Observable.throw(error.json() || 'Server error');
   }
 
-  public static getUser(){
-    return {
-      firstName: 'Haris',
-      lastName: 'Spahic',
-      userId: 12345,
-      phoneNumber: '061578181',
-      address: 'Ulica krhandziluk 21b',
-      jmbg: '19812312312',
-      email: 'spahaa@gmail.com',
-      birthDate: new Date()
-    }
+  public getUser(id): Observable<any> {
+    return this.http.get(this.apiUrl + "/{id}/account".replace('{id}', id))
+      .map( response => response.json())
+      .catch((error: any) => Observable.throw('Server error'));
   }
 
   public getAllUsers(){
     return this.http.get(this.apiUrl)
       .map( response => response.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error: any) => Observable.throw('Server error'));
   }
 
 

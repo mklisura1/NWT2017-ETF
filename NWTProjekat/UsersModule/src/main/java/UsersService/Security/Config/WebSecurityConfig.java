@@ -28,6 +28,9 @@ import UsersService.Security.Auth.Jwt.JwtAuthenticationProvider;
 import UsersService.Security.Auth.Jwt.JwtTokenAuthenticationProcessingFilter;
 import UsersService.Security.Auth.Jwt.SkipPathRequestMatcher;
 import UsersService.Security.Auth.Jwt.Extractor.TokenExtractor;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -79,6 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().and()
         .csrf().disable() // We don't need CSRF for JWT based authentication
         .exceptionHandling()
         .authenticationEntryPoint(this.authenticationEntryPoint)
@@ -99,4 +103,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .addFilterBefore(buildAjaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "OPTIONS", "DELETE"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
+
+

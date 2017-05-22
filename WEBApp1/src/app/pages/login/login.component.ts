@@ -23,21 +23,19 @@ export class LoginComponent {
     logIn() {
         this.submitted = true;
 
-
-
         if (this.user.name && this.user.pass) {
-            this.submitted = false;
+
             this.authService.getToken(this.user)
                 .subscribe(
                     response => {
                         if(response.token){
+                            this.submitted = false;
                             localStorage.setItem('tokenData', JSON.stringify(response));
                             this.router.navigate(['/profile']);
                         }
                     }
-                )
-            this.user.name = '';
-            this.user.pass = '';
+                );
+
         }
     }
 

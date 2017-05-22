@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers} from "@angular/http";
 import {Observable} from "rxjs/Rx";
+import {Router} from "@angular/router";
 // import {environment} from "../../environments/environment";
 
 @Injectable()
 export class HttpInterceptorService extends Http{
 
+  private router: Router;
     constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
         super(backend, defaultOptions);
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-
         return super.request(url, options);
     }
 
@@ -50,7 +51,6 @@ export class HttpInterceptorService extends Http{
 
         if(localStorage.getItem('tokenData')){
             let tokenData = JSON.parse(localStorage.getItem('tokenData'));
-            console.log("TOKEN DATA", tokenData);
             options.headers.append('X-Authorization', 'Bearer ' + tokenData.token.toString())
         }
 

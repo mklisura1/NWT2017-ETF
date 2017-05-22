@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import UsersService.Security.Auth.JwtAuthenticationToken;
 import UsersService.Security.Config.JwtSettings;
 import UsersService.Security.Model.UserContext;
-import UsersService.Security.Model.Token.JwtToken;
 import UsersService.Security.Model.Token.RawAccessJwtToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -40,7 +39,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
                 .map(authority -> new SimpleGrantedAuthority(authority))
                 .collect(Collectors.toList());
         
-        UserContext context = UserContext.create(subject, authorities);
+        UserContext context = UserContext.create(subject, authorities, null);
         
         return new JwtAuthenticationToken(context, context.getAuthorities());
     }

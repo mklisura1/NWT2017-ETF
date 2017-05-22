@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 // Layouts
 import { FullLayoutComponent } from './layouts/full-layout.component';
 import { SimpleLayoutComponent } from './layouts/simple-layout.component';
+import {AuthenticationGuard} from "./services/authentication.guard";
 
 export const routes: Routes = [
   {
@@ -54,7 +55,8 @@ export const routes: Routes = [
         path: 'users',
         loadChildren: './pages/users/users.module#UsersModule',
       }
-    ]
+    ],
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'pages',

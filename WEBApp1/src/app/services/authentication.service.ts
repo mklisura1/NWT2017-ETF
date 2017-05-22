@@ -20,7 +20,12 @@ export class AuthenticationService {
             headers: headers
         })
             .map( response => response.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error: any) => Observable.throw('Server error'));
 
     }
+
+  isAuthenticated(): boolean {
+    console.log("tokenData", localStorage.getItem('tokenData'));
+    return !!localStorage.getItem('tokenData');
+  }
 }
