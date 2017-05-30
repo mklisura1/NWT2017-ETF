@@ -1,8 +1,15 @@
 package UsersService.Security.Config;
 
-import java.util.Arrays;
-import java.util.List;
-
+import UsersService.Security.Auth.Ajax.AjaxAuthenticationProvider;
+import UsersService.Security.Auth.Ajax.AjaxAwareAuthenticationFailureHandler;
+import UsersService.Security.Auth.Ajax.AjaxAwareAuthenticationSuccessHandler;
+import UsersService.Security.Auth.Ajax.AjaxLoginProcessingFilter;
+import UsersService.Security.Auth.Jwt.Extractor.TokenExtractor;
+import UsersService.Security.Auth.Jwt.JwtAuthenticationProvider;
+import UsersService.Security.Auth.Jwt.JwtTokenAuthenticationProcessingFilter;
+import UsersService.Security.Auth.Jwt.SkipPathRequestMatcher;
+import UsersService.Security.RestAuthenticationEntryPoint;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,25 +19,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import UsersService.Security.RestAuthenticationEntryPoint;
-import UsersService.Security.Auth.Ajax.AjaxAuthenticationProvider;
-import UsersService.Security.Auth.Ajax.AjaxAwareAuthenticationFailureHandler;
-import UsersService.Security.Auth.Ajax.AjaxAwareAuthenticationSuccessHandler;
-import UsersService.Security.Auth.Ajax.AjaxLoginProcessingFilter;
-import UsersService.Security.Auth.Jwt.JwtAuthenticationProvider;
-import UsersService.Security.Auth.Jwt.JwtTokenAuthenticationProcessingFilter;
-import UsersService.Security.Auth.Jwt.SkipPathRequestMatcher;
-import UsersService.Security.Auth.Jwt.Extractor.TokenExtractor;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -39,7 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String FORM_BASED_LOGIN_ENTRY_POINT = "/api/auth/login";
     public static final String TOKEN_BASED_AUTH_ENTRY_POINT = "/api/**";
     public static final String TOKEN_REFRESH_ENTRY_POINT = "/api/auth/token";
-    
+    public static final String USERNAME_RESET_ENTRY_POINT = "/api/user/*/resetPassword";
+
     @Autowired private RestAuthenticationEntryPoint authenticationEntryPoint;
     @Autowired private AjaxAwareAuthenticationSuccessHandler successHandler;
     @Autowired private AjaxAwareAuthenticationFailureHandler failureHandler;
@@ -59,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     
     protected JwtTokenAuthenticationProcessingFilter buildJwtTokenAuthenticationProcessingFilter() throws Exception {
-        List<String> pathsToSkip = Arrays.asList(TOKEN_REFRESH_ENTRY_POINT, FORM_BASED_LOGIN_ENTRY_POINT);
+        List<String> pathsToSkip = Arrays.asList(TOKEN_REFRESH_ENTRY_POINT, FORM_BASED_LOGIN_ENTRY_POINT, USERNAME_RESET_ENTRY_POINT);
         SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip, TOKEN_BASED_AUTH_ENTRY_POINT);
         JwtTokenAuthenticationProcessingFilter filter 
             = new JwtTokenAuthenticationProcessingFilter(failureHandler, tokenExtractor, matcher);
@@ -96,6 +92,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(FORM_BASED_LOGIN_ENTRY_POINT).permitAll() // Login end-point
                 .antMatchers(TOKEN_REFRESH_ENTRY_POINT).permitAll() // Token refresh end-point
                 .antMatchers("/console").permitAll() // H2 Console Dash-board - only for testing
+                .antMatchers(USERNAME_RESET_ENTRY_POINT).permitAll() // RESET username via mail
         .and()
             .authorizeRequests()
                 .antMatchers(TOKEN_BASED_AUTH_ENTRY_POINT).authenticated() // Protected API End-points

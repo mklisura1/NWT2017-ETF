@@ -49,7 +49,7 @@ CREATE TABLE `app_user` (
 LOCK TABLES `app_user` WRITE;
 /*!40000 ALTER TABLE `app_user` DISABLE KEYS */;
 INSERT INTO `app_user` VALUES (1,'Trg Solidarnosti','2004-04-04 00:00:00','mujomujic@gmail.com','Mujo','123123123','Mujic','$2a$10$bnC26zz//2cavYoSCrlHdecWF8tkGfPodlHcYwlACBBwJvcEf0p2G','svlada3@gmail.com',1,1);
-INSERT INTO `app_user` VALUES (2,'Trg Solidarnosti','2004-04-04 00:00:00','hamohamic@gmail.com','Hamo','123123123','Hamic','$2a$10$bnC26zz//2cavYoSCrlHdecWF8tkGfPodlHcYwlACBBwJvcEf0p2G','hamoh',1,1);
+INSERT INTO `app_user` VALUES (2,'Trg Solidarnosti','2004-04-04 00:00:00','spahaa13@gmail.com','Hamo','123123123','Hamic','$2a$10$bnC26zz//2cavYoSCrlHdecWF8tkGfPodlHcYwlACBBwJvcEf0p2G','hamoh',1,1);
 
 /*!40000 ALTER TABLE `app_user` ENABLE KEYS */;
 UNLOCK TABLES;

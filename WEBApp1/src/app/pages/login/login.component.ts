@@ -62,6 +62,12 @@ export class LoginComponent {
 
     resetPassword() {
         if (this.usernameReset.length <= 0) return;
-        //call the microservice
+        this.userService.resetPassword(this.usernameReset)
+            .subscribe(data => {
+                this.helperService.showSuccess('Check your email!')
+            },
+            err =>{
+                this.helperService.showError('Unable to reset password. Try again!');
+            })
     }
 }

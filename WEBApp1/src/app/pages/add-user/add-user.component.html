@@ -5,7 +5,8 @@
                 <div class="card-block p-0 clearfix">
                     <i class="fa fa-cogs  p-4 font-2xl mr-3 float-left"
                        [ngClass]="{'bg-primary': addUser}"></i>
-                    <div class="h5 mb-0 pt-3" [ngClass]="{'text-primary': addUser}">New user</div>
+                    <div *ngIf="!editableUser" class="h5 mb-0 pt-3" [ngClass]="{'text-primary': addUser}">New user</div>
+                    <div *ngIf="editableUser" class="h5 mb-0 pt-3" [ngClass]="{'text-primary': editableUser}">Edit user</div>
 
                 </div>
             </div>
@@ -20,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="addUser" class="row justify-content-center">
+    <div *ngIf="addUser || editableUser" class="row justify-content-center">
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
@@ -94,8 +95,10 @@
                     </div><!--/.row-->
                 </div>
                 <div class="card-footer ">
-                    <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="submitUser();"><i class="fa fa-dot-circle-o"></i> Submit</button>
-                    <button type="reset" class="btn btn-sm btn-danger" (click)="clearForm();"><i class="fa fa-ban"></i> Reset</button>
+                    <button *ngIf="!editableUser" type="submit" class="btn btn-sm btn-primary pull-right" (click)="submitUser();"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                    <button *ngIf="!editableUser" type="reset" class="btn btn-sm btn-danger" (click)="clearForm();"><i class="fa fa-ban"></i> Reset</button>
+                    <button *ngIf="editableUser" type="reset" class="btn btn-sm btn-danger" (click)="removeUser(user.id);"><i class="fa fa-ban"></i> Delete</button>
+                    <button *ngIf="editableUser" type="reset" class="btn btn-sm btn-warning pull-right" (click)="updateUser();"><i class="fa fa-dot-circle-o"></i> Update</button>
                 </div>
             </div>
         </div><!--/.col-->
@@ -154,7 +157,7 @@
                     </td>
                     <td>
                         <!--<div class="small text-muted">Last login</div>-->
-                        <button class="btn btn-success btn-sm" type="button">Edit</button>
+                        <button class="btn btn-warning btn-sm" type="button" (click)="editUser(user);">Edit</button>
                         <button class="btn btn-danger btn-sm" type="button" (click)="removeUser(user.id);">Delete</button>
                     </td>
                 </tr>

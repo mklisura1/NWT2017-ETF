@@ -10,6 +10,7 @@ import {HelperService} from "../../services/helper.service";
 export class AddUserComponent implements OnInit {
 
     addUser = true;
+    editableUser = false;
     showBirthDatePicker = false;
     user = {
         first_name: '',
@@ -39,9 +40,43 @@ export class AddUserComponent implements OnInit {
     removeUser(id){
         this.userService.deleteUser(id)
             .subscribe(
-                response => {this.getAllUsers(); this.helperService.showSuccess('User successfully deleted!');},
+                response => {
+                    this.getAllUsers();
+                    this.helperService.showSuccess('User successfully deleted!');
+                    this.editableUser = false;
+                    this.addUser = false;
+                    this.clearForm();
+                    },
                 (err) => this.helperService.showError('Error while deleting user!')
             )
+    }
+    editUser(user){
+        this.user = user;
+        this.editableUser = true;
+        this.addUser = true;
+    }
+
+    updateUser(){
+        this.formSubmitted = true;
+        if(this.formValidation()){
+            this.userService.updateUser(this.user)
+                .subscribe(
+                    response => {
+                        console.log("update user", response);
+                        this.helperService.showSuccess('User is successfully updated!');
+                        this.clearForm();
+                        this.getAllUsers();
+                        this.addUser = false;
+                        this.editableUser = false;
+                    },
+                    (err) => {
+                        this.helperService.showError('Error while editing user!')
+
+                    }
+                )
+        }else{
+            this.helperService.showInfo('Please fill up form !')
+        }
     }
 
     clearForm(){
