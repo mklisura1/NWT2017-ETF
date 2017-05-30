@@ -20,7 +20,7 @@ export class AuthenticationService {
             headers: headers
         })
             .map( response => response.json())
-            .catch((error: any) => Observable.throw('Server error'));
+            .catch((error: any) => Observable.throw(error || 'Server error'));
 
     }
 

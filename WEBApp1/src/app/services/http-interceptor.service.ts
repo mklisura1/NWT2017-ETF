@@ -11,40 +11,15 @@ import {HelperService} from "./helper.service";
 @Injectable()
 export class HttpInterceptorService extends Http{
 
-  private router: Router;
   private helperService: HelperService;
-    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
+  _router: Router;
+    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private router: Router) {
         super(backend, defaultOptions);
+        this._router = router;
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-        return (super.request(url, options))
-            .map((res: Response) => {
-                console.log("RES");
-
-                if (res) {
-                    if (res.status === 201) {
-                        return [{ status: res.status, json: res }]
-                    }
-                    else if (res.status === 200) {
-                        return [{ status: res.status, json: res }]
-                    }
-                }
-            }).catch((error: any) => {
-                if (error.status === 500) {
-                    return Observable.throw(new Error(error.status));
-                }
-                else if (error.status === 400) {
-                    return Observable.throw(new Error(error.status));
-                }
-                else if (error.status === 409) {
-                    this.helperService.showError('Status code 409 error occurred!');
-                    return Observable.throw(new Error(error.status));
-                }
-                else if (error.status === 406) {
-                    return Observable.throw(new Error(error.status));
-                }
-            });
+        return this.intercept(super.request(url, options));
     }
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
@@ -89,16 +64,25 @@ export class HttpInterceptorService extends Http{
     }
 
 
-    intercept(observable: Observable<Response>): Observable<any> {
-        console.log("In the intercept routine..");
+    /**
+     * This method as the name sugests intercepts the request and checks if there are any errors.
+     * If an error is present it will be checked what error there is and if it is a general one then it will be handled here, otherwise, will be
+     * thrown up in the service layers
+     */
+    intercept(observable: Observable<Response>): Observable<Response> {
 
-        return observable
-            .map((res: Response) => res)
-            .catch((error: any) => {
-                this.helperService.showError('Error neki');
-                console.log("error neki");
-                return Observable.throw(error.statusText);
-            });
+        //  return observable;
+        return observable.catch((err, source) => {
+            console.log("INTEREPT", err, source);
+            if (err.status == 401) {
+                console.log("ROUTER", this._router);
+                //return observable;
+                return Observable.empty(err);
+            } else {
+                //return observable;
+                return Observable.throw(err);
+            }
+        });
     }
 }
 

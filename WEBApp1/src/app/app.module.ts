@@ -46,11 +46,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         SIDEBAR_TOGGLE_DIRECTIVES,
         AsideToggleDirective
     ],
-    providers: [{
+    providers: [
+        {
         provide: Http,
         useFactory: httpFactory,
         deps: [XHRBackend, RequestOptions]
-    }, {
+    },
+        {
         provide: LocationStrategy,
         useClass: HashLocationStrategy
     }, UserService, AuthenticationService, AuthenticationGuard, HelperService],

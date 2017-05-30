@@ -33,14 +33,16 @@ export class LoginComponent {
             this.authService.getToken(this.user)
                 .subscribe(
                     response => {
+                        console.log("GET TOKEN", response);
                         if (response.token) {
                             this.submitted = false;
                             localStorage.setItem('tokenData', JSON.stringify(response));
                             this.getUser();
                         }
                     },
-                    error => {
-                        this.helperService.showError('Login error occurred!');
+                    err => {
+                        console.log("error", err);
+                        this.helperService.showError('Login error occurred');
                         this.submitted = false;
                     }
                 );
