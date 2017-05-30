@@ -142,10 +142,10 @@ public class UserController
     public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
         System.out.println("Creating User " + user.getFirst_name());
  
-        if (userService.isUserExist(user)) {
-            System.out.println("A User with id " + user.getId() + " already exist");
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
+//        if (userService.isUserExist(user)) {
+//            System.out.println("A User with id " + user.getId() + " already exist");
+//            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+//        }
         
         if (userService.isUserExistByUsername(user.getUsername())) {
             System.out.println("A User with user name " + user.getUsername() + " already exist");

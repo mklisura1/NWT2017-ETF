@@ -35,9 +35,15 @@ export class UserService {
 
   insertUser(data): Observable<any>{
       return this.http.post(this.apiUrl, data)
-          .map((res:Response) => res.json())
+          .map((res:Response) => {console.log(res); res})
           .catch((error:any) => Observable.throw('Server error'));
   }
+
+    deleteUser(id): Observable<any>{
+        return this.http.delete(this.apiUrl + '/' + id)
+            .map((res:Response) => {console.log(res); res})
+            .catch((error:any) => Observable.throw('Server error'));
+    }
 
 
 

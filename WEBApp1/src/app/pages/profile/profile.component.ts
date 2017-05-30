@@ -22,15 +22,15 @@ export class ProfileComponent implements OnInit {
   }
 
   getUser(){
-    if(!localStorage.getItem('tokenData'))
-      return;
 
-    this.userService.getUser(JSON.parse(localStorage.getItem('tokenData')).userid)
-      .subscribe( data=> {
-        console.log("USER DATA", data);
-        localStorage.setItem('loggedUser', JSON.stringify(data));
-        this.user = data;
-      })
+    this.user = JSON.parse(localStorage.getItem('loggedUser'));
+
+    // this.userService.getUser(JSON.parse(localStorage.getItem('tokenData')).userid)
+    //   .subscribe( data=> {
+    //     console.log("USER DATA", data);
+    //     localStorage.setItem('loggedUser', JSON.stringify(data));
+    //     this.user = data;
+    //   })
   }
 
   changeForm(){

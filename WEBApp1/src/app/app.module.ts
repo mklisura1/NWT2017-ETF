@@ -25,6 +25,7 @@ import {httpFactory} from "./services/http-factory.service";
 import {AuthenticationGuard} from "./services/authentication.guard";
 import {HelperService} from "./services/helper.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {Router} from "@angular/router";
 
 @NgModule({
     imports: [
@@ -50,7 +51,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         {
         provide: Http,
         useFactory: httpFactory,
-        deps: [XHRBackend, RequestOptions]
+        deps: [XHRBackend, RequestOptions, Router, HelperService]
     },
         {
         provide: LocationStrategy,

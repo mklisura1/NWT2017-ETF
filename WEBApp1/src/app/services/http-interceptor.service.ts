@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers} from "@angular/http";
+import {Injectable} from '@angular/core';
+import {ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Router} from "@angular/router";
 import 'rxjs/add/operator/map';
@@ -9,13 +9,10 @@ import 'rxjs/add/operator/finally';
 import {HelperService} from "./helper.service";
 
 @Injectable()
-export class HttpInterceptorService extends Http{
+export class HttpInterceptorService extends Http {
 
-  private helperService: HelperService;
-  _router: Router;
-    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private router: Router) {
+    constructor(backend: ConnectionBackend, defaultOptions: RequestOptions, private router: Router, private helperService: HelperService) {
         super(backend, defaultOptions);
-        this._router = router;
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
@@ -43,10 +40,10 @@ export class HttpInterceptorService extends Http{
     }
 
     private updateUrl(req: string) {
-        return  req;
+        return req;
     }
 
-    private getRequestOptionArgs(options?: RequestOptionsArgs) : RequestOptionsArgs {
+    private getRequestOptionArgs(options?: RequestOptionsArgs): RequestOptionsArgs {
         if (options == null) {
             options = new RequestOptions();
         }
@@ -55,7 +52,7 @@ export class HttpInterceptorService extends Http{
         }
         options.headers.append('Content-Type', 'application/json');
 
-        if(localStorage.getItem('tokenData')){
+        if (localStorage.getItem('tokenData')) {
             let tokenData = JSON.parse(localStorage.getItem('tokenData'));
             options.headers.append('X-Authorization', 'Bearer ' + tokenData.token.toString())
         }
@@ -73,14 +70,11 @@ export class HttpInterceptorService extends Http{
 
         //  return observable;
         return observable.catch((err, source) => {
-            console.log("INTEREPT", err, source);
+            console.log("Soruce", source);
             if (err.status == 401) {
-                console.log("ROUTER", this._router);
-                //return observable;
-                return Observable.empty(err);
-            } else {
-                //return observable;
-                return Observable.throw(err);
+                this.router.navigate(['/login']);
+                this.helperService.showError(JSON.parse(err._body).message);
+                return Observable.throw(JSON.parse(err._body));
             }
         });
     }

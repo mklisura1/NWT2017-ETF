@@ -22,10 +22,26 @@ export class AddUserComponent implements OnInit {
         jmbg: ''
     };
     formSubmitted = false;
+    users:any[] = [];
     constructor(private userService: UserService, private helperService: HelperService) {
     }
 
     ngOnInit() {
+    }
+
+    getAllUsers(){
+        this.addUser = false;
+        this.userService.getAllUsers()
+            .subscribe(
+                response => this.users = response
+            )
+    }
+    removeUser(id){
+        this.userService.deleteUser(id)
+            .subscribe(
+                response => {this.getAllUsers(); this.helperService.showSuccess('User successfully deleted!');},
+                (err) => this.helperService.showError('Error while deleting user!')
+            )
     }
 
     clearForm(){
@@ -48,7 +64,12 @@ export class AddUserComponent implements OnInit {
                 .subscribe(
                     response => {
                         console.log("insert user", response);
-                        this.helperService.showSuccess('User is successfully added!')
+                        this.helperService.showSuccess('User is successfully added!');
+                        this.clearForm();
+                    },
+                    (err) => {
+                        this.helperService.showError('Error while adding user!')
+
                     }
                 )
         }else{

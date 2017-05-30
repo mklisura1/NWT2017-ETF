@@ -41,8 +41,6 @@ export class LoginComponent {
                         }
                     },
                     err => {
-                        console.log("error", err);
-                        this.helperService.showError('Login error occurred');
                         this.submitted = false;
                     }
                 );
