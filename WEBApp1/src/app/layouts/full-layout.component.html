@@ -11,8 +11,8 @@
     <!--<li class="nav-item px-3">-->
       <!--<a class="nav-link" href="#">Users</a>-->
     <!--</li>-->
-    <li class="nav-item px-3">
-      <a class="nav-link"><label class="white">Logged as: {{loggedUser.first_name}} {{loggedUser.last_name}}</label></a>
+    <li class="nav-item px-5 bg-primary">
+      <a class="nav-link">Welcome, {{loggedUser.first_name}} {{loggedUser.last_name}}</a>
     </li>
   </ul>
   <ul class="nav navbar-nav ml-auto">
@@ -27,7 +27,7 @@
     <!--</li>-->
     <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
       <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false">
-        <img src="assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+        <!--<img src="assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">-->
         <span class="d-md-down-none">Options</span>
       </a>
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
@@ -51,7 +51,7 @@
         <!--<a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>-->
         <div class="divider"></div>
         <!--<a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a>-->
-        <a class="dropdown-item" href="" (click)="logout();"><i class="fa fa-lock"></i> Logout</a>
+        <a class="dropdown-item" (click)="logout();"><i class="fa fa-lock"></i> Logout</a>
       </div>
     </li>
     <li class="nav-item d-md-down-none">
@@ -68,6 +68,15 @@
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-home"></i>
             Home </a>
         </li>
+
+          <li *ngIf="loggedUser.roles[0].role === 'ADMIN'" class="nav-title">
+              Admin options
+          </li>
+          <li *ngIf="loggedUser.roles[0].role === 'ADMIN'"  class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/add-user']">
+                  <i class="icon-user-follow"></i> Add new user</a>
+          </li>
+
         <li class="nav-title">
           User options
         </li>
@@ -111,11 +120,11 @@
         </li>
         <li class="divider"></li>
 
-        <li class="divider"></li>
-        <li class="nav-title">
+        <li *ngIf="loggedUser.roles[0].role === 'ADMIN'" class="divider"></li>
+        <li *ngIf="loggedUser.roles[0].role === 'ADMIN'" class="nav-title">
           UI Elements
         </li>
-        <li class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+        <li *ngIf="loggedUser.roles[0].role === 'ADMIN'" class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
           <a class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle><i class="icon-puzzle"></i>
             Components</a>
           <ul class="nav-dropdown-items">
@@ -153,7 +162,7 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+        <li *ngIf="loggedUser.roles[0].role === 'ADMIN'" class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
           <a class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle><i class="icon-star"></i> Icons</a>
           <ul class="nav-dropdown-items">
             <li class="nav-item">
@@ -166,18 +175,18 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item">
+        <li *ngIf="loggedUser.roles[0].role === 'ADMIN'" class="nav-item">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/widgets']"><i class="icon-calculator"></i>
             Widgets <span class="badge badge-info">NEW</span></a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="loggedUser.roles[0].role === 'ADMIN'" class="nav-item">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/charts']"><i class="icon-pie-chart"></i> Charts</a>
         </li>
-        <li class="divider"></li>
-        <li class="nav-title">
+        <li *ngIf="loggedUser.roles[0].role === 'ADMIN'" class="divider"></li>
+        <li *ngIf="loggedUser.roles[0].role === 'ADMIN'" class="nav-title">
           Extras
         </li>
-        <li class="nav-item nav-dropdown" appNavDropdown>
+        <li *ngIf="loggedUser.roles[0].role === 'ADMIN'" class="nav-item nav-dropdown" appNavDropdown>
           <a class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle><i class="icon-star"></i> Pages</a>
           <ul class="nav-dropdown-items">
             <li class="nav-item">

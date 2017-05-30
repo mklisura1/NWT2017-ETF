@@ -284,11 +284,11 @@ public class User {
 	}
 
 
-	public User(Integer id, String username, String password, List<UserRole> roles, String first_name, String last_name,
+	public User(/*Integer id,*/ String username, String password, List<UserRole> roles, String first_name, String last_name,
 			Date birth_date, String email, String jmbg, String address, UserType userType, UserPicture userPicture,
 			List<PaymentModel> userPayments, List<BankAccount> userBankAccounts) {
 		super();
-		this.id = id;
+		//this.id = id;
 		this.username = username;
 		this.password = password;
 		this.roles = roles;

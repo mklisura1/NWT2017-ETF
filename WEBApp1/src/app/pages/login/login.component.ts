@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../services/authentication.service";
+import {UserService} from "../../services/user.service";
+import {HelperService} from "app/services/helper.service";
 
 @Component({
     templateUrl: 'login.component.html'
@@ -17,7 +19,10 @@ export class LoginComponent {
     forgetPassword: boolean = false;
     usernameReset: '';
 
-    constructor(private router: Router, private authService: AuthenticationService) {
+    constructor(private router: Router,
+                private authService: AuthenticationService,
+                private userService: UserService,
+                private helperService: HelperService) {
     }
 
     logIn() {
@@ -28,19 +33,35 @@ export class LoginComponent {
             this.authService.getToken(this.user)
                 .subscribe(
                     response => {
-                        if(response.token){
+                        if (response.token) {
                             this.submitted = false;
                             localStorage.setItem('tokenData', JSON.stringify(response));
-                            this.router.navigate(['/profile']);
+                            this.getUser();
                         }
+                    },
+                    error => {
+                        this.helperService.showError('Login error occurred!');
+                        this.submitted = false;
                     }
                 );
 
         }
     }
 
-    resetPassword(){
-        if(this.usernameReset.length <= 0) return;
+    getUser() {
+        if (!localStorage.getItem('tokenData'))
+            return;
+
+        this.userService.getUser(JSON.parse(localStorage.getItem('tokenData')).userid)
+            .subscribe(data => {
+                localStorage.setItem('loggedUser', JSON.stringify(data));
+                this.router.navigate(['/profile']);
+                this.user = data;
+            })
+    }
+
+    resetPassword() {
+        if (this.usernameReset.length <= 0) return;
         //call the microservice
     }
 }

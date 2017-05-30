@@ -1,14 +1,17 @@
 package UsersService.Security.Endpoint;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.servlet.ServletException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import UsersService.Models.User;
+import UsersService.Security.Auth.Jwt.Extractor.TokenExtractor;
+import UsersService.Security.Auth.Jwt.Verifier.TokenVerifier;
+import UsersService.Security.Config.JwtSettings;
+import UsersService.Security.Config.WebSecurityConfig;
+import UsersService.Security.Exceptions.InvalidJwtToken;
+import UsersService.Security.Model.Token.JwtToken;
+import UsersService.Security.Model.Token.JwtTokenFactory;
+import UsersService.Security.Model.Token.RawAccessJwtToken;
+import UsersService.Security.Model.Token.RefreshToken;
+import UsersService.Security.Model.UserContext;
+import UsersService.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -16,25 +19,18 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import UsersService.Models.User;
-import UsersService.Security.Auth.Jwt.Extractor.TokenExtractor;
-import UsersService.Security.Auth.Jwt.Verifier.TokenVerifier;
-import UsersService.Security.Config.JwtSettings;
-import UsersService.Security.Config.WebSecurityConfig;
-import UsersService.Security.Exceptions.InvalidJwtToken;
-import UsersService.Security.Model.UserContext;
-import UsersService.Security.Model.Token.JwtToken;
-import UsersService.Security.Model.Token.JwtTokenFactory;
-import UsersService.Security.Model.Token.RawAccessJwtToken;
-import UsersService.Security.Model.Token.RefreshToken;
-import UsersService.Services.UserService;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class RefreshTokenEndpoint {
 	
     @Autowired private JwtTokenFactory tokenFactory;

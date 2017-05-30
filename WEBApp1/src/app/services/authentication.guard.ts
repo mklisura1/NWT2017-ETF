@@ -17,7 +17,7 @@ export class AuthenticationGuard implements CanActivate {
     if (this.authenticationService.isAuthenticated()) {
       return true;
     }
-
+    console.log("AUTH GUARD BLOCK :)");
     this.router.navigate(['/login']);
     return false;
   }

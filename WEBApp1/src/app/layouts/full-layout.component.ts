@@ -16,14 +16,7 @@ export class FullLayoutComponent implements OnInit {
   }
 
   constructor(private router: Router, private userService: UserService){
-    this.getUser();
-  }
-
-  getUser(){
-    this.userService.getUser(JSON.parse(localStorage.getItem('tokenData')).userid)
-      .subscribe(data => {
-        this.loggedUser = data;
-      })
+    this.loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
   }
   public toggleDropdown($event: MouseEvent): void {
     $event.preventDefault();

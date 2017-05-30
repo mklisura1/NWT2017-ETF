@@ -54,7 +54,11 @@ export const routes: Routes = [
       {
         path: 'users',
         loadChildren: './pages/users/users.module#UsersModule',
-      }
+      },
+        {
+            path: 'add-user',
+            loadChildren: './pages/add-user/add-user.module#AddUserModule',
+        }
     ],
     canActivate: [AuthenticationGuard]
   },

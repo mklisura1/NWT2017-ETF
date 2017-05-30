@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import {Headers, Http, RequestOptions, URLSearchParams} from '@angular/http';
+import {Http, Response, Headers, RequestOptions, URLSearchParams} from '@angular/http';
 
 import {Observable} from 'rxjs/Rx';
+
+// Import RxJs required methods
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class UserService {
@@ -20,14 +23,20 @@ export class UserService {
 
   public getUser(id): Observable<any> {
     return this.http.get(this.apiUrl + "/{id}/account".replace('{id}', id))
-      .map( response => response.json())
-      .catch((error: any) => Observable.throw('Server error'));
+        .map((res:Response) => res.json())
+        .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   public getAllUsers(){
     return this.http.get(this.apiUrl)
-      .map( response => response.json())
-      .catch((error: any) => Observable.throw('Server error'));
+        .map((res:Response) => res.json())
+        .catch((error:any) => Observable.throw('Server error'));
+  }
+
+  insertUser(data): Observable<any>{
+      return this.http.post(this.apiUrl, data)
+          .map((res:Response) => res.json())
+          .catch((error:any) => Observable.throw('Server error'));
   }
 
 
