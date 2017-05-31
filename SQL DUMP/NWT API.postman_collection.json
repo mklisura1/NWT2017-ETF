@@ -1,0 +1,128 @@
+{
+	"variables": [],
+	"info": {
+		"name": "NWT API",
+		"_postman_id": "943515a9-a0c2-959e-a024-616cea423052",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Accounts",
+			"description": "",
+			"item": []
+		},
+		{
+			"name": "Login",
+			"description": "",
+			"item": [
+				{
+					"name": "Login / Get token",
+					"request": {
+						"url": "http://localhost:1105/api/auth/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "X-Requested-With",
+								"value": "XMLHttpRequest",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"svlada3@gmail.com\",\n\t\"password\":\"test1234\"\n}"
+						},
+						"description": "POST LOGIN"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"description": "",
+			"item": [
+				{
+					"name": "Payments - Get all",
+					"request": {
+						"url": "http://localhost:1102/api/payments",
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdmxhZGEzQGdtYWlsLmNvbSIsInNjb3BlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9zdmxhZGEuY29tIiwiaWF0IjoxNDk2MjMyNDk0LCJleHAiOjE0OTYyMzMzOTR9.c2mjHii3KCfJaV8tWKbsQQH9t9hLjzQAX2OBvHte2mKXNNNr98SOpQ8E5kCd2uDiLU2OOf9o_slyjUrSVOlNsg",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Payments - Insert",
+					"request": {
+						"url": "http://localhost:1102/api/payments",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYW1vaCIsInNjb3BlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cDovL3N2bGFkYS5jb20iLCJpYXQiOjE0OTYyMjg0OTMsImV4cCI6MTQ5NjIyOTM5M30.FrHJv-KA_CSvyd0fXniuZnwKHKtV0QcjeUAJkRYPLIAnV6IfdFfYXubWo352mTrlnNYrbMYdJAOwWX5g5JlqGg",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"amount\":\"22\",\"userId\":1,\"date\":\"2017-05-15T07:31:13.721Z\",\"senderName\":\"Hamo Hamic\",\"senderBankAccNumber\":\"BA121234330923\",\"receiverName\":\"Hame u piketa\",\"receiverBankAccNumber\":\"SI1231231230923\",\"typeDescription\":\"InterniTransfer\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Templates",
+			"description": "",
+			"item": []
+		},
+		{
+			"name": "Transactions",
+			"description": "",
+			"item": []
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "Users - Get all",
+					"request": {
+						"url": "http://localhost:1105/api/user",
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYW1vaCIsInNjb3BlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cDovL3N2bGFkYS5jb20iLCJpYXQiOjE0OTYyMzIyMjAsImV4cCI6MTQ5NjIzMzEyMH0.Qwt8vITkxrV7nHoZFCxI5wB4_ZUTHKgNwdcTIrZk4UGuAEAX9iQhwjJrUY0ppIyG1W2kkUrKqHHNB_YTB_L4qA",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
