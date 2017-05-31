@@ -20,6 +20,10 @@ export const routes: Routes = [
     },
     children: [
       {
+        path: 'accounts',
+        loadChildren: './pages/accounts/accounts.module#AccountsModule'
+      },
+      {
         path: 'dashboard',
         loadChildren: './pages/dashboard/dashboard.module#DashboardModule'
       },

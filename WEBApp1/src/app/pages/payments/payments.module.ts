@@ -9,7 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {AccountsListComponent} from "../../components/accounts-list/accounts-list.component";
 import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaymentsService } from './payments.service';
-import {AccountsService} from "../accounts/accounts.service";
+import {AccountsService} from "../../services/accounts.service";
 import {TabsModule} from "ngx-bootstrap";
 
 @NgModule({

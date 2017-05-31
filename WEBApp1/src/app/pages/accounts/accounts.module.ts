@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AccountsService } from './accounts.service';
+
+import { AccountsRoutingModule } from './accounts-routing.module';
+import { AccountsComponent } from './accounts.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    AccountsRoutingModule
   ],
-  declarations: [],
-  providers: [AccountsService]
+  declarations: [AccountsComponent]
 })
 export class AccountsModule { }

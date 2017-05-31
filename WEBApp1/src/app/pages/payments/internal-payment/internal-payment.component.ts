@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AccountsService} from "../../accounts/accounts.service";
+import {AccountsService} from "../../../services/accounts.service";
 import {PaymentsService} from "../payments.service";
 import {Router} from "@angular/router";
 

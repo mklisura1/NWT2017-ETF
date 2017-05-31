@@ -26,6 +26,7 @@ import {AuthenticationGuard} from "./services/authentication.guard";
 import {HelperService} from "./services/helper.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {Router} from "@angular/router";
+import { AccountsService } from './services/accounts.service';
 
 @NgModule({
     imports: [
@@ -56,7 +57,7 @@ import {Router} from "@angular/router";
         {
         provide: LocationStrategy,
         useClass: HashLocationStrategy
-    }, UserService, AuthenticationService, AuthenticationGuard, HelperService],
+    }, UserService, AuthenticationService, AuthenticationGuard, HelperService, AccountsService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
