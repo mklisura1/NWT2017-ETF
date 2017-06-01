@@ -19,7 +19,7 @@ export class PaymentsService {
 
   private handleError(error: Response) {
     console.error(error);
-    return Observable.throw(error.json() || 'Server error');
+    return Observable.throw(error || 'Server error');
   }
 
   getPayments(status: string): Observable<any>{
@@ -27,7 +27,7 @@ export class PaymentsService {
     params.set("status", status);
     return this.http.get(this.apiUrl, { search: params})
       .map( response => response.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
   insertPayment(payment): Observable<any>{

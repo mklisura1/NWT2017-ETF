@@ -10,7 +10,25 @@
 		{
 			"name": "Accounts",
 			"description": "",
-			"item": []
+			"item": [
+				{
+					"name": "Accounts - Get all",
+					"request": {
+						"url": "http://localhost:1101/api/accounts",
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdmxhZGEzQGdtYWlsLmNvbSIsInNjb3BlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9zdmxhZGEuY29tIiwiaWF0IjoxNDk2MzE4Njg1LCJleHAiOjE0OTYzMTk1ODV9.YMdTYSWdfDRuH0CCl63vOf6Ude_8HP-DyLKhhq0ShCuOScq6Wlh988pYLSAFKz5NcgUZ-BXiiuG0TxnMZtMjOw",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Login",
@@ -55,7 +73,7 @@
 						"header": [
 							{
 								"key": "X-Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdmxhZGEzQGdtYWlsLmNvbSIsInNjb3BlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9zdmxhZGEuY29tIiwiaWF0IjoxNDk2MjMyNDk0LCJleHAiOjE0OTYyMzMzOTR9.c2mjHii3KCfJaV8tWKbsQQH9t9hLjzQAX2OBvHte2mKXNNNr98SOpQ8E5kCd2uDiLU2OOf9o_slyjUrSVOlNsg",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdmxhZGEzQGdtYWlsLmNvbSIsInNjb3BlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9zdmxhZGEuY29tIiwiaWF0IjoxNDk2MzE4Njg1LCJleHAiOjE0OTYzMTk1ODV9.YMdTYSWdfDRuH0CCl63vOf6Ude_8HP-DyLKhhq0ShCuOScq6Wlh988pYLSAFKz5NcgUZ-BXiiuG0TxnMZtMjOw",
 								"description": ""
 							}
 						],
@@ -113,7 +131,7 @@
 						"header": [
 							{
 								"key": "X-Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYW1vaCIsInNjb3BlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cDovL3N2bGFkYS5jb20iLCJpYXQiOjE0OTYyMzIyMjAsImV4cCI6MTQ5NjIzMzEyMH0.Qwt8vITkxrV7nHoZFCxI5wB4_ZUTHKgNwdcTIrZk4UGuAEAX9iQhwjJrUY0ppIyG1W2kkUrKqHHNB_YTB_L4qA",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdmxhZGEzQGdtYWlsLmNvbSIsInNjb3BlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9zdmxhZGEuY29tIiwiaWF0IjoxNDk2MzE4Njg1LCJleHAiOjE0OTYzMTk1ODV9.YMdTYSWdfDRuH0CCl63vOf6Ude_8HP-DyLKhhq0ShCuOScq6Wlh988pYLSAFKz5NcgUZ-BXiiuG0TxnMZtMjOw",
 								"description": ""
 							}
 						],
