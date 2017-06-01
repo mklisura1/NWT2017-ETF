@@ -1,8 +1,9 @@
-package UsersService.Security.Auth.Ajax;
+package UsersService.Security.TokenGenerator;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import UsersService.Models.User;
+import UsersService.Security.TokenValidator.UserContext;
+import UsersService.Services.UserService;
+import io.jsonwebtoken.lang.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,23 +14,24 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
-import UsersService.Models.User;
-import UsersService.Security.Model.UserContext;
-import UsersService.Services.UserService;
+import java.util.List;
+import java.util.stream.Collectors;
 
+/**
+ * Created by Hare on 31.05.2017..
+ */
 @Component
 public class AjaxAuthenticationProvider implements AuthenticationProvider {
-    private final BCryptPasswordEncoder encoder;
+    //private final BCryptPasswordEncoder encoder;
     private final UserService userService;
 
     @Autowired
-    public AjaxAuthenticationProvider(final UserService userService, final BCryptPasswordEncoder encoder) {
+    public AjaxAuthenticationProvider(final UserService userService) {
         this.userService = userService;
-        this.encoder = encoder;
+        //this.encoder = encoder;
     }
 
     @Override
@@ -40,20 +42,26 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
         String password = (String) authentication.getCredentials();
 
         User user = userService.getByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
-        
-        if (!encoder.matches(password, user.getPassword())) {
-            throw new BadCredentialsException("Authentication Failed. Username or Password not valid.");
-        }
+
+        String hashedPasswordFromDatabase = user.getPassword();
+
+        if(!BCrypt.checkpw(password, hashedPasswordFromDatabase))
+            throw new BadCredentialsException("Username or Password not valid.");
+
 
         if (user.getRoles() == null) throw new InsufficientAuthenticationException("User has no roles assigned");
-        
+
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.getRole().authority()))
                 .collect(Collectors.toList());
-        
+
         UserContext userContext = UserContext.create(user.getUsername(), authorities, user.getId());
-        
-        return new UsernamePasswordAuthenticationToken(userContext, null, userContext.getAuthorities());
+//        Claims claims = Jwts.claims().setSubject(userContext.getUsername());
+//        claims.put("scopes", userContext.getAuthorities().stream().map(s -> s.toString()).collect(Collectors.toList()));
+//        claims.put("id", userContext.getId());
+
+        return new UsernamePasswordAuthenticationToken(user.getUsername(), null, userContext.getAuthorities());
+
     }
 
     @Override
