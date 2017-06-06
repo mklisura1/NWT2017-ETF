@@ -10,7 +10,7 @@
 		<!-- Sidebar user panel -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="${cp}/resources/images/user2-160x160.jpg" class="img-circle"
+				<img src="${cp}/images/user2-160x160.jpg" class="img-circle"
 					alt="User Image">
 			</div>
 			<div class="pull-left info">
@@ -26,30 +26,48 @@
 				<a href="${cp}/users/profile"> <i class="fa fa-th"></i> <span>Profile</span></a>
 			</li>
 			
-			<li class=" treeview ${param.paramFriendsActive}">
+			<li class=" treeview ${param.paramBankAccountActive}">
 			
-				<a href="#"><i class="fa fa-users"></i> <span>Friends</span> <i class="fa fa-angle-left pull-right"></i> </a>
+				<a href="#"><i class="fa fa-users"></i> <span>Bank Accounts</span> <i class="fa fa-angle-left pull-right"></i> </a>
 				
 				<ul class="treeview-menu">
-					<li class="${param.paramFriendsAddActive}">
-						<a href="${cp}/users/find/friends"> <i class="fa fa-edit"></i> <span>Search friend</span></a>
+					<li class="${param.paramBankAccountAddActive}">
+						<a href="${cp}/users/add/bankaccount"> <i class="fa fa-edit"></i> <span>Add new bank account</span></a>
 					</li>
-					<li class="${param.paramFriendsListActive}">
-						<a href="${cp}/users/friends/list"> <i class="fa fa-th"></i> <span>My friends</span></a>
+					<li class="${param.paramBankAccountListActive}">
+						<a href="${cp}/users/list/bankaccount"> <i class="fa fa-th"></i> <span>My bank accounts</span></a>
 					</li>
 				</ul>
 			</li>
 			
-			<li class=" treeview ${param.paramGalleryActive}">
+			<li class=" treeview ${param.paramTransactionActive}">
 			
-				<a href="#"><i class="fa fa-users"></i> <span>Gallery</span> <i class="fa fa-angle-left pull-right"></i> </a>
+				<a href="#"><i class="fa fa-users"></i> <span>Transactions</span> <i class="fa fa-angle-left pull-right"></i> </a>
 				
 				<ul class="treeview-menu">
-					<li class="${param.paramGalleryAddActive}">
-						<a href="${cp}/gallery/add"> <i class="fa fa-th"></i> <span>Add new gallery</span></a>
+					<li class="${param.paramTransactionAddActive}">
+						<a href="${cp}/users/add/transaction"> <i class="fa fa-th"></i> <span>Add new transaction</span></a>
 					</li>
-					<li class="${param.paramGalleryListActive}">
-						<a href="${cp}/gallery/list"> <i class="fa fa-th"></i> <span>List of galleries</span></a>
+					<li class="${param.paramTransactionListActive}">
+						<a href="${cp}/users/list/transaction"> <i class="fa fa-th"></i> <span>My transactions</span></a>
+					</li>
+				</ul>
+			</li>
+			
+			<li class="${param.paramPaymentActive}">
+				<a href="${cp}/users/add/payment"> <i class="fa fa-th"></i> <span>Payments</span></a>
+			</li>
+			
+			<li class=" treeview ${param.paramTemplateActive}">
+			
+				<a href="#"><i class="fa fa-users"></i> <span>Templates</span> <i class="fa fa-angle-left pull-right"></i> </a>
+				
+				<ul class="treeview-menu">
+					<li class="${param.paramTemplateAddActive}">
+						<a href="${cp}/users/add/template"> <i class="fa fa-th"></i> <span>Add new template</span></a>
+					</li>
+					<li class="${param.paramTemplateListActive}">
+						<a href="${cp}/users/list/template"> <i class="fa fa-th"></i> <span>List of templates</span></a>
 					</li>
 				</ul>
 			</li>

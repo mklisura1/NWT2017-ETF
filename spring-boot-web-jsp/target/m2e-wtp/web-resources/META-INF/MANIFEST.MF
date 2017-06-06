@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: Spring Boot Web JSP
 Implementation-Version: 1.0
-Built-By: mesud
+Built-By: Mesud Klisura
 Implementation-Vendor-Id: org.springframework.boot
-Build-Jdk: 1.8.0_91
+Build-Jdk: 1.8.0_111
 Implementation-URL: http://projects.spring.io/spring-boot/SpringBootWe
  bJsp/
 Created-By: Maven Integration for Eclipse

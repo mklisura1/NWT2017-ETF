@@ -187,6 +187,8 @@ public class UserServiceImpl implements UserService
 		LOG.info("GET Payments from URL: {}", url);
 
 		ResponseEntity<Object>  response = restTemplate.getForEntity(url, Object.class, id);
+		LOG.info("Response: ", response);
+		LOG.info("Response: ", response.getBody());
 		LinkedHashMap<String, String> objects = (LinkedHashMap<String, String>) response.getBody();
 		List<PaymentModel> paymentModelList = (List<PaymentModel>) (Object) objects.get("content");
 		LOG.info("Responseeee: {}", objects.get("content") );
