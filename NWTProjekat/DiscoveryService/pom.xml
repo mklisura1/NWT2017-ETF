@@ -4,37 +4,36 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>DiscoveryService</artifactId>
-    <!--<parent>-->
-        <!--<artifactId>NWTProjekat</artifactId>-->
-        <!--<groupId>nwt.projekat</groupId>-->
-        <!--<version>1.0-SNAPSHOT</version>-->
-    <!--</parent>-->
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>NWT - Eureka Server</name>
+    <description>Eureka Server for NWT project</description>
 
     <parent>
         <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-eureka-server</artifactId>
-        <version>1.2.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <artifactId>spring-cloud-starter-parent</artifactId>
+        <version>1.0.2.RELEASE</version>
+        <relativePath />
     </parent>
 
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-eureka-server</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-eureka-server</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
-	        <groupId>org.codehaus.woodstox</groupId>
-	        <artifactId>stax2-api</artifactId>
-	        <version>3.1.1</version>
-	    </dependency>
-        
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>stax2-api</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
