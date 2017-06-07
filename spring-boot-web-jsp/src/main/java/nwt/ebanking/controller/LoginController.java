@@ -94,7 +94,7 @@ public class LoginController {
 		String session_token = (String) http_request.getSession().getAttribute("token");
 		if(session_token != null && !session_token.isEmpty())
 		{
-			ModelAndView modelAndView = new ModelAndView("redirect:/welcome");
+			ModelAndView modelAndView = new ModelAndView("redirect:/users/profile");
 			
 			return modelAndView;
 		}
@@ -133,16 +133,18 @@ public class LoginController {
 				HttpSession http_session = http_request.getSession(true);
 				
 				//Spremanje tokena u sesiju
+				String user = loginResponse.getBody().substring(loginResponse.getBody().toString().indexOf("userid")+9, loginResponse.getBody().toString().indexOf("token")-3);
 				String token = loginResponse.getBody().substring(23, loginResponse.getBody().toString().indexOf("refreshToken")-3);
 				String refreshToken = loginResponse.getBody().substring(loginResponse.getBody().toString().indexOf("refreshToken")+15, loginResponse.getBody().toString().lastIndexOf('"'));
 				
+				http_session.setAttribute("user", user);
 				http_session.setAttribute("token", token);
 				http_session.setAttribute("refreshToken", refreshToken);
 				
 				//Limit trajanja sesije na 3 sata
 				http_session.setMaxInactiveInterval(10800);
 				
-				modelAndView = new ModelAndView("redirect:/welcome");
+				modelAndView = new ModelAndView("redirect:/users/profile");
 				//User user = userService.getUserByUsername(username);
 				//modelAndView.addObject("user", user);
 			}

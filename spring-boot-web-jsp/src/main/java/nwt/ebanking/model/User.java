@@ -21,6 +21,8 @@ public class User {
 	private String address;
 	private Object userType;
 	private Object userPicture;
+	private Object userPayments;
+	private Object userBankAccounts;
 	
 	//Constructors
 	public User() {
@@ -140,4 +142,21 @@ public class User {
 	public void setUserPicture(Object userPicture) {
 		this.userPicture = userPicture;
 	}
+
+	public Object getUserPayments() {
+		return userPayments;
+	}
+
+	public void setUserPayments(Object userPayments) {
+		this.userPayments = userPayments;
+	}
+
+	public Object getUserBankAccounts() {
+		return userBankAccounts;
+	}
+
+	public void setUserBankAccounts(Object userBankAccounts) {
+		this.userBankAccounts = userBankAccounts;
+	}
+	
 }

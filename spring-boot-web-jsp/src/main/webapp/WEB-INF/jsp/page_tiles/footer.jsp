@@ -5,7 +5,7 @@
 	</div>
 
 	<div style="text-align: center;">
-		<strong>Copyright &copy; 2016 <a href="#">Baze podataka</a>.
+		<strong>Copyright &copy; 2017 <a href="#">Napredne web tehnoligije</a>.
 		</strong> All rights reserved.
 	</div>
 
