@@ -20,13 +20,13 @@ import {FullLayoutComponent} from './layouts/full-layout.component';
 import {SimpleLayoutComponent} from './layouts/simple-layout.component';
 import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {UserService} from "./services/user.service";
+import { AccountsService } from './services/accounts.service';
 import {AuthenticationService} from "./services/authentication.service";
 import {httpFactory} from "./services/http-factory.service";
 import {AuthenticationGuard} from "./services/authentication.guard";
 import {HelperService} from "./services/helper.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {Router} from "@angular/router";
-import { AccountsService } from './services/accounts.service';
 
 @NgModule({
     imports: [
@@ -57,7 +57,7 @@ import { AccountsService } from './services/accounts.service';
         {
         provide: LocationStrategy,
         useClass: HashLocationStrategy
-    }, UserService, AuthenticationService, AuthenticationGuard, HelperService, AccountsService],
+    }, UserService, AccountsService, AuthenticationService, AuthenticationGuard, HelperService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -10,9 +10,13 @@ import 'rxjs/add/operator/catch';
 export class AccountsService {
 
   apiUrl: string;
+  headers: Headers;
+  options: RequestOptions;
 
   constructor(private http: Http) {
     this.apiUrl = 'http://localhost:1101/api/accounts';
+    this.headers = new Headers({ 'Content-Type': 'application/json' });
+    this.options = new RequestOptions({ headers: this.headers });
   }
 
   private handleError(error: Response) {
@@ -20,12 +24,10 @@ export class AccountsService {
     return Observable.throw(error.json() || 'Server error');
   }
 
-  public getAccounts() {
-
-    console.log('Anesssss: ', localStorage.getItem('tokenData'));
+  getAccounts(): Observable<any> {
     return this.http.get(this.apiUrl)
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw('Server error'));
+      .map( response => response.json())
+      .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
 }

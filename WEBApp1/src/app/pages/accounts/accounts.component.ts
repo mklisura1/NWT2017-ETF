@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountsService } from '../../services/accounts.service';
 import { HelperService } from '../../services/helper.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accounts',
@@ -9,23 +10,26 @@ import { HelperService } from '../../services/helper.service';
 })
 export class AccountsComponent implements OnInit {
 
-  items = [];
+  accounts: any[] = [];
 
   user: any = {};
 
-  constructor(private accountsService: AccountsService, private helperService: HelperService) {
-    this.showAccounts();
+  constructor(private accountsService: AccountsService, private helperService: HelperService, private router: Router) {
   }
 
   ngOnInit() {
+    this.showAccounts();
   }
 
   showAccounts() {
     this.accountsService.getAccounts()
       .subscribe(
-        data => {
-          console.log('Get User Bank Accounts:', data);
-          /*this.items.push(data);*/
+        response => {
+          console.log('Get User Bank Accounts: ', response);
+          /*if (response.content) {
+            this.accounts = response;
+          }*/
+          this.accounts = response;
           this.helperService.showSuccess('Account is successfully retrieved!');
         }
       );

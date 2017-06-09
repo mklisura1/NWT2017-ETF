@@ -3,12 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { AccountsRoutingModule } from './accounts-routing.module';
 import { AccountsComponent } from './accounts.component';
+import {FormsModule} from '@angular/forms';
+import { AccountsService } from '../../services/accounts.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    AccountsRoutingModule
+    AccountsRoutingModule,
+    FormsModule
   ],
-  declarations: [AccountsComponent]
+  declarations: [AccountsComponent],
+  providers: [AccountsService]
 })
 export class AccountsModule { }
