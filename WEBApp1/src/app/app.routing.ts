@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
 // Layouts
-import { FullLayoutComponent } from './layouts/full-layout.component';
-import { SimpleLayoutComponent } from './layouts/simple-layout.component';
+import {FullLayoutComponent} from './layouts/full-layout.component';
+import {SimpleLayoutComponent} from './layouts/simple-layout.component';
 import {AuthenticationGuard} from "./services/authentication.guard";
 
 export const routes: Routes = [
@@ -59,10 +59,14 @@ export const routes: Routes = [
         path: 'users',
         loadChildren: './pages/users/users.module#UsersModule',
       },
-        {
-            path: 'add-user',
-            loadChildren: './pages/add-user/add-user.module#AddUserModule',
-        }
+      {
+        path: 'add-user',
+        loadChildren: './pages/add-user/add-user.module#AddUserModule',
+      },
+      {
+        path: 'templates',
+        loadChildren: './pages/templates/templates.module#TemplatesModule',
+      }
     ],
     canActivate: [AuthenticationGuard]
   },
@@ -95,7 +99,8 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
