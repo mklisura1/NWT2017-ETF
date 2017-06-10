@@ -33,9 +33,9 @@ export class AccountsService {
   insertAccount(account): Observable<any>{
     let body = JSON.stringify(account);
 
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.apiUrl, body, options)
+    // let headers = new Headers({ 'Content-Type': 'application/json' });
+    // let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.apiUrl, body)
       .map( response => response.json())
       .catch(this.handleError);
   }
@@ -53,5 +53,7 @@ export class AccountsService {
       .map(response => response.json())
       .catch(this.handleError);
   }*/
+
+
 
 }

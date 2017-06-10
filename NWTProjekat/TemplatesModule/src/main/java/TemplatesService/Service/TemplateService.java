@@ -1,13 +1,14 @@
 package TemplatesService.Service;
 
-import java.util.List;
-
 import TemplatesService.Model.Template;
+
+import java.util.List;
 
 public interface TemplateService 
 {
     Iterable<Template> listAllTemplates();
-    
+    Iterable<Template> listAllTemplatesForUser(Integer userId);
+
     boolean isTemplateExist(Template template);
 
     Template getTemplateById(Integer id);

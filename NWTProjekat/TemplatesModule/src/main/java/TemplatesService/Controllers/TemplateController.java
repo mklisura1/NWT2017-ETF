@@ -1,21 +1,17 @@
 package TemplatesService.Controllers;
 
-import java.util.List;
-
+import TemplatesService.Model.Template;
+import TemplatesService.Service.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import TemplatesService.Model.Template;
-import TemplatesService.Service.TemplateService;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/api")
@@ -27,8 +23,14 @@ public class TemplateController
 	//-------------------Retrieve All Templates--------------------------------------------------------
     
     @RequestMapping(value = "/template", method = RequestMethod.GET)
-    public ResponseEntity<List<Template>> listAllTemplates() {
-        List<Template> templates = (List<Template>) templateService.listAllTemplates();
+    public ResponseEntity<List<Template>> listAllTemplates(@RequestParam(required = false) Integer userId) {
+
+        List<Template> templates = null;
+        if(userId != null){
+            templates = (List<Template>) templateService.listAllTemplatesForUser(userId);
+        }else
+            templates = (List<Template>) templateService.listAllTemplates();
+
         if(templates.isEmpty()){
             return new ResponseEntity<List<Template>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
@@ -65,20 +67,21 @@ public class TemplateController
      
     //-------------------Create a Template--------------------------------------------------------
      
-    @RequestMapping(value = "/template/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createTemplate(@RequestBody Template template, UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating Template " + template.getTemplate_id());
+    @RequestMapping(value = "/template", method = RequestMethod.POST)
+    public ResponseEntity<Template> createTemplate(@RequestBody Template template, UriComponentsBuilder ucBuilder) {
  
-        if (templateService.isTemplateExist(template)) {
-            System.out.println("A Template with name " + template.getTemplate_id() + " already exist");
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
+//        if (templateService.isTemplateExist(template)) {
+//            System.out.println("A Template with name " + template.getTemplate_id() + " already exist");
+//            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+//        }
+
+
  
-        templateService.saveTemplate(template);;
+        Template t = templateService.saveTemplate(template);
  
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/template/{id}").buildAndExpand(template.getTemplate_id()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        //headers.setLocation(ucBuilder.path("/template/{id}").buildAndExpand(template.getTemplate_id()).toUri());
+        return new ResponseEntity<Template>(t, HttpStatus.CREATED);
     }
  
      

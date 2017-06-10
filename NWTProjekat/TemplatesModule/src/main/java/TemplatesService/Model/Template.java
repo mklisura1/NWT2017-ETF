@@ -12,31 +12,62 @@ public class Template {
 	@Id
 	@GeneratedValue
 	private Integer template_id;
-	private Integer user_id;
+	private String template_name;
+
+	public String getTemplate_name() {
+		return template_name;
+	}
+
+	public void setTemplate_name(String template_name) {
+		this.template_name = template_name;
+	}
+
+	private Integer userId;
 	private String sender_name;	
 	private String receiver_name;
 	private String sender_bank_acc_number;	
 	private String receiver_bank_acc_number;
 	private String payment_purpose;
 	private Integer payment_type_id;
-	
-	//Constructors
+	private String payment_type;
+	private Double amount;
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public String getPayment_type() {
+        return payment_type;
+    }
+
+    public void setPayment_type(String payment_type) {
+        this.payment_type = payment_type;
+    }
+
+    //Constructors
 	public Template() {
 		super();
 	}
 	
-	public Template(Integer template_id, Integer user_id, String sender_name, String receiver_name,
+	public Template(Integer template_id, String template_name, Integer userId, String sender_name, String receiver_name,
 			String sender_bank_acc_number, String receiver_bank_acc_number, String payment_purpose,
-			Integer payment_type_id) {
+			Integer payment_type_id, String payment_type, Double amount) {
 		super();
 		this.template_id = template_id;
-		this.user_id = user_id;
+		this.template_name = template_name;
+		this.userId = userId;
 		this.sender_name = sender_name;
 		this.receiver_name = receiver_name;
 		this.sender_bank_acc_number = sender_bank_acc_number;
 		this.receiver_bank_acc_number = receiver_bank_acc_number;
 		this.payment_purpose = payment_purpose;
 		this.payment_type_id = payment_type_id;
+		this.payment_type = payment_type;
+		this.amount = amount;
 	}
 
 	//Getters & Setters
@@ -46,11 +77,11 @@ public class Template {
 	public void setTemplate_id(Integer template_id) {
 		this.template_id = template_id;
 	}
-	public Integer getUser_id() {
-		return user_id;
+	public Integer getUserId() {
+		return userId;
 	}
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 	public String getSender_name() {
 		return sender_name;

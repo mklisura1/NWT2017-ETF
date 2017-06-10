@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,36 +26,41 @@ public class PaymentService {
 
 
     @PostConstruct
-    @Transactional
     public void populate() {
+
 //        PaymentModel p = new PaymentModel();
 //        p.setId(1);
 //        p.setAmount(12.02);
 //        p.setDate(new Date());
-//        p.setPurpose("Probni nalog");
+//
 //        p.setReceiverBankAccNumber("123456");
 //        p.setReceiverName("Haris Spahic");
 //        p.setSenderBankAccNumber("654321");
 //        p.setSenderName("Testni racun");
-//        p.setType("1");
+//        p.setTypeDescription("InternalTransfer");
+//        PaymentTypeModel pTypeModel = paymentTypeRepository.findByPaymentTypeName(p.getTypeDescription());
+//
+//        if(pTypeModel.getPaymentTypeName().equals("InterniTransfer"))
+//            p.setPurpose("Interni transfer");p.setStatus("Waiting");
 //        p.setStatus("Waiting");
-//        p.setTypeDescription("Tekuci racun");
 //        paymentRepository.saveAndFlush(p);
 //
 //        p = new PaymentModel();
 //        p.setId(1);
-//        p.setAmount(4.02);
+//        p.setAmount(11.02);
 //        p.setDate(new Date());
 //        p.setPurpose("Probni nalog");
 //        p.setReceiverBankAccNumber("123456");
 //        p.setReceiverName("Haris Spahic");
 //        p.setSenderBankAccNumber("654321");
 //        p.setSenderName("Testni racun");
-//        p.setType("1");
-//        p.setStatus("Signed");
-//
-//        p.setTypeDescription("Tekuci racun");
+//        p.setTypeDescription("InternalTransfer");
+//        PaymentTypeModel pType1 = paymentTypeRepository.findByPaymentTypeName(p.getTypeDescription());
+//        p.setStatus("Waiting");
+//        if(pType1.getPaymentTypeName().equals("InterniTransfer"))
+//            p.setPurpose("Interni transfer");p.setStatus("Waiting");
 //        paymentRepository.saveAndFlush(p);
+
     }
 
     @Transactional(readOnly = true)
@@ -66,9 +70,9 @@ public class PaymentService {
         return paymentRepository.findByStatus(p, status);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<PaymentModel> getAllPaymentsForUser(Pageable pageable, Integer userId, String status){
-        return paymentRepository.findByUserId(pageable, userId);
+        return paymentRepository.findByUserIdAndStatus(pageable,userId, status);
     }
 
     @Transactional(readOnly = true)

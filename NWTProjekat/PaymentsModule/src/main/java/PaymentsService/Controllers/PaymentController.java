@@ -61,8 +61,8 @@ public class PaymentController {
 
         PaymentTypeModel pType = paymentTypeService.findByPaymentTypeName(payment.getTypeDescription());
         PaymentModel p = new PaymentModel(payment);
-        if(pType.getPaymentTypeName().equals("InterniTransfer"))
-            p.setPurpose("Interni transfer");
+        if(pType.getPaymentTypeName().equals("InternalPayment"))
+            p.setPurpose("Internal transfer");
 
         p.setStatus("Waiting");
 

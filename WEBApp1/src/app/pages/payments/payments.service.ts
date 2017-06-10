@@ -25,6 +25,7 @@ export class PaymentsService {
   getPayments(status: string): Observable<any>{
     let params = new URLSearchParams();
     params.set("status", status);
+    params.set("userId", JSON.parse(localStorage.getItem('loggedUser')).id);
     return this.http.get(this.apiUrl, { search: params})
       .map( response => response.json())
       .catch((error: any) => Observable.throw(error || 'Server error'));
@@ -33,9 +34,9 @@ export class PaymentsService {
   insertPayment(payment): Observable<any>{
     let body = JSON.stringify(payment);
 
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.apiUrl, body, options)
+    // let headers = new Headers({ 'Content-Type': 'application/json' });
+    // let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.apiUrl, body)
       .map( response => response.json())
       .catch(this.handleError);
   }
@@ -60,4 +61,6 @@ export class PaymentsService {
       .map(response => response.json())
       .catch(this.handleError)
   }
+
+
 }

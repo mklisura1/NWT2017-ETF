@@ -1,40 +1,43 @@
 <div class="account-list-item">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="row">
-        <div class="col-sm-3  p-t-30">
-          <i class="icon-credit-card fa-4x align-middle"></i>
-        </div>
-        <div class="col-sm-7 t-a-r">
-          <span class="account-type">{{selectedAccount.accountType}}</span>
-          <span class="account-name">{{selectedAccount.accountName}}</span>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-3  p-t-30">
+                    <i class="icon-credit-card fa-4x align-middle"></i>
+                </div>
+                <div class="col-sm-7 t-a-r">
+                    <span class="account-type">{{selectedAccount.accountType}}</span>
+                    <span class="account-name">{{selectedAccount.accountName}}</span>
 
-          <span class="account-number">{{selectedAccount.accountNumber}}</span>
-          <p class="account-balance">{{selectedAccount.accountBalance}} <span class="currency">{{selectedAccount.accountCurrency}}</span></p>
+                    <span class="account-number">{{selectedAccount.accountNumber}}</span>
+                    <p class="account-balance">{{selectedAccount.accountBalance}} <span class="currency">{{selectedAccount.accountCurrency}}</span>
+                    </p>
+                </div>
+                <div class="col-sm-2" (click)="showList = !showList">
+                    <i class="icon-arrow-down"
+                       [ngClass]="{'icon-arrow-down': showList == false, 'icon-arrow-up': showList == true}"></i>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-2" (click)="showList = !showList">
-          <i class="icon-arrow-down" [ngClass]="{'icon-arrow-down': showList == false, 'icon-arrow-up': showList == true}"></i>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
-<div class="account-list-item-other" *ngIf="showList" >
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="row " *ngFor="let account of accountsList" (click)="selectAccount(account)">
-        <div class="col-sm-3 p-t-30">
-          <i class="icon-credit-card fa-4x align-middle"></i>
-        </div>
-        <div class="col-sm-7 t-a-r">
-          <span class="account-type">{{account.accountType}}</span>
-          <span class="account-name">{{account.accountName}}</span>
+<div malihu-scrollbar [scrollbarOptions]="scrollbarOptions" class="account-list-item-other" *ngIf="showList">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row hand-pointer" *ngFor="let account of accountsList" (click)="selectAccount(account)">
+                <div class="col-sm-3 p-t-30">
+                    <i class="icon-credit-card fa-4x align-middle"></i>
+                </div>
+                <div class="col-sm-7 t-a-r">
+                    <span class="account-type">{{account.accountType}}</span>
+                    <span class="account-name">{{account.accountName}}</span>
 
-          <span class="account-number">{{account.accountNumber}}</span>
-          <p class="account-balance">{{account.accountBalance}} <span class="currency">{{account.accountCurrency}}</span></p>
+                    <span class="account-number">{{account.accountNumber}}</span>
+                    <p class="account-balance">{{account.accountBalance}} <span class="currency">{{account.accountCurrency}}</span>
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
 </div>

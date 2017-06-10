@@ -1,13 +1,14 @@
 package TemplatesService.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import TemplatesService.Model.Template;
 import TemplatesService.Repository.TemplateRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -16,12 +17,33 @@ public class TemplateServiceImpl implements TemplateService
 	@Autowired
 	private TemplateRepository templateRepository;
 
+    @PostConstruct
+    @Transactional
+    public void populate() {
+//        for (Integer i=0;i<10;i++){
+//            Template t = new Template();
+//            t.setTemplate_name("Template broj: " + i);
+//            t.setPayment_purpose("Racun za elektricnu energiju");
+//            t.setPayment_type_id(1);
+//            t.setAmount(100*new Random().nextDouble());
+//            t.setPayment_type((i%2==0) ? "InternalPayment" : (i%3==0) ? "ForeignPayment": "DometicPayment");
+//            t.setReceiver_bank_acc_number("123123123");
+//            t.setReceiver_name("Elektrodistribucija BIH");
+//            t.setSender_name("Hamo Hamic");
+//            t.setSender_bank_acc_number("321321321");
+//            t.setUserId(1);
+//            templateRepository.save(t);
+//        }
+    }
+
     @Override
     public Iterable<Template> listAllTemplates() 
     {
         return templateRepository.findAll();
     }
-    
+
+    @Override
+    public Iterable<Template> listAllTemplatesForUser(Integer userId) { return templateRepository.findByUserId(userId);}
     public boolean isTemplateExist(Template template) 
     {
     	return templateRepository.exists(template.getTemplate_id());
@@ -33,7 +55,7 @@ public class TemplateServiceImpl implements TemplateService
         return templateRepository.findOne(id);
     }
     
-    public List<Template> getTemplatesByUserId(Integer user_id)
+    public List<Template> getTemplatesByUserId(Integer UserId)
     {
     	
     	List<Template> userTemplates = new ArrayList<Template>();
@@ -43,7 +65,7 @@ public class TemplateServiceImpl implements TemplateService
     	for(Template item : templates)
     	{
     		
-    		if(item.getUser_id().equals(user_id))
+    		if(item.getUserId().equals(UserId))
     		{
     			
     			userTemplates.add(item);

@@ -174,9 +174,39 @@
           <button type="reset" class="btn btn-sm btn-danger" (click)="showPayments()">
             <i class="icon-list"></i> Show all payments
           </button>
-          <button [hidden]="showSuccessButton" type="reset" class="btn btn-sm btn-danger pull-right" (click)="signPayment()">
+            <button type="reset" class="btn btn-sm btn-warning" [popover]="saveTemplatePop">
+                <i class="fa fa-save"></i> Save as template
+            </button>
+            <template #saveTemplatePop>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Template name</label>
+                            <input [(ngModel)]="templateName" ngControl="templateName"
+                                   name="amount" type="text" class="form-control" required
+                                   placeholder="Enter template name">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-sm btn-warning pull-right" (click)="saveAsTemplate();">Confirm</button>
+                    </div>
+                </div></template>
+          <button [hidden]="showSuccessButton" type="reset" class="btn btn-sm btn-danger pull-right" [popover]="signPaymentPop">
             <i class="icon-check"></i> Sign
           </button>
+            <template #signPaymentPop>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Enter code</label>
+                            <input name="amount" type="text" class="form-control"
+                                   placeholder="Enter code from SMS">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <button  type="button" class="btn btn-sm btn-success pull-right" (click)="signPayment();">Confirm</button>
+                    </div>
+                </div></template>
           <button [hidden]="!showSuccessButton" type="reset" class="btn btn-sm btn-success pull-right">
             <i class="icon-check"></i> Successfully signed!
           </button>

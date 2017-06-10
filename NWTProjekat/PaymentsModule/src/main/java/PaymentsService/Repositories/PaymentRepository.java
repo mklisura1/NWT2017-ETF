@@ -27,7 +27,7 @@ public interface PaymentRepository extends JpaRepository<PaymentModel, Long> {
   //  @Query("select * from #{#entityName} p where p.user_id = ?1")
 //    List<PaymentModel> findAllUserPayments(Integer userId);
 
-    Page<PaymentModel> findByUserId(Pageable pageable, Integer userId);
+    Page<PaymentModel> findByUserIdAndStatus(Pageable pageable, Integer userId, String status);
     Page<PaymentModel> findByStatus(Pageable pageable, String status);
 
 

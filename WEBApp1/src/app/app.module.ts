@@ -12,10 +12,7 @@ import {SIDEBAR_TOGGLE_DIRECTIVES} from './shared/sidebar.directive';
 import {AsideToggleDirective} from './shared/aside.directive';
 import {BreadcrumbsComponent} from './shared/breadcrumb.component';
 import {ToastrModule} from 'ngx-toastr';
-// Routing Module
 import {AppRoutingModule} from './app.routing';
-
-// Layouts
 import {FullLayoutComponent} from './layouts/full-layout.component';
 import {SimpleLayoutComponent} from './layouts/simple-layout.component';
 import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
@@ -27,6 +24,8 @@ import {AuthenticationGuard} from "./services/authentication.guard";
 import {HelperService} from "./services/helper.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {Router} from "@angular/router";
+import {PopoverModule} from "ngx-bootstrap";
+import {MalihuScrollbarModule} from "ngx-malihu-scrollbar";
 
 @NgModule({
     imports: [
@@ -38,6 +37,9 @@ import {Router} from "@angular/router";
         HttpModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot(), // ToastrModule added
+        PopoverModule.forRoot(),
+
+        MalihuScrollbarModule.forRoot()
     ],
     declarations: [
         AppComponent,
@@ -46,7 +48,7 @@ import {Router} from "@angular/router";
         NAV_DROPDOWN_DIRECTIVES,
         BreadcrumbsComponent,
         SIDEBAR_TOGGLE_DIRECTIVES,
-        AsideToggleDirective
+        AsideToggleDirective,
     ],
     providers: [
         {

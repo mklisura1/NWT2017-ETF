@@ -21,12 +21,14 @@ public class PaymentTypeService {
     @PostConstruct
     @Transactional
     public void populate() {
-//        PaymentTypeModel p = new PaymentTypeModel("DomaciNalog");
-//        paymentTypeRepository.saveAndFlush(p);
-//        p = new PaymentTypeModel("InostraniNalog");
-//        paymentTypeRepository.saveAndFlush(p);
-//        p = new PaymentTypeModel("InterniTransfer");
-//        paymentTypeRepository.saveAndFlush(p);
+//
+//        PaymentTypeModel pType = new PaymentTypeModel("DomesticPayment");
+//        paymentTypeRepository.saveAndFlush(pType);
+//        pType = new PaymentTypeModel("ForeignPayment");
+//        paymentTypeRepository.saveAndFlush(pType);
+//        pType = new PaymentTypeModel("InternalPayment");
+//        paymentTypeRepository.saveAndFlush(pType);
+
     }
 
     @Transactional(readOnly = true)

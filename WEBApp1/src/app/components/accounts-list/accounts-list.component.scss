@@ -39,7 +39,7 @@
 }
 .account-list-item-other{
  @extend .account-list-item;
-  width: 400px;
+  width: 322px;
   height: 160px;
   background-color: #175C7A;
   color: #FFF;
@@ -57,4 +57,7 @@
 
 .p-t-30{
   padding-top: 30px;
+}
+.hand-pointer{
+  cursor: pointer;
 }
