@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
 export class AccountsComponent implements OnInit {
 
   accounts: any[] = [];
-
-  user: any = {};
+  loggedUser: any = {};
 
   constructor(private accountsService: AccountsService, private helperService: HelperService, private router: Router) {
   }
@@ -26,10 +25,9 @@ export class AccountsComponent implements OnInit {
       .subscribe(
         response => {
           console.log('Get User Bank Accounts: ', response);
-          /*if (response.content) {
-            this.accounts = response;
-          }*/
-          this.accounts = response;
+          this.accounts = response.filter(element => {
+            return element.user === JSON.parse(localStorage.getItem('loggedUser')).id;
+          });
           this.helperService.showSuccess('Account is successfully retrieved!');
         }
       );

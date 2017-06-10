@@ -30,4 +30,28 @@ export class AccountsService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
+  insertAccount(account): Observable<any>{
+    let body = JSON.stringify(account);
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.apiUrl, body, options)
+      .map( response => response.json())
+      .catch(this.handleError);
+  }
+
+  /*updateAccount(id, account): Observable<any>{
+    let body = JSON.stringify({account: account});
+    return this.http.put(this.apiUrl, body, this.options)
+      .map(response => response.json())
+      .catch(this.handleError);
+  }
+
+  deletePayment(id): Observable<any>{
+    let url = this.apiUrl + "/{id}";
+    return this.http.delete(url.replace('{id}', id), {})
+      .map(response => response.json())
+      .catch(this.handleError);
+  }*/
+
 }

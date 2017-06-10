@@ -4,11 +4,12 @@
       <div class="card">
         <div class="card-header">
           <i class="icon-credit-card"></i>
-          <span>Account Name: </span> {{a.bank_account_name}}
+          <label class="form-control-label">Account Name:</label> <span>{{a.bank_account_name}}</span>
         </div>
         <div class="card-block">
-          <span>Account Number: </span> {{a.bank_account_number}}<br>
-          <span>Credit Amount: </span> {{a.credit_amount}}
+          <label class="form-control-label">Account Type:</label> <span>{{a.bankAccountType.bank_account_type_name}}</span><br>
+          <label class="form-control-label">Account Number:</label> <span>{{a.bank_account_number}}</span><br>
+          <label class="form-control-label">Credit Amount:</label> <span>{{a.credit_amount}}$</span><br>
         </div>
       </div>
     </div>
