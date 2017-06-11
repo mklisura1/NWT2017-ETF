@@ -1,12 +1,50 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AccountsService } from '../../services/accounts.service';
+import { UserService } from '../../services/user.service';
+import { PaymentsService } from '../payments/payments.service';
 
 @Component({
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
 
-  // constructor( ) { }
+  users: any[] = [];
+  accounts: any[] = [];
+  payments: any[] = [];
+  moneyTransferred: any = 0;
+
+  constructor(private accountsService: AccountsService, private userService: UserService, private paymentsService: PaymentsService) {
+  }
+
+  getAllUsers() {
+    this.userService.getAllUsers()
+      .subscribe(
+        response => {
+          this.users = response;
+        }
+      );
+  }
+
+  getAllAccounts() {
+    this.accountsService.getAccounts()
+      .subscribe(
+        response => {
+          this.accounts = response;
+        }
+      );
+  }
+
+  getAllPayments() {
+    this.paymentsService.getPayments('Waiting').subscribe(
+      response => {
+        this.payments = response;
+        for (let payment of this.payments) {
+          this.moneyTransferred = this.moneyTransferred + payment.amount;
+        }
+      }
+
+    );
+  }
 
   public brandPrimary = '#20a8d8';
   public brandSuccess = '#4dbd74';
@@ -469,5 +507,8 @@ export class DashboardComponent implements OnInit {
       this.mainChartData2.push(this.random(80, 100));
       this.mainChartData3.push(65);
     }
+    this.getAllUsers();
+    this.getAllAccounts();
+    this.getAllPayments();
   }
 }

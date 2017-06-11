@@ -12,6 +12,7 @@ export class AccountsComponent implements OnInit {
 
   accounts: any[] = [];
   loggedUser: any = {};
+  totalCredits: any = 0;
 
   constructor(private accountsService: AccountsService, private helperService: HelperService, private router: Router) {
   }
@@ -28,6 +29,10 @@ export class AccountsComponent implements OnInit {
           this.accounts = response.filter(element => {
             return element.user === JSON.parse(localStorage.getItem('loggedUser')).id;
           });
+          for (let account of this.accounts)
+          {
+            this.totalCredits = this.totalCredits + account.credit_amount;
+          }
           this.helperService.showSuccess('Account is successfully retrieved!');
         }
       );

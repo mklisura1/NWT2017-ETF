@@ -1,5 +1,12 @@
 <div class="animated fadeIn">
   <div class="row">
+    <div class="bar">
+      <div class="card">
+      <div class="card-header">
+        <label>Number of accounts:</label> <span>{{accounts.length}}</span><label>Total credits:</label> <span>{{totalCredits}}$</span>
+      </div>
+      </div>
+    </div>
     <div class="col-sm-6 col-md-4" *ngFor = "let a of accounts; let i = index">
       <div class="card">
         <div class="card-header">
