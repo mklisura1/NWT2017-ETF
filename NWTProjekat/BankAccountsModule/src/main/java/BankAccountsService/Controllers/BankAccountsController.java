@@ -40,13 +40,13 @@ public class BankAccountsController {
             if(currency.equals("domestic")){
                 while (i.hasNext()) {
                     BankAccount bankAccount = i.next();
-                    if (!bankAccount.getCurreny().equals("BAM"))
+                    if (!bankAccount.getCurrency().equals("BAM"))
                         i.remove();
                 }
             } else {
                 while (i.hasNext()) {
                     BankAccount bankAccount = i.next();
-                    if (bankAccount.getCurreny().equals("BAM"))
+                    if (bankAccount.getCurrency().equals("BAM"))
                         i.remove();
                 }
             }

@@ -31,14 +31,14 @@ public class BankAccount {
 	private String bank_account_number;
 
     @Column(name="currency")
-	private String curreny;
+	private String currency;
 
-    public String getCurreny() {
-        return curreny;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setCurreny(String curreny) {
-        this.curreny = curreny;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public BankAccount()
@@ -48,7 +48,7 @@ public class BankAccount {
 	
 	
 	public BankAccount(int bank_account_id, String bank_account_name, int user, BankAccountType bankAccountType,
-			int credit_amount, String bank_account_number, String curreny) {
+			int credit_amount, String bank_account_number, String currency) {
 		super();
 		this.bank_account_id = bank_account_id;
 		this.bank_account_name = bank_account_name;
@@ -56,7 +56,7 @@ public class BankAccount {
 		this.bankAccountType = bankAccountType;
 		this.credit_amount = credit_amount;
 		this.bank_account_number = bank_account_number;
-		this.curreny = curreny;
+		this.currency = currency;
 	}
 
 

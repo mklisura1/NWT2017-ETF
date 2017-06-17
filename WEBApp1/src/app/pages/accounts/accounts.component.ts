@@ -14,6 +14,7 @@ export class AccountsComponent implements OnInit {
   accounts: any[] = [];
   loggedUser: any = {};
   totalCredits: any = 0;
+  transactions: any[] = [];
 
   constructor(private accountsService: AccountsService, private helperService: HelperService, private transactionsService: TransactionsService, private router: Router) {
   }
@@ -25,18 +26,25 @@ export class AccountsComponent implements OnInit {
   showAccounts() {
     this.accountsService.getAccounts()
       .subscribe(
-        response => {
-          console.log('Get User Bank Accounts: ', response);
-          this.accounts = response.filter(element => {
-            return element.user === JSON.parse(localStorage.getItem('loggedUser')).id;
-          });
-          for (let account of this.accounts)
-          {
-            this.totalCredits = this.totalCredits + account.credit_amount;
-          }
-          this.helperService.showSuccess('Account is successfully retrieved!');
+      response => {
+        console.log('Get User Bank Accounts: ', response);
+        this.accounts = response.filter(element => {
+          return element.user === JSON.parse(localStorage.getItem('loggedUser')).id;
+        });
+        for (let account of this.accounts) {
+          this.totalCredits = this.totalCredits + account.credit_amount;
+          this.transactionsService.getTransactionsByBankAccountId(account.bank_account_id)
+            .subscribe(
+            responseTemp => {
+              console.log('Get Transactions: ', responseTemp);
+              this.transactions.push(response);
+            }
+            );
         }
+        this.helperService.showSuccess('Accounts are successfully retrieved!');
+      }
       );
+
   }
 
 }
