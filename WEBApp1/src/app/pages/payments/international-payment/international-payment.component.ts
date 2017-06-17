@@ -35,39 +35,31 @@ export class InternationalPaymentComponent implements OnInit {
     accountsList: any[];
 
     constructor(private paymentsService: PaymentsService, private router: Router, private activatedRoute: ActivatedRoute,
-                private helperService: HelperService,
+                private helperService: HelperService, private accountsService: AccountsService,
                 private templatesService: TemplatesService) {
     }
 
     ngOnInit() {
+        this.getAccounts();
         this.activatedRoute.params.subscribe(
             params => {
                 this.populatePayment(params);
             }
         );
-        this.accountsList = [
-            {
-                accountNumber: "BA121234330923",
-                accountBalance: 23.02,
-                accountName: "Hamo Hamic",
-                accountType: "Tekuci racun",
-                accountCurrency: "BAM"
-            },
-            {
-                accountNumber: "SI1231231230923",
-                accountBalance: 333.02,
-                accountName: "Hame u piketa",
-                accountType: "Devizni racun",
-                accountCurrency: "EUR"
-            },
-            {
-                accountNumber: "IT1231231230923",
-                accountBalance: 123.02,
-                accountName: "Francesco Totti",
-                accountType: "Tekuci racun",
-                accountCurrency: "ITA"
-            }
-        ];
+
+    }
+
+    getAccounts() {
+        console.log("GET ACCOUNTS");
+        this.accountsService.getAccountsByCurrency('foreign')
+            .subscribe(
+                response => {
+                    console.log("GET ACCOUNTS - REsponse");
+
+                    if (response)
+                        this.accountsList = response;
+                }
+            )
     }
 
     populatePayment(params) {

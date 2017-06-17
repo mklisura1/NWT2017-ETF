@@ -20,7 +20,8 @@ export class AddUserComponent implements OnInit {
         password: '',
         email: '',
         address: '',
-        jmbg: ''
+        jmbg: '',
+        mobile: ''
     };
     formSubmitted = false;
     users:any[] = [];
@@ -50,8 +51,25 @@ export class AddUserComponent implements OnInit {
                 (err) => this.helperService.showError('Error while deleting user!')
             )
     }
+
+    cancel(){
+        this.user = {
+            first_name: '',
+            last_name: '',
+            birth_date: new Date(),
+            username: '',
+            password: '',
+            email: '',
+            address: '',
+            jmbg: '',
+            mobile: ''
+        };
+        this.editableUser = false;
+        this.addUser = false;
+    }
     editUser(user){
         this.user = user;
+        this.user.password = '';
         this.editableUser = true;
         this.addUser = true;
     }
@@ -88,7 +106,8 @@ export class AddUserComponent implements OnInit {
             password: '',
             email: '',
             address: '',
-            jmbg: ''
+            jmbg: '',
+            mobile: ''
         };
     }
 
@@ -114,7 +133,7 @@ export class AddUserComponent implements OnInit {
 
     private formValidation() {
         return (this.user.first_name.length > 0 && this.user.last_name.length > 0 && this.user.address.length > 0
-        && this.user.email.length > 0 && this.user.birth_date && this.user.password.length > 0 &&
+        && this.user.email.length > 0 && this.user.birth_date &&
         this.user.jmbg.length > 0);
     }
 }

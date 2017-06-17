@@ -6,11 +6,11 @@
                     <i class="icon-credit-card fa-4x align-middle"></i>
                 </div>
                 <div class="col-sm-7 t-a-r">
-                    <span class="account-type">{{selectedAccount.accountType}}</span>
-                    <span class="account-name">{{selectedAccount.accountName}}</span>
+                    <span class="account-type">{{selectedAccount.bankAccountType ? selectedAccount.bankAccountType.bank_account_type_name : ''}}</span>
+                    <span class="account-name">{{selectedAccount.bank_account_name}}</span>
 
-                    <span class="account-number">{{selectedAccount.accountNumber}}</span>
-                    <p class="account-balance">{{selectedAccount.accountBalance}} <span class="currency">{{selectedAccount.accountCurrency}}</span>
+                    <span class="account-number">{{selectedAccount.bank_account_number}}</span>
+                    <p class="account-balance">{{selectedAccount.credit_amount}} <span class="currency">{{selectedAccount.curreny}}</span>
                     </p>
                 </div>
                 <div class="col-sm-2" (click)="showList = !showList">
@@ -29,11 +29,11 @@
                     <i class="icon-credit-card fa-4x align-middle"></i>
                 </div>
                 <div class="col-sm-7 t-a-r">
-                    <span class="account-type">{{account.accountType}}</span>
-                    <span class="account-name">{{account.accountName}}</span>
+                    <span class="account-type">{{account.bankAccountType ? account.bankAccountType.bank_account_type_name : ''}}</span>
+                    <span class="account-name">{{account.bank_account_name}}</span>
 
-                    <span class="account-number">{{account.accountNumber}}</span>
-                    <p class="account-balance">{{account.accountBalance}} <span class="currency">{{account.accountCurrency}}</span>
+                    <span class="account-number">{{account.bank_account_number}}</span>
+                    <p class="account-balance">{{account.credit_amount}} <span class="currency">{{account.curreny}}</span>
                     </p>
                 </div>
             </div>

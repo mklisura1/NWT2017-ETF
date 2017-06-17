@@ -10,8 +10,8 @@ import {HelperService} from "app/services/helper.service";
 export class LoginComponent {
     submitted = false;
     user = {
-        name: 'svlada3@gmail.com',
-        pass: 'test1234'
+        name: 'admin',
+        pass: 'admin'
     };
 
     username: string;

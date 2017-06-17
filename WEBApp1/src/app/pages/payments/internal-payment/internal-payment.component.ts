@@ -40,31 +40,7 @@ export class InternalPaymentComponent implements OnInit {
     }
 
     ngOnInit() {
-
-        //this.getAccounts();
-        this.accountsList = [
-            {
-                accountNumber: "BA121234330923",
-                accountBalance: 23.02,
-                accountName: "Hamo Hamic",
-                accountType: "Tekuci racun",
-                accountCurrency: "BAM"
-            },
-            {
-                accountNumber: "SI1231231230923",
-                accountBalance: 333.02,
-                accountName: "Hame u piketa",
-                accountType: "Devizni racun",
-                accountCurrency: "EUR"
-            },
-            {
-                accountNumber: "IT1231231230923",
-                accountBalance: 123.02,
-                accountName: "Francesco Totti",
-                accountType: "Tekuci racun",
-                accountCurrency: "ITA"
-            }
-        ];
+        this.getAccounts();
         this.activatedRoute.params.subscribe(
             params => {
                 this.populatePayment(params);

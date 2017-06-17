@@ -3,6 +3,7 @@ import {PaymentsService} from "../payments.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TemplatesService} from "../../../services/templates.service";
 import {HelperService} from "../../../services/helper.service";
+import {AccountsService} from "../../../services/accounts.service";
 
 @Component({
     selector: 'app-domestic-payment',
@@ -36,38 +37,27 @@ export class DomesticPaymentComponent implements OnInit {
 
     constructor(private paymentsService: PaymentsService, private router: Router, private activatedRoute: ActivatedRoute,
                 private helperService: HelperService,
-                private templatesService: TemplatesService) {
+                private templatesService: TemplatesService,
+    private accountsService: AccountsService) {
     }
 
     ngOnInit() {
-        this.accountsList = [
-            {
-                accountNumber: "BA121234330923",
-                accountBalance: 23.02,
-                accountName: "Hamo Hamic",
-                accountType: "Tekuci racun",
-                accountCurrency: "BAM"
-            },
-            {
-                accountNumber: "SI1231231230923",
-                accountBalance: 333.02,
-                accountName: "Hame u piketa",
-                accountType: "Devizni racun",
-                accountCurrency: "EUR"
-            },
-            {
-                accountNumber: "IT1231231230923",
-                accountBalance: 123.02,
-                accountName: "Francesco Totti",
-                accountType: "Tekuci racun",
-                accountCurrency: "ITA"
-            }
-        ];
+        this.getAccounts();
         this.activatedRoute.params.subscribe(
             params => {
                 this.populatePayment(params);
             }
         )
+    }
+
+    getAccounts(){
+        this.accountsService.getAccountsByCurrency('domestic')
+            .subscribe(response =>{
+                // this.accountsList = response.result;
+                this.accountsList = response.filter(element => {
+                    return element.user === JSON.parse(localStorage.getItem('loggedUser')).id;
+                });
+            })
     }
 
     populatePayment(params) {
