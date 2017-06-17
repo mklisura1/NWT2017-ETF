@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountsService } from '../../services/accounts.service';
+import { TransactionsService } from '../../services/transactions.service';
 import { HelperService } from '../../services/helper.service';
 import { Router } from '@angular/router';
 
@@ -14,7 +15,7 @@ export class AccountsComponent implements OnInit {
   loggedUser: any = {};
   totalCredits: any = 0;
 
-  constructor(private accountsService: AccountsService, private helperService: HelperService, private router: Router) {
+  constructor(private accountsService: AccountsService, private helperService: HelperService, private transactionsService: TransactionsService, private router: Router) {
   }
 
   ngOnInit() {

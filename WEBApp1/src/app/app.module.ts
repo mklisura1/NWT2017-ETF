@@ -19,6 +19,7 @@ import {Http, HttpModule, RequestOptions, XHRBackend} from "@angular/http";
 import {UserService} from "./services/user.service";
 import { AccountsService } from './services/accounts.service';
 import { PaymentsService } from './pages/payments/payments.service';
+import { TransactionsService } from './services/transactions.service';
 import {AuthenticationService} from "./services/authentication.service";
 import {httpFactory} from "./services/http-factory.service";
 import {AuthenticationGuard} from "./services/authentication.guard";
@@ -60,7 +61,7 @@ import {MalihuScrollbarModule} from "ngx-malihu-scrollbar";
         {
         provide: LocationStrategy,
         useClass: HashLocationStrategy
-    }, UserService, AccountsService, PaymentsService, AuthenticationService, AuthenticationGuard, HelperService],
+    }, UserService, AccountsService, PaymentsService, TransactionsService, AuthenticationService, AuthenticationGuard, HelperService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

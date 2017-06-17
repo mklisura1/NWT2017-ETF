@@ -5,6 +5,7 @@ import { AccountsRoutingModule } from './accounts-routing.module';
 import { AccountsComponent } from './accounts.component';
 import {FormsModule} from '@angular/forms';
 import { AccountsService } from '../../services/accounts.service';
+import { TransactionsService } from '../../services/transactions.service';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { AccountsService } from '../../services/accounts.service';
     FormsModule
   ],
   declarations: [AccountsComponent],
-  providers: [AccountsService]
+  providers: [AccountsService, TransactionsService]
 })
 export class AccountsModule { }
