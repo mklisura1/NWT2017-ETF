@@ -96,6 +96,7 @@ public class UserController {
             System.out.println("User with id " + id + " not found");
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
+
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
@@ -156,11 +157,23 @@ public class UserController {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
 
+        user.setPassword(generatePassword(user.getPassword()));
+
+
+        //dodati jos rolu  ali kako ???
+
         userService.saveUser(user);
+
+
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+    }
+
+    private String generatePassword(String nonHashedPassword) {
+        String salt = BCrypt.gensalt(10);
+        return BCrypt.hashpw(nonHashedPassword, salt);
     }
 
 
@@ -179,11 +192,18 @@ public class UserController {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
 
+        currentUser.setAddress(user.getAddress());
+        currentUser.setJmbg(user.getJmbg());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setBirth_date(user.getBirth_date());
         currentUser.setFirst_name(user.getFirst_name());
         currentUser.setLast_name(user.getLast_name());
-
+        if(user.getPassword() != null && user.getPassword().length() > 0)
+            currentUser.setPassword(generatePassword(user.getPassword()));
+        currentUser.setUsername(user.getUsername());
+        currentUser.setMobile(user.getMobile());
         userService.updateUser(currentUser);
-        ;
+
         return new ResponseEntity<User>(currentUser, HttpStatus.OK);
     }
 

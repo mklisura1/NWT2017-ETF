@@ -1,17 +1,9 @@
 package BankAccountsService.Models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name="BankAccounts")
@@ -37,15 +29,26 @@ public class BankAccount {
 	
 	@Column(name="AccountNumber")
 	private String bank_account_number;
-	
-	public BankAccount()
+
+    @Column(name="currency")
+	private String curreny;
+
+    public String getCurreny() {
+        return curreny;
+    }
+
+    public void setCurreny(String curreny) {
+        this.curreny = curreny;
+    }
+
+    public BankAccount()
 	{
 		super();
 	}
 	
 	
 	public BankAccount(int bank_account_id, String bank_account_name, int user, BankAccountType bankAccountType,
-			int credit_amount, String bank_account_number) {
+			int credit_amount, String bank_account_number, String curreny) {
 		super();
 		this.bank_account_id = bank_account_id;
 		this.bank_account_name = bank_account_name;
@@ -53,6 +56,7 @@ public class BankAccount {
 		this.bankAccountType = bankAccountType;
 		this.credit_amount = credit_amount;
 		this.bank_account_number = bank_account_number;
+		this.curreny = curreny;
 	}
 
 

@@ -35,10 +35,10 @@
         <div [hidden]="internalTempObj.step !== 'step1'" class="card-block">
           <div class="row">
             <div class="col-sm-6">
-              <app-accounts-list (selectedAccountEvent)="onNotifyAccFrom($event)" [accountsList]="accountsList"></app-accounts-list>
+              <app-accounts-list *ngIf="accountsList" (selectedAccountEvent)="onNotifyAccFrom($event)" [accountsList]="accountsList"></app-accounts-list>
             </div>
             <div class="col-sm-6">
-              <app-accounts-list (selectedAccountEvent)="onNotifyAccTo($event)" [accountsList]="accountsList"></app-accounts-list>
+              <app-accounts-list *ngIf="accountsList" (selectedAccountEvent)="onNotifyAccTo($event)" [accountsList]="accountsList"></app-accounts-list>
             </div>
           </div>
           <div class="row p-t-15">

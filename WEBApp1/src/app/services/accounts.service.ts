@@ -30,6 +30,15 @@ export class AccountsService {
       .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
+    getAccountsByCurrency(currency): Observable<any> {
+        let params = new URLSearchParams();
+        params.set("currency", currency || null);
+        params.set("userId", JSON.parse(localStorage.getItem('loggedUser')).id || null);
+        return this.http.get(this.apiUrl, {search: params})
+            .map( response => response.json())
+            .catch((error: any) => Observable.throw(error || 'Server error'));
+    }
+
   insertAccount(account): Observable<any>{
     let body = JSON.stringify(account);
 

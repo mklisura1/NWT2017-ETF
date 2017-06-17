@@ -8,7 +8,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 export class AccountsListComponent implements OnInit {
 
     showList: boolean = false;
-    selectedAccount: any;
+    selectedAccount = {
+        bank_account_type_name: {}
+    };
 
     public scrollbarOptions = {axis: 'y', theme: 'minimal-dark'};
 
@@ -16,7 +18,9 @@ export class AccountsListComponent implements OnInit {
     @Output() selectedAccountEvent: EventEmitter<any> = new EventEmitter<any>();
 
     constructor() {
-        this.selectedAccount = {};
+        this.selectedAccount = {
+            bank_account_type_name: {}
+        };
         //this.selectedAccount = this.accountsList[0];
     }
 

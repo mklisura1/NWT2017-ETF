@@ -42,7 +42,8 @@ export class ProfileComponent implements OnInit {
         email: this.user.email,
         jmbg: this.user.jmbg,
         address: this.user.address,
-        birth_date: this.user.birthDate
+        birth_date: this.user.birthDate,
+          mobile: this.user.mobile
       }
     }
   }

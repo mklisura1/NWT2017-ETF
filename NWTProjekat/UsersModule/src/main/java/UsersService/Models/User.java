@@ -53,7 +53,17 @@ public class User {
 	@Cascade({CascadeType.SAVE_UPDATE})
 	private UserPicture userPicture;
 
-	@Transient
+	private String mobile;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    @Transient
 	private List<PaymentModel> userPayments;
 	
 	@Transient
@@ -286,7 +296,7 @@ public class User {
 
 	public User(/*Integer id,*/ String username, String password, List<UserRole> roles, String first_name, String last_name,
 			Date birth_date, String email, String jmbg, String address, UserType userType, UserPicture userPicture,
-			List<PaymentModel> userPayments, List<BankAccount> userBankAccounts) {
+			List<PaymentModel> userPayments, List<BankAccount> userBankAccounts, String mobile) {
 		super();
 		//this.id = id;
 		this.username = username;
@@ -302,6 +312,7 @@ public class User {
 		this.userPicture = userPicture;
 		this.userPayments = userPayments;
 		this.userBankAccounts = userBankAccounts;
+		this.mobile = mobile;
 	}
 	
 	
