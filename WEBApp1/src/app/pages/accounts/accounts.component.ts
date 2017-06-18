@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountsService } from '../../services/accounts.service';
 import { TransactionsService } from '../../services/transactions.service';
+import { UserService } from '../../services/user.service';
 import { HelperService } from '../../services/helper.service';
 import { Router } from '@angular/router';
 
@@ -15,8 +16,9 @@ export class AccountsComponent implements OnInit {
   loggedUser: any = {};
   totalCredits: any = 0;
   transactions: any[] = [];
+  users: any[] = [];
 
-  constructor(private accountsService: AccountsService, private helperService: HelperService, private transactionsService: TransactionsService, private router: Router) {
+  constructor(private accountsService: AccountsService, private helperService: HelperService, private transactionsService: TransactionsService, private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -33,18 +35,29 @@ export class AccountsComponent implements OnInit {
         });
         for (let account of this.accounts) {
           this.totalCredits = this.totalCredits + account.credit_amount;
-          this.transactionsService.getTransactionsByBankAccountId(account.bank_account_id)
-            .subscribe(
-            responseTemp => {
-              console.log('Get Transactions: ', responseTemp);
-              this.transactions.push(response);
-            }
-            );
         }
         this.helperService.showSuccess('Accounts are successfully retrieved!');
+        this.addTransactions();
       }
       );
-
   }
 
+  addTransactions() {
+    console.log(this.accounts.length);
+    for (let account of this.accounts) {
+      this.transactionsService.getTransactionsByBankAccountId(account.bank_account_id)
+        .subscribe(
+           response => {
+              console.log('Get Transactions: ', response);
+              this.transactions.push(response);
+             console.log(this.transactions);
+            });
+    }
+    this.userService.getAllUsers()
+      .subscribe(
+          response => {
+            console.log('Users:', response);
+            this.users = response;
+          });
+  }
 }

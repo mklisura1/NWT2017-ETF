@@ -33,11 +33,11 @@ export class TransactionsService {
     getTransactionsByBankAccountId(id): Observable<any> {
         /*let params = new URLSearchParams();
         params.set("id", id || null);*/
+        console.log('Uslo u TransactionsByBankAccount');
         return this.http.get(this.apiUrl + '/bankaccount/' + id + '/transaction')
-            .map( response => {
-              console.log('Transactions:', response);
-              response.json();
-            })
+            .map( response =>
+              response.json()
+            )
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
 

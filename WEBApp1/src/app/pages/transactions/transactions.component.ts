@@ -12,5 +12,7 @@ export class TransactionsComponent implements OnInit {
 
   ngOnInit() {
   }
+  
+  
 
 }

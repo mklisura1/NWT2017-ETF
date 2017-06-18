@@ -28,17 +28,19 @@
 						<thead>
 							<tr>
 								<th>To/From</th>
-								<th>Amount</th>
+								<th>Date</th>
 								<th>Type</th>
 								<th>Status</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody  *ngFor="let t of transactions[i]; let j = index">
 							<tr>
-								<td>Carwyn Fachtna</td>
-								<td>2012/01/01</td>
-								<td>Member</td>
-								<td><span class="badge badge-success">Active</span></td>
+								<td *ngIf="a.bank_account_id != t.bank_account_receiver_id">{{users[1].username}}</td>
+								<td *ngIf="a.bank_account_id != t.bank_account_sender_id">{{users[1].username}}</td>
+								<td>{{t.date | date:'medium'}}</td>
+								<td>{{t.transactionType.transaction_type_name}}</td>
+								<td *ngIf="a.bank_account_id != t.bank_account_receiver_id"><span class="badge badge-success">Received</span></td>
+								<td *ngIf="a.bank_account_id != t.bank_account_sender_id"><span class="badge badge-success">Sent</span></td>
 							</tr>
 						</tbody>
 					</table>

@@ -31,7 +31,8 @@ public class Transaction {
 	private TransactionStatus transactionStatus;
 	private Integer bank_account_sender_id;
 	private Integer bank_account_receiver_id;
-	private Integer user_id;
+	private Integer sender_id;
+	private Integer receiver_id;
 	private Integer payment_id;
 	@DateTimeFormat(pattern = "dd/MM/yyyy") 
 	private Date date;
@@ -42,7 +43,7 @@ public class Transaction {
 	}
 
 	public Transaction(Integer transaction_id, TransactionType transactionType, TransactionStatus transactionStatus,
-			Integer bank_account_sender_id, Integer bank_account_receiver_id, Integer user_id, Integer payment_id,
+			Integer bank_account_sender_id, Integer bank_account_receiver_id, Integer sender_id, Integer receiver_id, Integer payment_id,
 			Date date) {
 		super();
 		this.transaction_id = transaction_id;
@@ -50,11 +51,28 @@ public class Transaction {
 		this.transactionStatus = transactionStatus;
 		this.bank_account_sender_id = bank_account_sender_id;
 		this.bank_account_receiver_id = bank_account_receiver_id;
-		this.user_id = user_id;
+		this.sender_id = sender_id;
+		this.receiver_id = receiver_id;
 		this.payment_id = payment_id;
 		this.date = date;
 	}
+	
+	public Integer getSender_id() {
+		return sender_id;
+	}
 
+	public void setSender_id(Integer sender_id) {
+		this.sender_id = sender_id;
+	}
+
+	public Integer getReceiver_id() {
+		return receiver_id;
+	}
+
+	public void setReceiver_id(Integer receiver_id) {
+		this.receiver_id = receiver_id;
+	}
+	
 	public Integer getTransaction_id() {
 		return transaction_id;
 	}
@@ -93,14 +111,6 @@ public class Transaction {
 
 	public void setBank_account_receiver_id(Integer bank_account_receiver_id) {
 		this.bank_account_receiver_id = bank_account_receiver_id;
-	}
-
-	public Integer getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
 	}
 
 	public Integer getPayment_id() {
