@@ -1,0 +1,180 @@
+<div class="animated fadeIn">
+
+  <div class="row justify-content-sm-center">
+    <div class="col-sm-8">
+      <div class="card ">
+        <div class="card-header pl-0 pr-0">
+          <div class="stepwizard">
+            <div class="stepwizard-row">
+              <div class="stepwizard-step col-4">
+                <button type="button" class="btn btn-primary btn-circle"
+                        [ngClass]="{'btn-primary': internalTempObj.step == 'step1', 'btn-default': internalTempObj.step !== 'step1' }">
+                  1
+                </button>
+                <p class="mb-0">Enter</p>
+              </div>
+              <div class="stepwizard-step col-4">
+                <button type="button" class="btn btn-default btn-circle"
+                        [ngClass]="{'btn-primary': internalTempObj.step == 'step2', 'btn-default': internalTempObj.step !== 'step2' }">
+                  2
+                </button>
+                <p class="mb-0">Validate / Confirm</p>
+              </div>
+              <div class="stepwizard-step col-4">
+                <button type="button" class="btn btn-default btn-circle"
+                        [ngClass]="{'btn-primary': internalTempObj.step == 'step3', 'btn-default': internalTempObj.step !== 'step3' }">
+                  3
+                </button>
+                <p class="mb-0">Info</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--STEP 1 START-->
+        <div [hidden]="internalTempObj.step !== 'step1'" class="card-block">
+          <div class="row">
+            <div class="col-sm-6">
+              <app-accounts-list (selectedAccountEvent)="onNotifyAccFrom($event)" [accountsList]="accountsList"></app-accounts-list>
+            </div>
+            <div class="col-sm-6">
+              <app-accounts-list (selectedAccountEvent)="onNotifyAccTo($event)" [accountsList]="accountsList"></app-accounts-list>
+            </div>
+          </div>
+          <div class="row p-t-15">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Amount</label>
+                <input [(ngModel)]="internalTempObj.amount" ngControl="amount"
+                       name="amount" type="text" class="form-control" required
+                       placeholder="Enter your amount">
+                <span *ngIf="showError && !internalTempObj.amount" class="help-block red">Amount is required!</span>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+
+              <div class="form-group">
+                <label class="form-control-label">Date</label>
+                <div class="controls">
+                  <div class="input-group">
+                    <input type="text" [value]="internalTempObj.date | date: 'dd.MM.yyyy'"
+                           class="form-control input-sm" (focus)="open()" [disabled]="true">
+                    <span class="input-group-btn" (click)="open()">
+                    <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
+                  </span>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="dp-popup" style="position: absolute;" *ngIf="showDatePicker">
+                <datepicker [(ngModel)]="internalTempObj.date" [minDate]="minDate"
+                            (selectionDone)="onSelectionDone($event)"
+                            [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
+              </div>
+
+              <!--<div class="form-group">-->
+                <!--<label for="vat">Date</label>-->
+                <!--<input type="date" class="form-control" (input)="internalTempObj.date" ngControl="date"-->
+                <!--[value]="internalTempObj.date">-->
+
+                  <!--<input type="text" [(ngModel)]="internalTempObj.date" class="form-control input-sm" (focus)="open()"/>-->
+                  <!--<span class="input-group-addon" (click)="open()">-->
+                    <!--<span class="glyphicon-calendar glyphicon"></span>-->
+                  <!--</span>-->
+
+              <!--</div>-->
+            </div>
+          </div>
+        </div>
+        <div [hidden]="internalTempObj.step !== 'step1'" class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="next()"><i
+            class="icon-arrow-right"></i> Next
+          </button>
+        </div>
+        <!--STEP 1 END-->
+
+        <!--STEP 2 START-->
+        <div [hidden]="internalTempObj.step !== 'step2'" class="card-block">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>From account name</label>
+                <span>{{internalTempObj.accountFrom.accountName}}</span>
+              </div>
+              <div class="form-group">
+                <label>From account number</label>
+                <span>{{internalTempObj.accountFrom.accountNumber}}</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>To account name</label>
+                <span>{{internalTempObj.accountTo.accountName}}</span>
+              </div>
+              <div class="form-group">
+                <label>To account number</label>
+                <span>{{internalTempObj.accountTo.accountNumber}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Payment date</label>
+                  <span>{{internalTempObj.date | date: 'dd.MM.yyyy'}}</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Amount</label>
+                <span>{{internalTempObj.amount}} {{internalTempObj.accountCurrency}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div [hidden]="internalTempObj.step !== 'step2'" class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="submitPayment()"><i
+            class="icon-arrow-right"></i> Submit
+          </button>
+          <button type="reset" class="btn btn-sm btn-info" (click)="back()"><i class="icon-arrow-left"></i> Back
+          </button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="newPayment()"><i class="icon-plus"></i> New
+            payment
+          </button>
+        </div>
+        <!--STEP 2 END-->
+
+        <!--STEP 3 START-->
+        <div [hidden]="internalTempObj.step !== 'step3'" class="card-block bg-aqua">
+          <div class="row">
+            <div class="col-sm-4 t-a-c">
+              <i class="icon-info fa-5x"></i>
+            </div>
+            <div class="col-sm-8">
+              <h2>Payment successfuly submitted.</h2>
+            </div>
+          </div>
+        </div>
+        <div [hidden]="internalTempObj.step !== 'step3'" class="card-footer">
+          <button type="reset" class="btn btn-sm btn-danger" (click)="newPayment()"><i class="icon-plus"></i> New
+            payment
+          </button>
+
+          <button type="reset" class="btn btn-sm btn-danger" (click)="showPayments()">
+            <i class="icon-list"></i> Show all payments
+          </button>
+          <button [hidden]="showSuccessButton" type="reset" class="btn btn-sm btn-danger pull-right" (click)="signPayment()">
+            <i class="icon-check"></i> Sign
+          </button>
+          <button [hidden]="!showSuccessButton" type="reset" class="btn btn-sm btn-success pull-right">
+            <i class="icon-check"></i> Successfully signed!
+          </button>
+        </div>
+        <!--STEP 3 END-->
+      </div>
+    </div>
+  </div>
+</div>

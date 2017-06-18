@@ -1,0 +1,187 @@
+<div class="animated fadeIn">
+
+  <div class="row justify-content-sm-center">
+    <div class="col-sm-8">
+      <div class="card ">
+        <div class="card-header pl-0 pr-0">
+          <div class="stepwizard">
+            <div class="stepwizard-row">
+              <div class="stepwizard-step col-4">
+                <button type="button" class="btn btn-primary btn-circle"
+                        [ngClass]="{'btn-primary': internationalTempObj.step == 'step1', 'btn-default': internationalTempObj.step !== 'step1' }">
+                  1
+                </button>
+                <p class="mb-0">Enter</p>
+              </div>
+              <div class="stepwizard-step col-4">
+                <button type="button" class="btn btn-default btn-circle"
+                        [ngClass]="{'btn-primary': internationalTempObj.step == 'step2', 'btn-default': internationalTempObj.step !== 'step2' }">
+                  2
+                </button>
+                <p class="mb-0">Validate</p>
+              </div>
+              <div class="stepwizard-step col-4">
+                <button type="button" class="btn btn-default btn-circle"
+                        [ngClass]="{'btn-primary': internationalTempObj.step == 'step3', 'btn-default': internationalTempObj.step !== 'step3' }">
+                  3
+                </button>
+                <p class="mb-0">Confirm</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--STEP 1 START-->
+        <div *ngIf="internationalTempObj.step === 'step1'" class="card-block">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group" [ngClass]="{'has-danger': (submittedPayment && internationalTempObj.amount.length <= 0)}">
+                <label>Amount</label>
+                <input [(ngModel)]="internationalTempObj.amount" ngControl="amount"
+
+                       name="amount" type="text" class="form-control"
+                       placeholder="Enter your amount">
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Date</label>
+                <div class="controls">
+                  <div class="input-group">
+                    <input type="text" [value]="internationalTempObj.date | date: 'dd.MM.yyyy'"
+                           class="form-control input-sm" (focus)="open()" [disabled]="true">
+                    <span class="input-group-btn" (click)="open()">
+                    <button type="button" class="btn btn-primary"><i class="fa fa-calendar"></i></button>
+                  </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dp-popup" style="position: absolute;z-index: 99;" *ngIf="showDatePicker">
+                <datepicker [(ngModel)]="internationalTempObj.date" [minDate]="minDate"
+                            (selectionDone)="onSelectionDone($event)"
+                            [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <app-accounts-list (selectedAccountEvent)="onNotifyAccFrom($event)" [accountsList]="accountsList"></app-accounts-list>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group " [ngClass]="{'has-danger': (submittedPayment && internationalTempObj.receiverBankAccNumber.length <= 0)}">
+                <label>Receiver account number</label>
+                <input [(ngModel)]="internationalTempObj.receiverBankAccNumber" ngControl="receiverBankAccNumber"
+                       name="receiverBankAccNumber" type="text" class="form-control"
+                       placeholder="eg. BA123456789">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group" [ngClass]="{'has-danger': (submittedPayment && internationalTempObj.receiverName.length <= 0)}">
+                <label>Receiver name</label>
+                <input [(ngModel)]="internationalTempObj.receiverName" ngControl="receiverName"
+                       name="receiverName" type="text" class="form-control"
+                       placeholder="eg. Alan Ford">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group" [ngClass]="{'has-danger': (submittedPayment && internationalTempObj.purpose.length <= 0)}">
+                <label>Purpose</label>
+                <input [(ngModel)]="internationalTempObj.purpose" ngControl="purpose"
+                       name="purpose" type="text" class="form-control"
+                       placeholder="eg. Electricity bill">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="internationalTempObj.step === 'step1'" class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="next()"><i class="icon-arrow-right" ></i> Next</button>
+        </div>
+        <!--STEP 1 END-->
+
+        <!--STEP 2 START-->
+        <div *ngIf="internationalTempObj.step === 'step2'" class="card-block">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>From account name</label>
+                <span>{{internationalTempObj.accountFrom.accountName}}</span>
+              </div>
+              <div class="form-group">
+                <label>From account number</label>
+                <span>{{internationalTempObj.accountFrom.accountNumber}}</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>To account name</label>
+                <span>{{internationalTempObj.receiverName}}</span>
+              </div>
+              <div class="form-group">
+                <label>To account number</label>
+                <span>{{internationalTempObj.receiverBankAccNumber}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Payment date</label>
+                <span>{{internationalTempObj.date | date: 'dd.MM.yyyy'}}</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Amount</label>
+                <span>{{internationalTempObj.amount}} {{internationalTempObj.accountCurrency}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Purpose</label>
+                <span>{{internationalTempObj.purpose}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="internationalTempObj.step === 'step2'" class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="submitPayment()">
+            <i class="icon-arrow-right" ></i> Submit
+          </button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="back()"><i class="icon-arrow-left"></i> Back</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="newPayment()"><i class="icon-plus"></i> New payment</button>
+        </div>
+        <!--STEP 2 END-->
+
+        <!--STEP 3 START-->
+        <div *ngIf="internationalTempObj.step === 'step3'" class="card-block">
+          <div class="row">
+            <div class="col-sm-4 t-a-c">
+              <i class="icon-info fa-5x"></i>
+            </div>
+            <div class="col-sm-8">
+              <h2>Payment successfuly submitted.</h2>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="internationalTempObj.step === 'step3'" class="card-footer">
+          <button type="reset" class="btn btn-sm btn-danger" (click)="newPayment()"><i class="icon-plus"></i> New
+            payment
+          </button>
+
+          <button type="reset" class="btn btn-sm btn-danger" (click)="showPayments()">
+            <i class="icon-list"></i> Show all payments
+          </button>
+          <button [hidden]="showSuccessButton" type="reset" class="btn btn-sm btn-danger pull-right" (click)="signPayment()">
+            <i class="icon-check"></i> Sign
+          </button>
+          <button [hidden]="!showSuccessButton" type="reset" class="btn btn-sm btn-success pull-right">
+            <i class="icon-check"></i> Successfully signed!
+          </button>
+        </div>
+        <!--STEP 3 END-->
+      </div>
+    </div>
+  </div>
+</div>
