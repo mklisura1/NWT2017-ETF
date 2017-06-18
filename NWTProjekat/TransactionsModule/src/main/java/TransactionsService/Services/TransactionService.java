@@ -12,7 +12,7 @@ public interface TransactionService
 
 	Transaction getTransactionById(Integer id);
 
-	List<Transaction> getTransactionsByUserId(Integer id);
+	//List<Transaction> getTransactionsByUserId(Integer id);
     
 	List<Transaction> getTransactionsByTypeName(String type_name);
 	

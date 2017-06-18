@@ -4,6 +4,8 @@ import { TransactionsService } from '../../services/transactions.service';
 import { UserService } from '../../services/user.service';
 import { HelperService } from '../../services/helper.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import 'rxjs/add/observable/forkJoin';
 
 @Component({
   selector: 'app-accounts',
@@ -17,7 +19,7 @@ export class AccountsComponent implements OnInit {
   totalCredits: any = 0;
   transactions: any[] = [];
   users: any[] = [];
-
+  
   constructor(private accountsService: AccountsService, private helperService: HelperService, private transactionsService: TransactionsService, private userService: UserService, private router: Router) {
   }
 
@@ -36,28 +38,45 @@ export class AccountsComponent implements OnInit {
         for (let account of this.accounts) {
           this.totalCredits = this.totalCredits + account.credit_amount;
         }
-        this.helperService.showSuccess('Accounts are successfully retrieved!');
         this.addTransactions();
+        this.helperService.showSuccess('Accounts are successfully retrieved!');
       }
       );
   }
 
   addTransactions() {
     console.log(this.accounts.length);
-    for (let account of this.accounts) {
+    //for (let account of this.accounts) {
+      this.accounts.forEach((account, index) => {
       this.transactionsService.getTransactionsByBankAccountId(account.bank_account_id)
         .subscribe(
            response => {
               console.log('Get Transactions: ', response);
-              this.transactions.push(response);
+              console.log('I:', index);
+             this.transactions[index] = response;
              console.log(this.transactions);
             });
-    }
+    });
     this.userService.getAllUsers()
       .subscribe(
           response => {
             console.log('Users:', response);
             this.users = response;
           });
+  }
+  
+  i = 0;
+  
+  findUsernameById(id) {
+    try {
+    this.i = this.i + 1;
+    console.log('Za id:' + id + 'iteracija:' + this.i);
+    let user = this.users.find(x => x.id === id);
+    console.log(' username je:' + user.username);
+    return user.username;
+    }
+    catch (err) {
+      console.log("Got an error!",err);
+    }
   }
 }

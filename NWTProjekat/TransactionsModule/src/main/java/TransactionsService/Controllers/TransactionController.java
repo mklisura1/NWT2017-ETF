@@ -73,6 +73,8 @@ public class TransactionController {
 		
 		senderTransactions.addAll(receiverTransactions);
 		
+		System.out.println("Velicina liste:" + senderTransactions.size());
+		
 		return new ResponseEntity<List<Transaction>>(senderTransactions, HttpStatus.OK);
 	}
 	

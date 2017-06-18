@@ -27,7 +27,7 @@ public class TransactionServiceImpl implements TransactionService
 		return transactionRepository.findOne(id);
 	}
 
-	public List<Transaction> getTransactionsByUserId(Integer id)
+	/*public List<Transaction> getTransactionsByUserId(Integer id)
 	{
 		
     	List<Transaction> userTransactions = new ArrayList<Transaction>();
@@ -44,7 +44,7 @@ public class TransactionServiceImpl implements TransactionService
     	
     	return userTransactions;
 		
-	}
+	}*/
     
 	public List<Transaction> getTransactionsByTypeName(String type_name)
 	{

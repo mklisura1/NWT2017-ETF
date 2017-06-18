@@ -35,12 +35,14 @@
 						</thead>
 						<tbody  *ngFor="let t of transactions[i]; let j = index">
 							<tr>
-								<td *ngIf="a.bank_account_id != t.bank_account_receiver_id">{{users[1].username}}</td>
-								<td *ngIf="a.bank_account_id != t.bank_account_sender_id">{{users[1].username}}</td>
+								<td *ngIf="a.bank_account_id == t.bank_account_receiver_id">{{findUsernameById(t.sender_id)}}</td>
+<!-- 								<td *ngIf="a.bank_account_id == t.bank_account_receiver_id">Sender: {{t.bank_account_receiver_id}}</td> -->
+								<td *ngIf="a.bank_account_id == t.bank_account_sender_id">{{findUsernameById(t.receiver_id)}}</td>
+<!-- 								<td *ngIf="a.bank_account_id == t.bank_account_sender_id">Receiver: {{t.bank_account_sender_id}}</td> -->
 								<td>{{t.date | date:'medium'}}</td>
 								<td>{{t.transactionType.transaction_type_name}}</td>
-								<td *ngIf="a.bank_account_id != t.bank_account_receiver_id"><span class="badge badge-success">Received</span></td>
-								<td *ngIf="a.bank_account_id != t.bank_account_sender_id"><span class="badge badge-success">Sent</span></td>
+								<td *ngIf="a.bank_account_id == t.bank_account_receiver_id"><span class="badge badge-success">Sent</span></td>
+								<td *ngIf="a.bank_account_id == t.bank_account_sender_id"><span class="badge badge-success">Received</span></td>
 							</tr>
 						</tbody>
 					</table>
