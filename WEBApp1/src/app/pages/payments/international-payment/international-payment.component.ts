@@ -93,7 +93,7 @@ export class InternationalPaymentComponent implements OnInit {
         console.log("CREATE PAYMENT", this.internationalTempObj);
         return {
             amount: this.internationalTempObj.amount,
-            userId: this.internationalTempObj.userId,
+            userId: JSON.parse(localStorage.getItem('loggedUser')).id,
             date: this.internationalTempObj.date,
             senderName: this.internationalTempObj.accountFrom.bank_account_name,
             senderBankAccNumber: this.internationalTempObj.accountFrom.bank_account_number,
@@ -101,7 +101,7 @@ export class InternationalPaymentComponent implements OnInit {
             receiverName: this.internationalTempObj.receiverName,
             receiverBankAccNumber: this.internationalTempObj.receiverBankAccNumber,
             purpose: this.internationalTempObj.purpose,
-            typeDescription: 'InternationalPayment'
+            typeDescription: 'ForeignPayment'
         }
     }
 
@@ -168,7 +168,7 @@ export class InternationalPaymentComponent implements OnInit {
             "receiver_name":this.submittedPayment.receiverName,
             "sender_name":this.submittedPayment.senderName,
             "sender_bank_acc_number": this.submittedPayment.senderBankAccNumber,
-            "user_id": JSON.parse(localStorage.getItem('loggedUser')).id
+            "userId": JSON.parse(localStorage.getItem('loggedUser')).id
         };
 
         this.templatesService.savePaymentToTemplate(template)

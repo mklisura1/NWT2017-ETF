@@ -167,7 +167,7 @@ export class InternalPaymentComponent implements OnInit {
             "receiver_name":this.submittedPayment.receiverName,
             "sender_name":this.submittedPayment.senderName,
             "sender_bank_acc_number": this.submittedPayment.senderBankAccNumber,
-            "user_id": JSON.parse(localStorage.getItem('loggedUser')).id
+            "userId": JSON.parse(localStorage.getItem('loggedUser')).id
         };
 
         this.templatesService.savePaymentToTemplate(template)

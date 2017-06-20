@@ -17,8 +17,9 @@
     </ul>
     <ul class="nav navbar-nav ml-auto">
         <li class="nav-item d-md-down-none">
-            <a class="nav-link" href="#"><i class="icon-bell"></i><span
-                    class="badge badge-pill badge-danger">5</span></a>
+            <a class="nav-link" href="#"><i class="icon-bell"></i>
+              <!--<span class="badge badge-pill badge-danger">5</span>-->
+            </a>
         </li>
         <!--<li class="nav-item d-md-down-none">-->
         <!--<a class="nav-link" href="#"><i class="icon-list"></i></a>-->
@@ -96,7 +97,7 @@
                             class="icon-credit-card"></i>
                         Accounts / Cards</a>
                 </li>
-                <li class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+                <li class="nav-item nav-dropdown open" routerLinkActive="open" appNavDropdown>
                     <a class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle><i
                             class="icon-directions"></i>
                         Payments</a>
@@ -123,10 +124,10 @@
                     <a class="nav-link" routerLinkActive="active" [routerLink]="['/templates']"><i
                             class="icon-docs"></i> Templates</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/charts']"><i class="icon-chart"></i>
-                        Statistics</a>
-                </li>
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" routerLinkActive="active" [routerLink]="['/charts']"><i class="icon-chart"></i>-->
+                        <!--Statistics</a>-->
+                <!--</li>-->
                 <li class="divider"></li>
 
                 <li *ngIf="loggedUser.roles[0].role === 'ADMIN'" class="divider"></li>

@@ -104,11 +104,11 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label>From account name</label>
-                <span>{{internationalTempObj.accountFrom.accountName}}</span>
+                <span>{{internationalTempObj.accountFrom.bank_account_name}}</span>
               </div>
               <div class="form-group">
                 <label>From account number</label>
-                <span>{{internationalTempObj.accountFrom.accountNumber}}</span>
+                <span>{{internationalTempObj.accountFrom.bank_account_number}}</span>
               </div>
             </div>
             <div class="col-sm-6">
@@ -190,22 +190,10 @@
                         <button type="button" class="btn btn-sm btn-warning pull-right" (click)="saveAsTemplate();">Confirm</button>
                     </div>
                 </div></template>
-          <button [hidden]="showSuccessButton" type="reset" class="btn btn-sm btn-danger pull-right" [popover]="signPaymentPop">
+          <button [hidden]="showSuccessButton" type="reset" class="btn btn-sm btn-danger pull-right" (click)="signPayment();">
             <i class="icon-check"></i> Sign
           </button>
-            <template #signPaymentPop>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label>Enter code</label>
-                            <input name="amount" type="text" class="form-control"
-                                   placeholder="Enter code from SMS">
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <button  type="button" class="btn btn-sm btn-success pull-right" (click)="signPayment();">Confirm</button>
-                    </div>
-                </div></template>
+
           <button [hidden]="!showSuccessButton" type="reset" class="btn btn-sm btn-success pull-right">
             <i class="icon-check"></i> Successfully signed!
           </button>
