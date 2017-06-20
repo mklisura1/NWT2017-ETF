@@ -22,7 +22,7 @@ export class InternationalPaymentComponent implements OnInit {
         accountTo: {},
         accountFrom: {},
         amount: '',
-        userId: 1
+        userId: JSON.parse(localStorage.getItem('loggedUser')).id
     };
     templateName = '';
     submittedPayment: any;
@@ -95,8 +95,8 @@ export class InternationalPaymentComponent implements OnInit {
             amount: this.internationalTempObj.amount,
             userId: this.internationalTempObj.userId,
             date: this.internationalTempObj.date,
-            senderName: this.internationalTempObj.accountFrom.accountName,
-            senderBankAccNumber: this.internationalTempObj.accountFrom.accountNumber,
+            senderName: this.internationalTempObj.accountFrom.bank_account_name,
+            senderBankAccNumber: this.internationalTempObj.accountFrom.bank_account_number,
             currency: this.internationalTempObj.accountCurrency,
             receiverName: this.internationalTempObj.receiverName,
             receiverBankAccNumber: this.internationalTempObj.receiverBankAccNumber,

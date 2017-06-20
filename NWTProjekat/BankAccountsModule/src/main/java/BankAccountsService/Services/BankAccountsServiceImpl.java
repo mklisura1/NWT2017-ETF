@@ -1,13 +1,12 @@
 package BankAccountsService.Services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import BankAccountsService.Interfaces.BankAccountRepository;
 import BankAccountsService.Interfaces.BankAccountsService;
 import BankAccountsService.Models.BankAccount;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BankAccountsServiceImpl implements BankAccountsService {
@@ -39,4 +38,7 @@ public class BankAccountsServiceImpl implements BankAccountsService {
 	public void DeleteAccount(int id) {
 		bankAccountRepository.delete(id);
 	}
+
+	@Override
+    public BankAccount FindAccountByNumber(String number){ return bankAccountRepository.findByAccountNumber(number);}
 }

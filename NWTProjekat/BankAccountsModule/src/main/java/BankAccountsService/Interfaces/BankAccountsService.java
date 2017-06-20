@@ -1,8 +1,8 @@
 package BankAccountsService.Interfaces;
 
-import java.util.List;
-
 import BankAccountsService.Models.BankAccount;
+
+import java.util.List;
 
 public interface BankAccountsService {
 
@@ -10,5 +10,6 @@ public interface BankAccountsService {
 	BankAccount FindAccountById(int id);
 	BankAccount SaveAccount(BankAccount bankAccount);
 	BankAccount UpdateAccount(BankAccount bankAccount);
-	void DeleteAccount(int id);	
+	void DeleteAccount(int id);
+	BankAccount FindAccountByNumber(String number);
 }

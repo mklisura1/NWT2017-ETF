@@ -6,7 +6,7 @@ import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
 
 @Entity
-@Table(name="BankAccounts")
+@Table(name="bank_accounts")
 public class BankAccount {
 		
 	@Id
@@ -25,7 +25,7 @@ public class BankAccount {
 	private BankAccountType bankAccountType;
 	
 	@Column(name="CreditAmount")
-	private int credit_amount;
+	private double credit_amount;
 	
 	@Column(name="AccountNumber")
 	private String bank_account_number;
@@ -48,7 +48,7 @@ public class BankAccount {
 	
 	
 	public BankAccount(int bank_account_id, String bank_account_name, int user, BankAccountType bankAccountType,
-			int credit_amount, String bank_account_number, String currency) {
+			double credit_amount, String bank_account_number, String currency) {
 		super();
 		this.bank_account_id = bank_account_id;
 		this.bank_account_name = bank_account_name;
@@ -109,10 +109,10 @@ public class BankAccount {
 	}
 
 
-	public int getCredit_amount() {
+	public double getCredit_amount() {
 		return credit_amount;
 	}
-	public void setCredit_amount(int credit_amount) {
+	public void setCredit_amount(double credit_amount) {
 		this.credit_amount = credit_amount;
 	}
 	public String getBank_account_number() {

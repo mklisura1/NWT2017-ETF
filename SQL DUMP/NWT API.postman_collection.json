@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "NWT API",
-		"_postman_id": "943515a9-a0c2-959e-a024-616cea423052",
+		"_postman_id": "ad8ee9d7-a3e6-0b77-bbc0-25834f3d3cdf",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -19,7 +19,7 @@
 						"header": [
 							{
 								"key": "X-Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdmxhZGEzQGdtYWlsLmNvbSIsInNjb3BlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9zdmxhZGEuY29tIiwiaWF0IjoxNDk2MzE4Njg1LCJleHAiOjE0OTYzMTk1ODV9.YMdTYSWdfDRuH0CCl63vOf6Ude_8HP-DyLKhhq0ShCuOScq6Wlh988pYLSAFKz5NcgUZ-BXiiuG0TxnMZtMjOw",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXJpc3NwYWhpYyIsInNjb3BlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cDovL3N2bGFkYS5jb20iLCJpYXQiOjE0OTc5MzU2MDcsImV4cCI6MTQ5NzkzNjUwN30.iBJv3KjDRtwyvtb13mRojzCY3kJdeQdd0os2e1K3FfnSOQpNMNgqSoU5FCJ1-xfDZrPyp0iSfwVOp_72G_1EoA",
 								"description": ""
 							}
 						],
@@ -53,7 +53,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\":\"svlada3@gmail.com\",\n\t\"password\":\"test1234\"\n}"
+							"raw": "{\n\t\"username\":\"harisspahic\",\n\t\"password\":\"test\"\n}"
 						},
 						"description": "POST LOGIN"
 					},
@@ -73,7 +73,24 @@
 						"header": [
 							{
 								"key": "X-Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdmxhZGEzQGdtYWlsLmNvbSIsInNjb3BlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9zdmxhZGEuY29tIiwiaWF0IjoxNDk2MzE4Njg1LCJleHAiOjE0OTYzMTk1ODV9.YMdTYSWdfDRuH0CCl63vOf6Ude_8HP-DyLKhhq0ShCuOScq6Wlh988pYLSAFKz5NcgUZ-BXiiuG0TxnMZtMjOw",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXJpc3NwYWhpYyIsInNjb3BlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cDovL3N2bGFkYS5jb20iLCJpYXQiOjE0OTc5MDgzMjMsImV4cCI6MTQ5NzkwOTIyM30.A49sD2mV5o65K1cl3NvOgftAq74eNK4qLtau0sjsdVUs05DE3Ux8JD60t9-OFXieeAh6YVcfnw8friKS1gng2w",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Payments - Get by id",
+					"request": {
+						"url": "http://localhost:1102/api/payments/21",
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXJpc3NwYWhpYyIsInNjb3BlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cDovL3N2bGFkYS5jb20iLCJpYXQiOjE0OTc5MDc0MDIsImV4cCI6MTQ5NzkwODMwMn0.J5OI7cEx4_aa9QCj2Co8tuG9fDy3lGrDvpDC6fmGC6NcaWWT-brXSAYDmaQdYp9ydUfedICf0UBWhUP5HxtAMQ",
 								"description": ""
 							}
 						],
@@ -95,13 +112,38 @@
 							},
 							{
 								"key": "X-Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYW1vaCIsInNjb3BlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cDovL3N2bGFkYS5jb20iLCJpYXQiOjE0OTYyMjg0OTMsImV4cCI6MTQ5NjIyOTM5M30.FrHJv-KA_CSvyd0fXniuZnwKHKtV0QcjeUAJkRYPLIAnV6IfdFfYXubWo352mTrlnNYrbMYdJAOwWX5g5JlqGg",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXJpc3NwYWhpYyIsInNjb3BlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cDovL3N2bGFkYS5jb20iLCJpYXQiOjE0OTc5Mzc3MzMsImV4cCI6MTQ5NzkzODYzM30.N5LYYUvKc0YZIHumqH3dGP5xrWqpGdMIqlm0rvZstUQMgG9YcCXIMu55-dRWzIUHDN67RBxNH1Xr2pMAFAkqfA",
 								"description": ""
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"amount\":\"22\",\"userId\":1,\"date\":\"2017-05-15T07:31:13.721Z\",\"senderName\":\"Hamo Hamic\",\"senderBankAccNumber\":\"BA121234330923\",\"receiverName\":\"Hame u piketa\",\"receiverBankAccNumber\":\"SI1231231230923\",\"typeDescription\":\"InterniTransfer\"}"
+							"raw": "{\"amount\":\"12\",\"userId\":1,\"date\":\"2017-06-10T15:36:22.305Z\",\n\"senderName\":\"Haris Spahic\",\n\"senderBankAccNumber\":\"BA123456783\",\n\"receiverName\":\"Anes Luckin\",\n\"receiverBankAccNumber\":\"BA123456789\",\"typeDescription\":\"InternalPayment\", \n\"accountFromId\":2,\n\"accountToId\":1,\n\"purpose\": \"Transfer novca\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Payments - Sign payment",
+					"request": {
+						"url": "http://localhost:1102/api/payments/23/sign",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXJpc3NwYWhpYyIsInNjb3BlcyI6WyJST0xFX1VTRVIiXSwiaXNzIjoiaHR0cDovL3N2bGFkYS5jb20iLCJpYXQiOjE0OTc5Mzc3MzMsImV4cCI6MTQ5NzkzODYzM30.N5LYYUvKc0YZIHumqH3dGP5xrWqpGdMIqlm0rvZstUQMgG9YcCXIMu55-dRWzIUHDN67RBxNH1Xr2pMAFAkqfA",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
 						},
 						"description": ""
 					},
@@ -112,7 +154,25 @@
 		{
 			"name": "Templates",
 			"description": "",
-			"item": []
+			"item": [
+				{
+					"name": "Templates - Get all",
+					"request": {
+						"url": "http://localhost:1103/api/template",
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdmxhZGEzQGdtYWlsLmNvbSIsInNjb3BlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9zdmxhZGEuY29tIiwiaWF0IjoxNDk3MDk4NDUwLCJleHAiOjE0OTcwOTkzNTB9.FF4JCWvKWJFwBJQnLldrZ_Cc0_iXNuo1n8GgtVfswEuptOnHerDqcK8_U1uOh1q7V1twKIx2-Ofy336TgytqzQ",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Transactions",
@@ -135,7 +195,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []

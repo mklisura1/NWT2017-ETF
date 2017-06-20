@@ -20,7 +20,7 @@ export class InternalPaymentComponent implements OnInit {
         accountFrom: {},
         accountCurrency: 'BAM',
         amount: '',
-        userId: 1
+        userId: JSON.parse(localStorage.getItem('loggedUser')).id
     };
     templateName: string = '';
     submittedPayment: any;
@@ -89,12 +89,12 @@ export class InternalPaymentComponent implements OnInit {
         console.log("CREATE PAYMENT", this.internalTempObj);
         return {
             amount: this.internalTempObj.amount,
-            userId: this.internalTempObj.userId,
+            userId: JSON.parse(localStorage.getItem('loggedUser')).id,
             date: this.internalTempObj.date,
-            senderName: this.internalTempObj.accountFrom.accountName,
-            senderBankAccNumber: this.internalTempObj.accountFrom.accountNumber,
-            receiverName: this.internalTempObj.accountTo.accountName,
-            receiverBankAccNumber: this.internalTempObj.accountTo.accountNumber,
+            senderName: this.internalTempObj.accountFrom.bank_account_name,
+            senderBankAccNumber: this.internalTempObj.accountFrom.bank_account_number,
+            receiverName: this.internalTempObj.accountTo.bank_account_name,
+            receiverBankAccNumber: this.internalTempObj.accountTo.bank_account_number,
             typeDescription: 'InternalPayment'
         }
     }

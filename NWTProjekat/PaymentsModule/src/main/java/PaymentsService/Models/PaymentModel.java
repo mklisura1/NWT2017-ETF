@@ -1,7 +1,5 @@
 package PaymentsService.Models;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -33,6 +31,28 @@ public class PaymentModel {
     private String receiverBankAccNumber;
     @Column(name = "payment_purpose", nullable = false)
     private String purpose;
+
+    public int getAccountFromId() {
+        return accountFromId;
+    }
+
+    public void setAccountFromId(int accountFromId) {
+        this.accountFromId = accountFromId;
+    }
+
+    public int getAccountToId() {
+        return accountToId;
+    }
+
+    public void setAccountToId(int accountToId) {
+        this.accountToId = accountToId;
+    }
+
+    @Column(name = "account_from_id", nullable = false)
+    private int accountFromId;
+
+    @Column(name = "account_to_id", nullable = false)
+    private int accountToId;
 
 
     @ManyToOne(optional=false)
@@ -74,6 +94,8 @@ public class PaymentModel {
         this.type = payment.type;
         this.status = payment.status;
         this.typeDescription = payment.typeDescription;
+        this.accountFromId = payment.accountFromId;
+        this.accountToId = payment.accountToId;
     }
 
     public int getUserId() {

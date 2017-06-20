@@ -22,7 +22,7 @@ export class DomesticPaymentComponent implements OnInit {
         accountTo: {},
         accountFrom: {},
         amount: '',
-        userId: 1
+        userId: JSON.parse(localStorage.getItem('loggedUser')).id
     };
 
     submittedPayment: any;
@@ -91,10 +91,10 @@ export class DomesticPaymentComponent implements OnInit {
         console.log("CREATE PAYMENT", this.domesticTempObj);
         return {
             amount: this.domesticTempObj.amount,
-            userId: this.domesticTempObj.userId,
+            userId: JSON.parse(localStorage.getItem('loggedUser')).id,
             date: this.domesticTempObj.date,
-            senderName: this.domesticTempObj.accountFrom.accountName,
-            senderBankAccNumber: this.domesticTempObj.accountFrom.accountNumber,
+            senderName: this.domesticTempObj.accountFrom.bank_account_name,
+            senderBankAccNumber: this.domesticTempObj.accountFrom.bank_account_number,
             currency: this.domesticTempObj.accountCurrency,
             receiverName: this.domesticTempObj.receiverName,
             receiverBankAccNumber: this.domesticTempObj.receiverBankAccNumber,
